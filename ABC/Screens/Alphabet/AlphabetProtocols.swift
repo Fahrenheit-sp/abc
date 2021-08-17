@@ -12,7 +12,10 @@ protocol AlphabetRoutable: AnyObject, Router {
 
 protocol AlphabetInteractable: AnyObject {
     func didLoad()
+    func didPlaceLetter()
+    func didMissLetter()
 }
 
 protocol AlphabetUserInterface: AnyObject {
+    func configure(with model: AlphabetScreenViewModel)
 }

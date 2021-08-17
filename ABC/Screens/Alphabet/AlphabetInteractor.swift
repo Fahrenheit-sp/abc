@@ -15,4 +15,12 @@ final class AlphabetInteractor: AlphabetInteractable {
     func didLoad() {
         print("Loaded")
     }
+
+    func didPlaceLetter() {
+        print("Placed")
+    }
+
+    func didMissLetter() {
+        print("Missed")
+    }
 }

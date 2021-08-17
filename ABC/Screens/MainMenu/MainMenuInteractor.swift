@@ -22,7 +22,7 @@ final class MainMenuInteractor: MainMenuInteractable {
     }
 
     func didLoad() {
-        ui?.configure(with: MainMenuInterfaceViewModel(items: parameters.items))
+        ui?.configure(with: MainMenuScreenViewModel(items: parameters.items))
     }
 
     func didSelectItem(at indexPath: IndexPath) {

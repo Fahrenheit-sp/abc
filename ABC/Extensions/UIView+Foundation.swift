@@ -13,6 +13,12 @@ extension UIView {
         return self
     }
 
+    func embedSubview(_ subview: UIView, insets: UIEdgeInsets = .zero) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(subview)
+        NSLayoutConstraint.activate(subview.createConstraintsForEmbedding(in: self, insets: insets))
+    }
+
     func createConstraintsForEmbedding(in view: UIView,
                                               insets: UIEdgeInsets = .zero,
                                               priority: UILayoutPriority = .required) -> [NSLayoutConstraint] {

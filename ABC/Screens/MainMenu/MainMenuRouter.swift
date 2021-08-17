@@ -34,6 +34,10 @@ final class MainMenuRouter: MainMenuRoutable {
 
     func mainMenuDidSelect(item: MainMenuItem) {
         switch item {
+        case .alphabet:
+            let controller = AlphabetRouter(parameters: .init(alphabet: English())).makeController()
+            controller.modalPresentationStyle = .overFullScreen
+            view?.present(controller, animated: true)
         case .games:
             let router = MainMenuRouter(parameters: .init(items: [.catchALetter, .memorize, .makeAWord]))
             view?.present(router.makeController(), animated: true)

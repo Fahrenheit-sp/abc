@@ -17,5 +17,5 @@ protocol MainMenuInteractable: AnyObject {
 }
 
 protocol MainMenuUserInterface: AnyObject {
-    func configure(with model: MainMenuInterfaceViewModel)
+    func configure(with model: MainMenuScreenViewModel)
 }

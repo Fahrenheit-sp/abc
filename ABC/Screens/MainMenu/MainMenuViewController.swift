@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct MainMenuInterfaceViewModel {
+struct MainMenuScreenViewModel {
     private let items: [MainMenuItem]
 
     init(items: [MainMenuItem]) {
@@ -28,6 +28,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
     private lazy var collectionView = {
         UICollectionView(frame: .zero, collectionViewLayout: layout).disableAutoresizing()
     }()
+    
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 16.0
@@ -80,7 +81,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
         NSLayoutConstraint.activate(backgoundConstraints + titleConstraints + collectionConstraints)
     }
 
-    func configure(with model: MainMenuInterfaceViewModel) {
+    func configure(with model: MainMenuScreenViewModel) {
         cellModels = model.cellModels
         collectionView.reloadData()
     }
