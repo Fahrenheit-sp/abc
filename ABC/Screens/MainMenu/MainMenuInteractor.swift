@@ -14,7 +14,7 @@ final class MainMenuInteractor: MainMenuInteractable {
     }
 
     let parameters: Parameters
-    var ui: MainMenuUserInterface?
+    weak var ui: MainMenuUserInterface?
     var router: MainMenuRoutable?
 
     init(parameters: MainMenuInteractor.Parameters) {

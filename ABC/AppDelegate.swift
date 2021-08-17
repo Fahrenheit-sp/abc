@@ -11,6 +11,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = router.makeController()
         window?.makeKeyAndVisible()
+
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.window?.resignKey()
+//            self.window = nil
+//        }
         return true
     }
 

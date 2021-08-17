@@ -14,7 +14,7 @@ final class MainMenuRouter: MainMenuRoutable {
     }
 
     private let parameters: Parameters
-    private var view: UIViewController?
+    private weak var view: UIViewController?
 
     init(parameters: Parameters) {
         self.parameters = parameters
