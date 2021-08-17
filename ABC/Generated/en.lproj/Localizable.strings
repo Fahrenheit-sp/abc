@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  ABC
+
+  Created by Игорь Майсюк on 17.08.21.
+  
+*/
+
+"canvas.clearAll" = "Clear all";
+
+"menu.item.alphabet" = "Alphabet";
+"menu.item.numbers" = "Numbers";
+"menu.item.games" = "Games";
+"menu.item.canvas" = "Canvas";
+"menu.item.makeAWord" = "Make a word";
+"menu.item.memorize" = "Memorize";
+"menu.item.catchALetter" = "Catch a letter";

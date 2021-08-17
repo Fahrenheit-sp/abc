@@ -14,9 +14,10 @@
  strings:
    inputs:
      - ABC/Base.lproj
+     - ABC/Generated/en.lproj
    outputs:
      - templateName: structured-swift5
-       output: ABC/Strings+Generated.swift
+       output: ABC/Generated/Strings+Generated.swift
 
 
 ## Generate constants for your Assets Catalogs, including constants for images, colors, ARKit resources, etc.
@@ -30,7 +31,7 @@
      - templateName: swift5
        params:
          forceProvidesNamespaces: true
-       output: ABC/XCAssets+Generated.swift
+       output: ABC/Generated/XCAssets+Generated.swift
 
 
 ## Generate constants for your storyboards and XIBs.
