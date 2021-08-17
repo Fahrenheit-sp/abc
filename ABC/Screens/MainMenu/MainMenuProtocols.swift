@@ -7,5 +7,15 @@
 
 import Foundation
 
-protocol MainMenuRoutable: AnyObject {
+protocol MainMenuRoutable: AnyObject, Router {
+    func mainMenuDidSelect(item: MainMenuItem)
+}
+
+protocol MainMenuInteractable: AnyObject {
+    func didLoad()
+    func didSelectItem(at indexPath: IndexPath)
+}
+
+protocol MainMenuUserInterface: AnyObject {
+    func configure(with model: MainMenuInterfaceViewModel)
 }
