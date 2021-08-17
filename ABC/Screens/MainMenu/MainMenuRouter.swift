@@ -14,6 +14,7 @@ final class MainMenuRouter: MainMenuRoutable {
     }
 
     private let parameters: Parameters
+    private var view: UIViewController?
 
     init(parameters: Parameters) {
         self.parameters = parameters
@@ -25,10 +26,19 @@ final class MainMenuRouter: MainMenuRoutable {
         interactor.router = self
         interactor.ui = view
         view.interactor = interactor
+
+        self.view = view
+
         return view
     }
 
     func mainMenuDidSelect(item: MainMenuItem) {
-        print("selected: \(item.title)")
+        switch item {
+        case .games:
+            let router = MainMenuRouter(parameters: .init(items: [.catchALetter, .memorize, .makeAWord]))
+            view?.present(router.makeController(), animated: true)
+        default:
+            view?.present(UIViewController(), animated: true)
+        }
     }
 }
