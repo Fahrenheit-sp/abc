@@ -1,9 +1,9 @@
-name: Keyboards
+name: ABC
 options:
   bundleIdPrefix: com.fahrenheit
 targets:
-  Keyboards:
+  ABC:
     type: application
     platform: iOS
-    deploymentTarget: "12.0"
-    sources: [Keyboards]
+    deploymentTarget: "11.0"
+    sources: [ABC]
