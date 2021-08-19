@@ -75,4 +75,29 @@ class AlphabetsTests: XCTestCase {
         XCTAssertEqual(sut?.letter(at: zero), Letter(symbol: "a"))
     }
 
+    // MARK: - Letters in row
+
+    func testFirstRowABCDEF() {
+        let letters = "abcdef".map { Letter(symbol: $0) }
+        XCTAssertEqual(sut?.letters(in: 0), letters)
+    }
+
+    func testSecondRowABCDEF() {
+        let letters = "ghijkl".map { Letter(symbol: $0) }
+        XCTAssertEqual(sut?.letters(in: 1), letters)
+    }
+
+    func testLastRowWXYZ() {
+        let letters = "wxyz".map { Letter(symbol: $0) }
+        XCTAssertEqual(sut?.letters(in: 4), letters)
+    }
+
+    func testRowTooHigh() {
+        XCTAssertEqual(sut?.letters(in: 100), [])
+    }
+
+    func testRowNegative() {
+        XCTAssertEqual(sut?.letters(in: -1), [])
+    }
+
 }
