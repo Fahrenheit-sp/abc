@@ -8,12 +8,33 @@
 import XCTest
 @testable import ABC
 
+private struct TestEnglish: Alphabet {
+
+    let letters: [Letter]
+    let numberOfRows = 5
+
+    init() {
+        self.letters = "abcdefghijklmnopqrstuvwxyz".map { Letter(symbol: $0) }
+    }
+
+    func numberOfLetters(in row: Int) -> Int {
+        switch row {
+        case 0: return 6
+        case 1: return 6
+        case 2: return 5
+        case 3: return 5
+        case 4: return 4
+        default: return 0
+        }
+    }
+}
+
 class AlphabetsTests: XCTestCase {
 
     private var sut: Alphabet?
 
     override func setUpWithError() throws {
-        sut = English()
+        sut = TestEnglish()
     }
 
     override func tearDownWithError() throws {
@@ -82,7 +103,7 @@ class AlphabetsTests: XCTestCase {
         XCTAssertEqual(sut?.letters(in: 0), letters)
     }
 
-    func testSecondRowABCDEF() {
+    func testSecondRowGHIJKL() {
         let letters = "ghijkl".map { Letter(symbol: $0) }
         XCTAssertEqual(sut?.letters(in: 1), letters)
     }

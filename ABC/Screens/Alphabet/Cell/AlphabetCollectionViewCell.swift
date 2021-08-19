@@ -30,7 +30,7 @@ final class AlphabetCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with model: AlphabetCellViewModel) {
-        imageView.image = model.image
+        imageView.image = model.image?.withRenderingMode(model.tintColor == nil ? .alwaysOriginal : .alwaysTemplate)
         imageView.tintColor = model.tintColor
     }
 }
