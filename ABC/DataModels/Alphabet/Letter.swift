@@ -10,8 +10,10 @@ import class UIKit.UIImage
 
 struct Letter: Equatable {
     let symbol: Character
+    let image: UIImage?
 
-    var image: UIImage? {
-        UIImage(named: String(symbol))
+    init(symbol: Character) {
+        self.symbol = symbol
+        self.image = UIImage(named: String(symbol))
     }
 }
