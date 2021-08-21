@@ -22,7 +22,7 @@ final class AlphabetRouter: AlphabetRoutable {
 
     func makeController() -> UIViewController {
         let view = AlphabetViewController(viewModel: .init(alphabet: parameters.alphabet))
-        let interactor = AlphabetInteractor()
+        let interactor = AlphabetInteractor(parameters: .init(alphabet: parameters.alphabet))
         interactor.router = self
         interactor.ui = view
         view.interactor = interactor

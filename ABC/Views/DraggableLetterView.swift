@@ -7,17 +7,26 @@
 
 import UIKit
 
+protocol DraggableLetterViewDelegate: AnyObject {
+    func draggableViewDidEndDragging(_ view: DraggableLetterView)
+}
+
 final class DraggableLetterView: UIView {
 
     private let imageView = UIImageView().disableAutoresizing()
     private lazy var panRecognizer: UIPanGestureRecognizer = {
-        UIPanGestureRecognizer(target: self, action: #selector(panRecognized(_:)))
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(panRecognized(_:)))
+        recognizer.cancelsTouchesInView = false
+        return recognizer
     }()
-    private let anchorPoint: CGPoint
 
-    required init(image: UIImage?, anchorPoint: CGPoint) {
+    private var lastLocation: CGPoint = .zero
+    private var startingPoint: CGPoint?
+
+    weak var delegate: DraggableLetterViewDelegate?
+
+    required init(image: UIImage?) {
         imageView.image = image
-        self.anchorPoint = anchorPoint
         super.init(frame: .zero)
 
         setupUI()
@@ -29,9 +38,34 @@ final class DraggableLetterView: UIView {
 
     private func setupUI() {
         embedSubview(imageView)
+        imageView.contentMode = .scaleAspectFit
+
+        addGestureRecognizer(panRecognizer)
     }
 
     @objc private func panRecognized(_ recognizer: UIPanGestureRecognizer) {
-        print("pan recognized")
+        center = recognizer.translation(in: superview) + lastLocation
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if startingPoint == nil {
+            startingPoint = center
+        }
+        lastLocation = center
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        delegate?.draggableViewDidEndDragging(self)
+    }
+
+    func reset(animated: Bool = true) {
+        let setCenter = { [self] in center = startingPoint.or(center) }
+
+        guard animated else { return setCenter() }
+
+        UIView.animate(withDuration: 0.4) { [self] in
+            setCenter()
+            layoutIfNeeded()
+        }
     }
 }

@@ -12,8 +12,9 @@ struct English: Alphabet {
     let letters: [Letter]
     let numberOfRows = 5
 
-    init() {
-        self.letters = "abcdefghijklmnopqrstuvwxyz".map { Letter(symbol: $0) }
+    init(isShuffled: Bool = false) {
+        let letters = "abcdefghijklmnopqrstuvwxyz".map { Letter(symbol: $0) }
+        self.letters = isShuffled ? letters.shuffled() : letters
     }
 
     func numberOfLetters(in row: Int) -> Int {

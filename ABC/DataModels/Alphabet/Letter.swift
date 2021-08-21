@@ -8,7 +8,7 @@
 import Foundation
 import class UIKit.UIImage
 
-struct Letter: Equatable {
+struct Letter: Equatable, Hashable {
     let symbol: Character
     let image: UIImage?
 

@@ -64,7 +64,29 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
 
     func configure(with model: AlphabetScreenViewModel) {
         self.viewModel = model
+        configureLetterView()
         collectionView.reloadData()
+    }
+
+    private func configureLetterView() {
+        let image = viewModel.nextLetter()?.image
+        let letterView = DraggableLetterView(image: image).disableAutoresizing()
+        letterView.delegate = self
+        view.addSubview(letterView)
+
+        NSLayoutConstraint.activate([
+            letterView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
+            letterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            letterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            letterView.widthAnchor.constraint(equalTo: letterView.heightAnchor, multiplier: image?.aspectRatio ?? .zero)
+        ])
+    }
+}
+
+extension AlphabetViewController: DraggableLetterViewDelegate {
+
+    func draggableViewDidEndDragging(_ view: DraggableLetterView) {
+        view.reset()
     }
 }
 
