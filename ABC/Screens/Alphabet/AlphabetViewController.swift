@@ -63,14 +63,14 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
     }
 
     func configure(with model: AlphabetScreenViewModel) {
-        self.viewModel = model
+        viewModel = model
         configureLetterView()
         collectionView.reloadData()
     }
 
     private func configureLetterView() {
-        let image = viewModel.nextLetter()?.image
-        let letterView = DraggableLetterView(image: image).disableAutoresizing()
+        let letter = interactor?.getNextLetter()
+        let letterView = DraggableLetterView(letter: letter).disableAutoresizing()
         letterView.delegate = self
         view.addSubview(letterView)
 
@@ -78,7 +78,7 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
             letterView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
             letterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             letterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            letterView.widthAnchor.constraint(equalTo: letterView.heightAnchor, multiplier: image?.aspectRatio ?? .zero)
+            letterView.widthAnchor.constraint(equalTo: letterView.heightAnchor, multiplier: letter?.image?.aspectRatio ?? 1.0)
         ])
     }
 }
@@ -86,7 +86,24 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
 extension AlphabetViewController: DraggableLetterViewDelegate {
 
     func draggableViewDidEndDragging(_ view: DraggableLetterView) {
-        view.reset()
+        let indexPath = collectionView.indexPathForItem(at: view.center)
+        let targetLetter = indexPath.map { viewModel.letter(at: $0) }
+
+        targetLetter == view.letter ? place(view, at: indexPath) : view.reset()
+    }
+
+    private func place(_ letterView: DraggableLetterView, at indexPath: IndexPath?) {
+        guard let indexPath = indexPath, let cell = collectionView.cellForItem(at: indexPath) else { return }
+
+        letterView.translatesAutoresizingMaskIntoConstraints = true
+        
+        UIView.animate(withDuration: 0.3, animations: { [self] in
+            letterView.frame = collectionView.convert(cell.frame, to: view)
+            view.layoutIfNeeded()
+        }) { _ in
+            letterView.letter.map { self.interactor?.didPlaceLetter($0) }
+            letterView.removeFromSuperview()
+        }
     }
 }
 
@@ -146,9 +163,7 @@ extension AlphabetViewController: UICollectionViewDelegateFlowLayout {
         let imagesWidthInARow = viewModel.letters(in: row)
             .compactMap { $0.image }
             .reduce(0) { $0 + $1.size.width }
-        let spacings = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)
-            .map { CGFloat(viewModel.numberOfLetters(in: row)-1) * $0.minimumInteritemSpacing }
-            .or(.zero)
+        let spacings = CGFloat(viewModel.numberOfLetters(in: row)-1) * layout.minimumInteritemSpacing
         let result = imagesWidthInARow + spacings
         rowWidthsCache[row] = result
         return result

@@ -12,8 +12,9 @@ protocol AlphabetRoutable: AnyObject, Router {
 
 protocol AlphabetInteractable: AnyObject {
     func didLoad()
-    func didPlaceLetter()
-    func didMissLetter()
+    func didPlaceLetter(_ letter: Letter)
+
+    func getNextLetter() -> Letter?
 }
 
 protocol AlphabetUserInterface: AnyObject {

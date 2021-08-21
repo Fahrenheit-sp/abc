@@ -14,6 +14,7 @@ protocol DraggableLetterViewDelegate: AnyObject {
 final class DraggableLetterView: UIView {
 
     private let imageView = UIImageView().disableAutoresizing()
+
     private lazy var panRecognizer: UIPanGestureRecognizer = {
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(panRecognized(_:)))
         recognizer.cancelsTouchesInView = false
@@ -23,10 +24,12 @@ final class DraggableLetterView: UIView {
     private var lastLocation: CGPoint = .zero
     private var startingPoint: CGPoint?
 
+    let letter: Letter?
     weak var delegate: DraggableLetterViewDelegate?
 
-    required init(image: UIImage?) {
-        imageView.image = image
+    required init(letter: Letter?) {
+        imageView.image = letter?.image
+        self.letter = letter
         super.init(frame: .zero)
 
         setupUI()

@@ -12,9 +12,11 @@ final class AlphabetInteractor: AlphabetInteractable {
     #warning("Probably not needed or need to move logic from VM")
     struct Parameters {
         let alphabet: Alphabet
+        let mode: AlphabetMode
     }
 
     private let parameters: Parameters
+    private var placedLetters: Set<Letter> = []
 
     var ui: AlphabetUserInterface?
     weak var router: AlphabetRoutable?
@@ -29,11 +31,20 @@ final class AlphabetInteractor: AlphabetInteractable {
         ui?.configure(with: .init(alphabet: parameters.alphabet))
     }
 
-    func didPlaceLetter() {
-        print("Placed")
+    func didPlaceLetter(_ letter: Letter) {
+        placedLetters.insert(letter)
+        ui?.configure(with: .init(alphabet: parameters.alphabet, placedLetters: placedLetters))
     }
 
-    func didMissLetter() {
-        print("Missed")
+    func getNextLetter() -> Letter? {
+        parameters.mode == .ordered ? getNextOrderedLetter() : getNextShuffledLetter()
+    }
+
+    private func getNextShuffledLetter() -> Letter? {
+        Set(parameters.alphabet.letters).subtracting(placedLetters).first
+    }
+
+    private func getNextOrderedLetter() -> Letter? {
+        parameters.alphabet.letters.first { !placedLetters.contains($0) }
     }
 }
