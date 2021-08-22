@@ -9,7 +9,6 @@ import Foundation
 
 final class AlphabetInteractor: AlphabetInteractable {
 
-    #warning("Probably not needed or need to move logic from VM")
     struct Parameters {
         let alphabet: Alphabet
         let mode: AlphabetMode

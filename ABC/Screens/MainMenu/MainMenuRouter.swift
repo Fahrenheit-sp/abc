@@ -35,11 +35,17 @@ final class MainMenuRouter: MainMenuRoutable {
     func mainMenuDidSelect(item: MainMenuItem) {
         switch item {
         case .alphabet:
-            let controller = AlphabetRouter(parameters: .init(alphabet: English(), configuration: .alphabet)).makeController()
+            let controller = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english),
+                                                              configuration: .alphabet)).makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .numbers:
-            let controller = AlphabetRouter(parameters: .init(alphabet: Numbers(), configuration: .numbers)).makeController()
+            let controller = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.numbers),
+                                                              configuration: .numbers)).makeController()
+            controller.modalPresentationStyle = .overFullScreen
+            view?.present(controller, animated: true)
+        case .canvas:
+            let controller = CanvasRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english))).makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .games:
