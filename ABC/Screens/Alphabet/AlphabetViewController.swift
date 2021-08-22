@@ -9,6 +9,11 @@ import UIKit
 
 final class AlphabetViewController: UIViewController, AlphabetUserInterface {
 
+    struct Configuration {
+        let insets: UIEdgeInsets
+        let spacing: CGFloat
+    }
+
     private lazy var collectionView = {
         UICollectionView(frame: .zero, collectionViewLayout: layout).disableAutoresizing()
     }()
@@ -16,16 +21,18 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 4
-        layout.minimumInteritemSpacing = UIScreen.main.bounds.width > 400 ? 8 : 0
+        layout.minimumInteritemSpacing = configuration.spacing
         return layout
     }()
 
+    private let configuration: Configuration
     private var viewModel: AlphabetScreenViewModel
     private var rowWidthsCache: [Int: CGFloat] = [:]
     var interactor: AlphabetInteractable?
 
-    required init(viewModel: AlphabetScreenViewModel) {
+    required init(viewModel: AlphabetScreenViewModel, configuration: Configuration) {
         self.viewModel = viewModel
+        self.configuration = configuration
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -54,9 +61,9 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
     private func setupLayout() {
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: configuration.insets.top),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: configuration.insets.left),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -configuration.insets.right),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                                                    constant: -(view.bounds.height * 0.2))
         ])
