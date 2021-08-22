@@ -38,6 +38,10 @@ final class MainMenuRouter: MainMenuRoutable {
             let controller = AlphabetRouter(parameters: .init(alphabet: English())).makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
+        case .numbers:
+            let controller = AlphabetRouter(parameters: .init(alphabet: Numbers())).makeController()
+            controller.modalPresentationStyle = .overFullScreen
+            view?.present(controller, animated: true)
         case .games:
             let router = MainMenuRouter(parameters: .init(items: [.catchALetter, .memorize, .makeAWord]))
             view?.present(router.makeController(), animated: true)
