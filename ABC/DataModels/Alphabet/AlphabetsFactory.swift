@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias LettersProvidable = Alphabet & Canvas
+
 final class AlphabetsFactory {
 
     enum AlphabetType: String {
@@ -14,15 +16,15 @@ final class AlphabetsFactory {
         case numbers
     }
 
-    private static var alphabetsCache: [AlphabetType: Alphabet] = [:]
+    private static var alphabetsCache: [AlphabetType: LettersProvidable] = [:]
 
     private init() {}
 
-    static func getAlphabet(_ type: AlphabetType, shuffled: Bool = false) -> Alphabet {
+    static func getAlphabet(_ type: AlphabetType, shuffled: Bool = false) -> LettersProvidable {
         if let cached = alphabetsCache[type] {
             return cached
         }
-        let alphabet: Alphabet
+        let alphabet: LettersProvidable
         switch type {
         case .english: alphabet = English(isShuffled: shuffled)
         case .numbers: alphabet = Numbers(isShuffled: shuffled)

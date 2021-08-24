@@ -27,3 +27,13 @@ struct Numbers: Alphabet {
         }
     }
 }
+
+extension Numbers: Canvas {
+    var numberOfCanvasRows: Int {
+        1
+    }
+
+    func numberOfCanvasLetters(in row: Int) -> Int {
+        10
+    }
+}

@@ -10,7 +10,7 @@ import UIKit
 final class CanvasRouter: CanvasRoutable {
 
     struct Parameters {
-        let alphabet: Alphabet
+        let canvas: Canvas
     }
 
     private let parameters: Parameters
@@ -20,8 +20,9 @@ final class CanvasRouter: CanvasRoutable {
     }
     
     func makeController() -> UIViewController {
-        let controller = CanvasViewController()
-        controller.interactor = CanvasInteractor(ui: controller, router: self)
+        let model = CanvasViewModel(canvas: parameters.canvas)
+        let controller = CanvasViewController(model: model)
+        controller.interactor = CanvasInteractor(parameters: .init(canvas: parameters.canvas), ui: controller, router: self)
         return controller
     }
 }

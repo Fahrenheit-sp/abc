@@ -28,3 +28,19 @@ struct English: Alphabet {
         }
     }
 }
+
+extension English: Canvas {
+    var numberOfCanvasRows: Int {
+        3
+    }
+
+    func numberOfCanvasLetters(in row: Int) -> Int {
+        switch row {
+        case 0: return 10
+        case 1: return 8
+        case 2: return 8
+        default: return 0
+        }
+    }
+
+}

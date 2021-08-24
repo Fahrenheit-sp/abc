@@ -9,16 +9,22 @@ import Foundation
 
 final class CanvasInteractor: CanvasInteractable {
 
+    struct Parameters {
+        let canvas: Canvas
+    }
+
+    private let parameters: Parameters
     var ui: CanvasUserInterface?
     weak var router: CanvasRoutable?
 
-    init(ui: CanvasUserInterface? = nil, router: CanvasRoutable? = nil) {
+    init(parameters: Parameters, ui: CanvasUserInterface? = nil, router: CanvasRoutable? = nil) {
+        self.parameters = parameters
         self.ui = ui
         self.router = router
     }
 
     func didLoad() {
-        ui?.configure(with: .init())
+        ui?.configure(with: .init(canvas: parameters.canvas))
     }
     
 }

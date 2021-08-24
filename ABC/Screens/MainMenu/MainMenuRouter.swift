@@ -45,7 +45,7 @@ final class MainMenuRouter: MainMenuRoutable {
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .canvas:
-            let controller = CanvasRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english))).makeController()
+            let controller = CanvasRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english))).makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .games:

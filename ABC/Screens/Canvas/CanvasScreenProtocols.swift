@@ -15,5 +15,5 @@ protocol CanvasInteractable: AnyObject {
 }
 
 protocol CanvasUserInterface: AnyObject {
-    func configure(with model: CanvasScreenViewModel)
+    func configure(with model: CanvasViewModel)
 }
