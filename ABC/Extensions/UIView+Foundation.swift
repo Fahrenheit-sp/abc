@@ -30,6 +30,11 @@ extension UIView {
             view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: insets.right).with(priority: priority)
         ]
     }
+
+    func roundCorners(to radius: CGFloat) {
+        layer.cornerRadius = radius
+        layer.masksToBounds = true
+    }
 }
 
 

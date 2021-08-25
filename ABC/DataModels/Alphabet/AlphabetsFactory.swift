@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias LettersProvidable = Alphabet & Canvas
+typealias LettersProvidable = Alphabet & Canvas & Memorizable
 
 final class AlphabetsFactory {
 

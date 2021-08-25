@@ -48,6 +48,10 @@ final class MainMenuRouter: MainMenuRoutable {
             let controller = CanvasRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english))).makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
+        case .memorize:
+            let controller = MemorizeRouter(parameters: .init(memorizable: AlphabetsFactory.getAlphabet(.english))).makeController()
+            controller.modalPresentationStyle = .overFullScreen
+            view?.present(controller, animated: true)
         case .games:
             let router = MainMenuRouter(parameters: .init(items: [.catchALetter, .memorize, .makeAWord]))
             view?.present(router.makeController(), animated: true)
