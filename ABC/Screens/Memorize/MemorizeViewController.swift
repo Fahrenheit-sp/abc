@@ -11,7 +11,18 @@ final class MemorizeViewController: UIViewController {
 
     var interactor: MemorizeInteractable?
 
-    let card = CardView(letter: Letter(symbol: "a")).disableAutoresizing()
+    private lazy var collectionView = {
+        UICollectionView(frame: .zero, collectionViewLayout: layout).disableAutoresizing()
+    }()
+
+    private lazy var layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 16
+        return layout
+    }()
+
+    private var model = MemorizeViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +33,18 @@ final class MemorizeViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .white
+        view.addSubview(collectionView)
 
-        view.addSubview(card)
+        collectionView.register(MemorizeCollectionViewCell.self)
+        collectionView.backgroundColor = .clear
+        collectionView.dataSource = self
+        collectionView.delegate = self
 
         NSLayoutConstraint.activate([
-            card.widthAnchor.constraint(equalToConstant: 100),
-            card.heightAnchor.constraint(equalToConstant: 200),
-            card.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            card.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
 
@@ -37,6 +52,36 @@ final class MemorizeViewController: UIViewController {
 
 extension MemorizeViewController: MemorizeUserInterface {
     func configure(with model: MemorizeViewModel) {
-        
+        self.model = model
+        collectionView.reloadData()
+    }
+}
+
+extension MemorizeViewController: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        model.numberOfColumns * model.numberOfRows
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: MemorizeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
+        cell.configure(with: model.cellModel(at: indexPath))
+        return cell
+    }
+
+}
+
+extension MemorizeViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let spacingsWidth = layout.minimumInteritemSpacing * CGFloat(model.numberOfColumns-1)
+        let width = (collectionView.bounds.width - spacingsWidth) / CGFloat(model.numberOfColumns)
+
+        let spacingsHeight = layout.minimumLineSpacing * CGFloat(model.numberOfRows-1)
+        let height = (collectionView.bounds.height - spacingsHeight) / CGFloat(model.numberOfRows)
+
+        return CGSize(width: width-1, height: height-1)
     }
 }

@@ -22,9 +22,9 @@ final class CardView: GradientBackgroundView {
         didSet { animateFlip() }
     }
 
-    private let letter: Letter?
+    private var letter: Letter?
 
-    required init(letter: Letter?, backImage: UIImage = Asset.Games.questionMark.image) {
+    required init(letter: Letter? = nil, backImage: UIImage = Asset.Games.questionMark.image) {
         self.letter = letter
         self.backImage = backImage
         super.init(frame: .zero)
@@ -59,6 +59,10 @@ final class CardView: GradientBackgroundView {
     func flipDown() {
         guard isOpened else { return }
         isOpened = false
+    }
+
+    func configure(with letter: Letter) {
+        self.letter = letter
     }
     
 }

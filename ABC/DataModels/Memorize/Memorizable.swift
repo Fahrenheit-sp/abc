@@ -9,7 +9,7 @@ import Foundation
 
 protocol Memorizable {
     var numberOfMemorizeRows: Int { get }
-    func numberOfCards(in row: Int) -> Int
+    var numberOfMemorizeColumns: Int { get }
 }
 
 extension Memorizable {
@@ -18,7 +18,7 @@ extension Memorizable {
         4
     }
 
-    func numberOfCards(in row: Int) -> Int {
+    var numberOfMemorizeColumns: Int {
         3
     }
 }

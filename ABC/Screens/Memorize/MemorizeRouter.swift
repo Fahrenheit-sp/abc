@@ -10,7 +10,7 @@ import UIKit
 final class MemorizeRouter: MemorizeRoutable {
 
     struct Parameters {
-        let memorizable: Memorizable
+        let memorizable: Memorizable & Alphabet
     }
 
     private let parameters: Parameters
@@ -20,9 +20,8 @@ final class MemorizeRouter: MemorizeRoutable {
     }
 
     func makeController() -> UIViewController {
-        let model = MemorizeViewModel()
         let controller = MemorizeViewController()
-        controller.interactor = MemorizeInteractor(ui: controller, router: self)
+        controller.interactor = MemorizeInteractor(memorizable: parameters.memorizable, ui: controller, router: self)
         return controller
     }
 }
