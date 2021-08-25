@@ -8,10 +8,10 @@
 import UIKit
 
 protocol DraggableLetterViewDelegate: AnyObject {
-    func draggableViewDidEndDragging(_ view: DraggableLetterView)
+    func draggableViewDidEndDragging(_ letterView: DraggableLetterView)
 }
 
-final class DraggableLetterView: UIView {
+class DraggableLetterView: UIView {
 
     private let imageView = UIImageView().disableAutoresizing()
 
@@ -35,6 +35,13 @@ final class DraggableLetterView: UIView {
         setupUI()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if startingPoint == nil {
+            startingPoint = center
+        }
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,10 +58,11 @@ final class DraggableLetterView: UIView {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if startingPoint == nil {
-            startingPoint = center
-        }
         lastLocation = center
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        delegate?.draggableViewDidEndDragging(self)
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -68,6 +76,22 @@ final class DraggableLetterView: UIView {
 
         UIView.animate(withDuration: 0.4) { [self] in
             setCenter()
+            layoutIfNeeded()
+        }
+    }
+
+    func resetWithScale(animated: Bool = true) {
+        transform = .init(scaleX: 0, y: 0)
+        center = startingPoint.or(center)
+
+        let setScale = { [self] in
+            transform = .identity
+        }
+
+        guard animated else { return setScale() }
+
+        UIView.animate(withDuration: 0.4) { [self] in
+            setScale()
             layoutIfNeeded()
         }
     }
