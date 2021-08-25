@@ -34,6 +34,8 @@ final class CanvasViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(canvasAlphabetView)
+
+        canvasAlphabetView.lettersDelegate = self
     }
 
     private func setupLayout() {
@@ -49,5 +51,20 @@ final class CanvasViewController: UIViewController {
 extension CanvasViewController: CanvasUserInterface {
     func configure(with model: CanvasViewModel) {
         canvasAlphabetView.configure(with: model)
+    }
+}
+
+extension CanvasViewController: DraggableLetterViewDelegate {
+    func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
+        let newLetter = DraggableLetterView(letter: letterView.letter)
+        newLetter.frame = CGRect(origin: .zero, size: letterView.frame.size)
+        newLetter.center = letterView.superview?.convert(letterView.center, to: nil) ?? .zero
+        view.addSubview(newLetter)
+
+        UIView.animate(withDuration: 0.2) {
+            newLetter.transform = .init(scaleX: 2, y: 2)
+        }
+        
+        letterView.resetWithScale()
     }
 }

@@ -13,6 +13,8 @@ final class CanvasAlphabetView: UIView {
     private let middleStack = UIStackView().disableAutoresizing()
     private let bottomStack = UIStackView().disableAutoresizing()
 
+    weak var lettersDelegate: DraggableLetterViewDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -66,7 +68,13 @@ final class CanvasAlphabetView: UIView {
 
     func configure(with model: CanvasViewModel) {
         let letterViews = (0..<model.numberOfRows)
-            .map { model.letters(in: $0).map { DraggableLetterView(letter: $0) } }
+            .map { model.letters(in: $0)
+                .map { letter -> DraggableLetterView in
+                    let view = DraggableLetterView(letter: letter)
+                    view.delegate = lettersDelegate
+                    return view
+                }
+            }
         assert(letterViews.count == 3, "Not 3 rows in canvas")
         letterViews[0].forEach { topStack.addArrangedSubview($0) }
         letterViews[1].forEach { middleStack.addArrangedSubview($0) }

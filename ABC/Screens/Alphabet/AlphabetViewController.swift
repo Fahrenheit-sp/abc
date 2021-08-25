@@ -92,11 +92,11 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
 
 extension AlphabetViewController: DraggableLetterViewDelegate {
 
-    func draggableViewDidEndDragging(_ view: DraggableLetterView) {
-        let indexPath = collectionView.indexPathForItem(at: view.center)
+    func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
+        let indexPath = collectionView.indexPathForItem(at: letterView.center)
         let targetLetter = indexPath.map { viewModel.letter(at: $0) }
 
-        targetLetter == view.letter ? place(view, at: indexPath) : view.reset()
+        targetLetter == letterView.letter ? place(letterView, at: indexPath) : letterView.reset()
     }
 
     private func place(_ letterView: DraggableLetterView, at indexPath: IndexPath?) {
