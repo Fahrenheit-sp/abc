@@ -12,8 +12,8 @@ import Foundation
 internal enum L10n {
 
   internal enum Canvas {
-    /// Clear all
-    internal static let clearAll = L10n.tr("Localizable", "canvas.clearAll")
+    /// Clear
+    internal static let clear = L10n.tr("Localizable", "canvas.clear")
   }
 
   internal enum Menu {

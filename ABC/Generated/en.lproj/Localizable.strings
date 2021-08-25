@@ -6,7 +6,7 @@
   
 */
 
-"canvas.clearAll" = "Clear all";
+"canvas.clear" = "Clear";
 
 "menu.item.alphabet" = "Alphabet";
 "menu.item.numbers" = "Numbers";

@@ -10,6 +10,7 @@ import UIKit
 final class CanvasViewController: UIViewController {
 
     private let canvasAlphabetView = CanvasAlphabetView().disableAutoresizing()
+    private let clearButton = UIButton().disableAutoresizing()
 
     private let viewModel: CanvasViewModel
     var interactor: CanvasInteractable?
@@ -33,9 +34,14 @@ final class CanvasViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .white
+        view.addSubview(clearButton)
         view.addSubview(canvasAlphabetView)
 
         canvasAlphabetView.lettersDelegate = self
+
+        clearButton.setTitle(L10n.Canvas.clear.uppercased(), for: .normal)
+        clearButton.setTitleColor(.systemBlue, for: .normal)
+        clearButton.addTarget(self, action: #selector(didTapClear), for: .touchUpInside)
     }
 
     private func setupLayout() {
@@ -43,8 +49,15 @@ final class CanvasViewController: UIViewController {
             canvasAlphabetView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             canvasAlphabetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             canvasAlphabetView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            canvasAlphabetView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.23)
+            canvasAlphabetView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.23),
+
+            clearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
+    }
+
+    @objc private func didTapClear() {
+        view.subviews.filter { $0 is DraggableLetterView }.forEach { $0.removeFromSuperview() }
     }
 }
 
@@ -56,7 +69,7 @@ extension CanvasViewController: CanvasUserInterface {
 
 extension CanvasViewController: DraggableLetterViewDelegate {
     func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
-        let newLetter = DraggableLetterView(letter: letterView.letter)
+        let newLetter = DeletableLetterView(letter: letterView.letter)
         newLetter.frame = CGRect(origin: .zero, size: letterView.frame.size)
         newLetter.center = letterView.superview?.convert(letterView.center, to: nil) ?? .zero
         view.addSubview(newLetter)

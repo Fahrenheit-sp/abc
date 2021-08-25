@@ -11,7 +11,7 @@ protocol DraggableLetterViewDelegate: AnyObject {
     func draggableViewDidEndDragging(_ letterView: DraggableLetterView)
 }
 
-final class DraggableLetterView: UIView {
+class DraggableLetterView: UIView {
 
     private let imageView = UIImageView().disableAutoresizing()
 
