@@ -58,9 +58,10 @@ final class MainMenuRouter: MainMenuRoutable {
             let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
-        case .games:
-            router = MainMenuRouter(parameters: .init(items: [.catchALetter, .memorize, .makeAWord]))
+        case .makeAWord:
+            router = MakeAWordRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english)))
             let controller = router.makeController()
+            controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         default:
             router = MainMenuRouter(parameters: .init(items: []))
