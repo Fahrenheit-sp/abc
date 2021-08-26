@@ -25,6 +25,6 @@ final class AlphabetCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with model: AlphabetCellViewModel) {
-        letterView.configure(with: .init(image: model.image, tintColor: model.tintColor))
+        letterView.configure(with: .init(letter: model.letter, tintColor: model.tintColor))
     }
 }

@@ -28,7 +28,7 @@ struct AlphabetScreenViewModel {
     func cellModel(at indexPath: IndexPath) -> AlphabetCellViewModel {
         let letter = alphabet.letter(at: indexPath)
         let isPlaced = placedLetters.contains(letter)
-        return AlphabetCellViewModel(image: letter.image, tintColor: isPlaced ? nil : .lightGray)
+        return AlphabetCellViewModel(letter: letter, tintColor: isPlaced ? nil : .lightGray)
     }
 
     func letters(in row: Int) -> [Letter] {

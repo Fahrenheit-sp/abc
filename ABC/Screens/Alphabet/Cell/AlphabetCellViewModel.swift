@@ -8,6 +8,6 @@
 import UIKit
 
 struct AlphabetCellViewModel {
-    let image: UIImage?
+    let letter: Letter
     let tintColor: UIColor?
 }

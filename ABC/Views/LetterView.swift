@@ -8,13 +8,14 @@
 import UIKit
 
 struct LetterViewModel {
-    let image: UIImage?
+    let letter: Letter
     let tintColor: UIColor?
 }
 
 final class LetterView: UIView {
 
     private let imageView = UIImageView().disableAutoresizing()
+    private(set) var letter: Letter?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +36,10 @@ final class LetterView: UIView {
     }
 
     func configure(with model: LetterViewModel) {
-        imageView.image = model.image?.withRenderingMode(model.tintColor == nil ? .alwaysOriginal : .alwaysTemplate)
+        let image = model.letter.image?.withRenderingMode(model.tintColor == nil ? .alwaysOriginal : .alwaysTemplate)
+        self.letter = model.letter
+        
+        imageView.image = image
         imageView.tintColor = model.tintColor
     }
 

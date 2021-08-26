@@ -10,6 +10,7 @@ import UIKit
 final class WordView: UIView {
 
     private let word: Word
+    private var stackView: UIStackView!
 
     required init(word: Word) {
         self.word = word
@@ -24,12 +25,17 @@ final class WordView: UIView {
     private func setupUI() {
         let letterViews = word.letters.map { letter -> LetterView in
             let view = LetterView().disableAutoresizing()
-            view.configure(with: .init(image: letter.image, tintColor: .lightGray))
+            view.configure(with: .init(letter: letter, tintColor: .lightGray))
             return view
         }
 
-        let stackView = UIStackView(arrangedSubviews: letterViews).disableAutoresizing()
+        stackView = UIStackView(arrangedSubviews: letterViews).disableAutoresizing()
         stackView.distribution = .fillProportionally
         embedSubview(stackView)
+    }
+
+    func letterView(at point: CGPoint) -> LetterView? {
+        let selfPoint = convert(point, from: superview)
+        return stackView.arrangedSubviews.first { $0.frame.contains(selfPoint) }.flatMap { $0 as? LetterView }
     }
 }

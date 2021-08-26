@@ -12,6 +12,7 @@ final class MakeAWordViewController: UIViewController {
     var interactor: MakeAWordInteractable?
 
     private let canvasView = CanvasAlphabetView().disableAutoresizing()
+    private var wordView: WordView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,7 @@ extension MakeAWordViewController: MakeAWordUserInterface {
     func configure(with model: MakeAWordViewModel) {
         canvasView.configure(with: .init(canvas: model.canvas))
 
-        let wordView = WordView(word: model.word).disableAutoresizing()
+        wordView = WordView(word: model.word).disableAutoresizing()
         view.addSubview(wordView)
 
         NSLayoutConstraint.activate([
@@ -54,6 +55,21 @@ extension MakeAWordViewController: MakeAWordUserInterface {
 
 extension MakeAWordViewController: CanvasAlphabetViewDelegate {
     func canvasView(_ canvasView: CanvasAlphabetView, didEndDragging letterView: DraggableLetterView, at point: CGPoint) {
-        
+        guard let overLetterView = wordView.letterView(at: point) else { return letterView.reset() }
+        guard let letter = letterView.letter else { return letterView.reset() }
+        guard letter == overLetterView.letter else { return letterView.reset() }
+        let newView = LetterView(frame: CGRect(origin: .zero, size: letterView.frame.size))
+        newView.center = point
+        newView.configure(with: .init(letter: letter, tintColor: nil))
+        view.addSubview(newView)
+
+        letterView.resetWithScale()
+
+        UIView.animate(withDuration: 0.3) { [self] in
+            newView.frame = view.convert(overLetterView.frame, from: wordView)
+        } completion: { _ in
+            overLetterView.configure(with: .init(letter: letter, tintColor: nil))
+            newView.removeFromSuperview()
+        }
     }
 }
