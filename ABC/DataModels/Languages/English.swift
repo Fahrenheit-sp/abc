@@ -42,5 +42,6 @@ extension English: Canvas {
         default: return 0
         }
     }
-
 }
+
+extension English: Memorizable {}

@@ -148,7 +148,10 @@ extension AlphabetViewController: UICollectionViewDelegateFlowLayout {
         let rowWidth = calculateWidth(of: section)
         guard collectionView.bounds.width > rowWidth else { return .zero }
         let sideInset = (collectionView.bounds.width - rowWidth) / 2.0
-        return .init(top: 0, left: sideInset - 0.1, bottom: 0, right: sideInset - 0.1)
+        return .init(top: layout.minimumLineSpacing / 2,
+                     left: sideInset - 0.1,
+                     bottom: layout.minimumLineSpacing / 2,
+                     right: sideInset - 0.1)
     }
 
     private func widthForItem(at indexPath: IndexPath) -> CGFloat {

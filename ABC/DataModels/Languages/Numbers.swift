@@ -37,3 +37,5 @@ extension Numbers: Canvas {
         10
     }
 }
+
+extension Numbers: Memorizable {}

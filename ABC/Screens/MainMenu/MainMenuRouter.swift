@@ -15,6 +15,7 @@ final class MainMenuRouter: MainMenuRoutable {
 
     private let parameters: Parameters
     private weak var view: UIViewController?
+    private var currentRouter: Router?
 
     init(parameters: Parameters) {
         self.parameters = parameters
@@ -33,26 +34,38 @@ final class MainMenuRouter: MainMenuRoutable {
     }
 
     func mainMenuDidSelect(item: MainMenuItem) {
+        let router: Router
         switch item {
         case .alphabet:
-            let controller = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english),
-                                                              configuration: .alphabet)).makeController()
+            router = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english),
+                                                      configuration: .alphabet))
+            let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .numbers:
-            let controller = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.numbers),
-                                                              configuration: .numbers)).makeController()
+            router = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.numbers),
+                                                      configuration: .numbers))
+            let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .canvas:
-            let controller = CanvasRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english))).makeController()
+            router = CanvasRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english)))
+            let controller = router.makeController()
+            controller.modalPresentationStyle = .overFullScreen
+            view?.present(controller, animated: true)
+        case .memorize:
+            router = MemorizeRouter(parameters: .init(memorizable: AlphabetsFactory.getAlphabet(.english)))
+            let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .games:
-            let router = MainMenuRouter(parameters: .init(items: [.catchALetter, .memorize, .makeAWord]))
-            view?.present(router.makeController(), animated: true)
+            router = MainMenuRouter(parameters: .init(items: [.catchALetter, .memorize, .makeAWord]))
+            let controller = router.makeController()
+            view?.present(controller, animated: true)
         default:
+            router = MainMenuRouter(parameters: .init(items: []))
             view?.present(UIViewController(), animated: true)
         }
+        currentRouter = router
     }
 }
