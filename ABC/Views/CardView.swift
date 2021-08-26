@@ -33,7 +33,7 @@ final class CardView: GradientBackgroundView {
     private func setupUI() {
         configureGradient(using: .card)
         roundCorners(to: 8)
-        embedSubview(imageView, insets: .init(top: 8, left: 8, bottom: 8, right: 8))
+        embedSubview(imageView, insets: .init(top: 16, left: 8, bottom: 16, right: 8))
 
         imageView.contentMode = .scaleAspectFit
         imageView.image = backImage
