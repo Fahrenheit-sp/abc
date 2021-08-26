@@ -51,9 +51,30 @@ final class MemorizeViewController: UIViewController {
 }
 
 extension MemorizeViewController: MemorizeUserInterface {
+    func didOpenSameLetters(at indexPaths: [IndexPath]) {
+        indexPaths
+            .map { collectionView.cellForItem(at: $0) }
+            .compactMap { $0 as? MemorizeCollectionViewCell }
+            .forEach { $0.hide() }
+    }
+
+    func didOpenWrongLetters(at indexPaths: [IndexPath]) {
+        indexPaths
+            .map { collectionView.cellForItem(at: $0) }
+            .compactMap { $0 as? MemorizeCollectionViewCell }
+            .forEach { $0.flipBack() }
+    }
+
     func configure(with model: MemorizeViewModel) {
         self.model = model
         collectionView.reloadData()
+    }
+}
+
+extension MemorizeViewController: MemorizeCellDelegate {
+    func cell(_ memorizeCell: MemorizeCollectionViewCell, didFinishAnimatingTo isOpened: Bool) {
+        guard let indexPath = collectionView.indexPath(for: memorizeCell) else { return }
+        interactor?.didOpenLetter(at: indexPath)
     }
 }
 
@@ -66,6 +87,7 @@ extension MemorizeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: MemorizeCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configure(with: model.cellModel(at: indexPath))
+        cell.delegate = self
         return cell
     }
 

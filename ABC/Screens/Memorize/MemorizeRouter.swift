@@ -24,4 +24,8 @@ final class MemorizeRouter: MemorizeRoutable {
         controller.interactor = MemorizeInteractor(memorizable: parameters.memorizable, ui: controller, router: self)
         return controller
     }
+
+    func didFinishGame() {
+        print("finished")
+    }
 }

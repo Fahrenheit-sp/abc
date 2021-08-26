@@ -7,13 +7,11 @@
 
 import UIKit
 
-final class CardView: GradientBackgroundView {
+protocol CardViewDelegate: AnyObject {
+    func cardView(_ cardView: CardView, didFinishAnimationTo isOpened: Bool)
+}
 
-    private lazy var tapRecognizer: UITapGestureRecognizer = {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapDetected(_:)))
-        recognizer.cancelsTouchesInView = false
-        return recognizer
-    }()
+final class CardView: GradientBackgroundView {
 
     private let imageView = UIImageView().disableAutoresizing()
     private let backImage: UIImage
@@ -23,6 +21,7 @@ final class CardView: GradientBackgroundView {
     }
 
     private var letter: Letter?
+    weak var delegate: CardViewDelegate?
 
     required init(letter: Letter? = nil, backImage: UIImage = Asset.Games.questionMark.image) {
         self.letter = letter
@@ -32,7 +31,6 @@ final class CardView: GradientBackgroundView {
     }
 
     private func setupUI() {
-        addGestureRecognizer(tapRecognizer)
         configureGradient(using: .card)
         roundCorners(to: 8)
         embedSubview(imageView, insets: .init(top: 8, left: 8, bottom: 8, right: 8))
@@ -45,15 +43,17 @@ final class CardView: GradientBackgroundView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func tapDetected(_ recognizer: UITapGestureRecognizer) {
-        guard !isOpened else { return }
-        isOpened = true
-    }
-
     private func animateFlip() {
         let transition: AnimationOptions = isOpened ? .transitionFlipFromLeft : .transitionFlipFromRight
         imageView.image = isOpened ? letter?.image : backImage
-        UIView.transition(with: self, duration: 0.3, options: transition, animations: nil)
+        UIView.transition(with: self, duration: 0.3, options: transition, animations: nil) { [self] _ in
+            delegate?.cardView(self, didFinishAnimationTo: isOpened)
+        }
+    }
+
+    func flipUp() {
+        guard !isOpened else { return }
+        isOpened = true
     }
 
     func flipDown() {
