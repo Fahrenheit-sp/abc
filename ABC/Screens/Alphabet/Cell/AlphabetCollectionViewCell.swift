@@ -9,12 +9,11 @@ import UIKit
 
 final class AlphabetCollectionViewCell: UICollectionViewCell {
 
-    private let imageView = UIImageView().disableAutoresizing()
+    private let letterView = LetterView().disableAutoresizing()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
-        setupUI()
     }
 
     required init?(coder: NSCoder) {
@@ -22,15 +21,10 @@ final class AlphabetCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupLayout() {
-        contentView.embedSubview(imageView)
-    }
-
-    private func setupUI() {
-        imageView.contentMode = .scaleAspectFit
+        contentView.embedSubview(letterView)
     }
 
     func configure(with model: AlphabetCellViewModel) {
-        imageView.image = model.image?.withRenderingMode(model.tintColor == nil ? .alwaysOriginal : .alwaysTemplate)
-        imageView.tintColor = model.tintColor
+        letterView.configure(with: .init(image: model.image, tintColor: model.tintColor))
     }
 }

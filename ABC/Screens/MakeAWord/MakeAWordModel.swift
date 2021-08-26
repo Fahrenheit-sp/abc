@@ -8,6 +8,12 @@
 import Foundation
 
 struct MakeAWordViewModel {
+
     let word: Word
     let canvas: Canvas
+
+    init(word: Word, canvas: Canvas) {
+        self.word = word
+        self.canvas = canvas
+    }
 }

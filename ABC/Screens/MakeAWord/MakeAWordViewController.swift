@@ -24,6 +24,8 @@ final class MakeAWordViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(canvasView)
 
+        canvasView.delegate = self
+
         NSLayoutConstraint.activate([
             canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
@@ -37,5 +39,21 @@ final class MakeAWordViewController: UIViewController {
 extension MakeAWordViewController: MakeAWordUserInterface {
     func configure(with model: MakeAWordViewModel) {
         canvasView.configure(with: .init(canvas: model.canvas))
+
+        let wordView = WordView(word: model.word).disableAutoresizing()
+        view.addSubview(wordView)
+
+        NSLayoutConstraint.activate([
+            wordView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            wordView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            wordView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 8),
+            wordView.trailingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: -8)
+        ])
+    }
+}
+
+extension MakeAWordViewController: CanvasAlphabetViewDelegate {
+    func canvasView(_ canvasView: CanvasAlphabetView, didEndDragging letterView: DraggableLetterView, at point: CGPoint) {
+        
     }
 }

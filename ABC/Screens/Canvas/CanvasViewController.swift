@@ -37,7 +37,7 @@ final class CanvasViewController: UIViewController {
         view.addSubview(clearButton)
         view.addSubview(canvasAlphabetView)
 
-        canvasAlphabetView.lettersDelegate = self
+        canvasAlphabetView.delegate = self
 
         clearButton.setTitle(L10n.Canvas.clear.uppercased(), for: .normal)
         clearButton.setTitleColor(.systemBlue, for: .normal)
@@ -67,7 +67,20 @@ extension CanvasViewController: CanvasUserInterface {
     }
 }
 
-extension CanvasViewController: DraggableLetterViewDelegate {
+extension CanvasViewController: CanvasAlphabetViewDelegate {
+    func canvasView(_ canvasView: CanvasAlphabetView, didEndDragging letterView: DraggableLetterView, at point: CGPoint) {
+        let newLetter = DeletableLetterView(letter: letterView.letter)
+        newLetter.frame = CGRect(origin: .zero, size: letterView.frame.size)
+        newLetter.center = point
+        view.addSubview(newLetter)
+
+        UIView.animate(withDuration: 0.2) {
+            newLetter.transform = .init(scaleX: 2, y: 2)
+        }
+
+        letterView.resetWithScale()
+    }
+    
     func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
         let newLetter = DeletableLetterView(letter: letterView.letter)
         newLetter.frame = CGRect(origin: .zero, size: letterView.frame.size)
