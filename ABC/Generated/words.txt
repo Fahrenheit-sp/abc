@@ -110,7 +110,6 @@ mother
 brother
 sister
 baby
-toilet
 bathtub
 shower
 towel

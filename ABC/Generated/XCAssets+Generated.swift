@@ -21,6 +21,8 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 internal enum Asset {
   internal enum Games {
     internal static let questionMark = ImageAsset(name: "question_mark")
+    internal static let starEmpty = ImageAsset(name: "star_empty")
+    internal static let starFilled = ImageAsset(name: "star_filled")
   }
   internal enum Letters {
     internal static let a = ImageAsset(name: "a")

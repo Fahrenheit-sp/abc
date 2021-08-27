@@ -11,6 +11,7 @@ final class MakeAWordViewController: UIViewController {
 
     var interactor: MakeAWordInteractable?
 
+    private let starsView = StarsView().disableAutoresizing()
     private let canvasView = CanvasAlphabetView().disableAutoresizing()
     private var wordView: WordView?
 
@@ -23,11 +24,16 @@ final class MakeAWordViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .white
+        view.addSubview(starsView)
         view.addSubview(canvasView)
 
         canvasView.delegate = self
 
         NSLayoutConstraint.activate([
+            starsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            starsView.heightAnchor.constraint(equalToConstant: 36),
+            starsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
             canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             canvasView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
@@ -40,6 +46,7 @@ final class MakeAWordViewController: UIViewController {
 extension MakeAWordViewController: MakeAWordUserInterface {
 
     func configureCanvas(with canvas: Canvas) {
+        starsView.configure()
         canvasView.configure(with: .init(canvas: canvas))
     }
 
@@ -81,6 +88,6 @@ extension MakeAWordViewController: CanvasAlphabetViewDelegate {
     }
 
     func didFinishWord() {
-        print("Word finished")
+        starsView.increaseFilledCount()
     }
 }
