@@ -12,7 +12,7 @@ final class MakeAWordViewController: UIViewController {
     var interactor: MakeAWordInteractable?
 
     private let canvasView = CanvasAlphabetView().disableAutoresizing()
-    private var wordView: WordView!
+    private var wordView: WordView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,24 +38,30 @@ final class MakeAWordViewController: UIViewController {
 }
 
 extension MakeAWordViewController: MakeAWordUserInterface {
-    func configure(with model: MakeAWordViewModel) {
-        canvasView.configure(with: .init(canvas: model.canvas))
 
-        wordView = WordView(word: model.word).disableAutoresizing()
+    func configureCanvas(with canvas: Canvas) {
+        canvasView.configure(with: .init(canvas: canvas))
+    }
+
+    func configureWord(with word: Word) {
+        wordView?.removeFromSuperview()
+
+        let wordView = WordView(word: word).disableAutoresizing()
+        self.wordView = wordView
         view.addSubview(wordView)
 
         NSLayoutConstraint.activate([
             wordView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             wordView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             wordView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 8),
-            wordView.trailingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: -8)
+            wordView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -8)
         ])
     }
 }
 
 extension MakeAWordViewController: CanvasAlphabetViewDelegate {
     func canvasView(_ canvasView: CanvasAlphabetView, didEndDragging letterView: DraggableLetterView, at point: CGPoint) {
-        guard let overLetterView = wordView.letterView(at: point) else { return letterView.reset() }
+        guard let overLetterView = wordView?.letterView(at: point) else { return letterView.reset() }
         guard let letter = letterView.letter else { return letterView.reset() }
         guard letter == overLetterView.letter else { return letterView.reset() }
         let newView = LetterView(frame: CGRect(origin: .zero, size: letterView.frame.size))
@@ -67,9 +73,14 @@ extension MakeAWordViewController: CanvasAlphabetViewDelegate {
 
         UIView.animate(withDuration: 0.3) { [self] in
             newView.frame = view.convert(overLetterView.frame, from: wordView)
-        } completion: { _ in
+        } completion: { [weak self] _ in
             overLetterView.configure(with: .init(letter: letter, tintColor: nil))
             newView.removeFromSuperview()
+            self?.interactor?.didPlaceLetter(letter)
         }
+    }
+
+    func didFinishWord() {
+        print("Word finished")
     }
 }

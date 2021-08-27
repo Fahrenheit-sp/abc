@@ -17,7 +17,9 @@ final class MakeAWordInteractor: MakeAWordInteractable {
     private let parameters: Parameters
     var ui: MakeAWordUserInterface?
     weak var router: MakeAWordRoutable?
-    private let words: [Word]
+    private var words: [Word]
+    var currentWord: Word?
+    var placedLetters: [Letter] = []
 
     init(parameters: Parameters, ui: MakeAWordUserInterface? = nil, router: MakeAWordRoutable? = nil) {
         self.parameters = parameters
@@ -27,6 +29,21 @@ final class MakeAWordInteractor: MakeAWordInteractable {
     }
 
     func didLoad() {
-        words.randomElement().map { ui?.configure(with: .init(word: $0, canvas: parameters.canvas)) }
+        ui?.configureCanvas(with: parameters.canvas)
+        createNewWord()
+    }
+
+    func didPlaceLetter(_ letter: Letter) {
+        placedLetters.append(letter)
+        guard let word = currentWord else { return }
+        guard placedLetters.count == word.letters.count else { return }
+        placedLetters.removeAll()
+        ui?.didFinishWord()
+        createNewWord()
+    }
+
+    private func createNewWord() {
+        currentWord = words.remove(at: Int.random(in: 0..<words.count))
+        currentWord.map { ui?.configureWord(with: $0) }
     }
 }

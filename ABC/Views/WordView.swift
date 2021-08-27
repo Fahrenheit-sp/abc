@@ -24,12 +24,12 @@ final class WordView: UIView {
 
     private func setupUI() {
         let letterViews = word.letters.map { letter -> LetterView in
-            let view = LetterView().disableAutoresizing()
+            let view = LetterView()
             view.configure(with: .init(letter: letter, tintColor: .lightGray))
             return view
         }
 
-        stackView = UIStackView(arrangedSubviews: letterViews).disableAutoresizing()
+        stackView = UIStackView(arrangedSubviews: letterViews)
         stackView.distribution = .fillProportionally
         embedSubview(stackView)
     }
