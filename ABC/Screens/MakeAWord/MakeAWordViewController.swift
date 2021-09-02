@@ -13,7 +13,7 @@ final class MakeAWordViewController: UIViewController {
 
     private let starsView = StarsView().disableAutoresizing()
     private let canvasView = CanvasAlphabetView().disableAutoresizing()
-    private var wordView: WordView?
+    private let wordView = WordView().disableAutoresizing()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +26,7 @@ final class MakeAWordViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(starsView)
         view.addSubview(canvasView)
+        view.addSubview(wordView)
 
         canvasView.delegate = self
 
@@ -37,40 +38,48 @@ final class MakeAWordViewController: UIViewController {
             canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             canvasView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            canvasView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.23)
-        ])
-    }
+            canvasView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.23),
 
-}
-
-extension MakeAWordViewController: MakeAWordUserInterface {
-
-    func configureCanvas(with canvas: Canvas) {
-        starsView.configure()
-        canvasView.configure(with: .init(canvas: canvas))
-    }
-
-    func configureWord(with word: Word) {
-        wordView?.removeFromSuperview()
-
-        let wordView = WordView(word: word).disableAutoresizing()
-        self.wordView = wordView
-        view.addSubview(wordView)
-
-        NSLayoutConstraint.activate([
             wordView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             wordView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             wordView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 8),
             wordView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -8)
         ])
     }
+
+}
+
+extension MakeAWordViewController: MakeAWordUserInterface {
+    func configureStarsCount(to count: Int) {
+        starsView.configure(with: .init(numberOfFilled: 0, numberOfEmpty: count))
+    }
+
+    func configureCanvas(with canvas: Canvas) {
+        canvasView.configure(with: .init(canvas: canvas))
+    }
+
+    func configureWord(with word: Word) {
+        wordView.setWord(to: word)
+    }
+
+    func didFinishWord() {
+        starsView.increaseFilledCount()
+    }
+
+    func didFinishGame() {
+        print("Finished")
+    }
 }
 
 extension MakeAWordViewController: CanvasAlphabetViewDelegate {
     func canvasView(_ canvasView: CanvasAlphabetView, didEndDragging letterView: DraggableLetterView, at point: CGPoint) {
-        guard let overLetterView = wordView?.letterView(at: point) else { return letterView.reset() }
-        guard let letter = letterView.letter else { return letterView.reset() }
-        guard letter == overLetterView.letter else { return letterView.reset() }
+        guard let overLetterView = wordView.letterView(at: point), !overLetterView.isPlaced else { return letterView.reset() }
+        guard letterView.letter == overLetterView.letter else { return letterView.reset() }
+        place(letterView, to: overLetterView, from: point)
+    }
+
+    private func place(_ letterView: DraggableLetterView, to targetView: LetterView, from point: CGPoint) {
+        guard let letter = letterView.letter else { return }
         let newView = LetterView(frame: CGRect(origin: .zero, size: letterView.frame.size))
         newView.center = point
         newView.configure(with: .init(letter: letter, tintColor: nil))
@@ -79,15 +88,11 @@ extension MakeAWordViewController: CanvasAlphabetViewDelegate {
         letterView.resetWithScale()
 
         UIView.animate(withDuration: 0.3) { [self] in
-            newView.frame = view.convert(overLetterView.frame, from: wordView)
+            newView.frame = view.convert(targetView.frame, from: wordView)
         } completion: { [weak self] _ in
-            overLetterView.configure(with: .init(letter: letter, tintColor: nil))
+            targetView.configure(with: .init(letter: letter, tintColor: nil))
             newView.removeFromSuperview()
             self?.interactor?.didPlaceLetter(letter)
         }
-    }
-
-    func didFinishWord() {
-        starsView.increaseFilledCount()
     }
 }

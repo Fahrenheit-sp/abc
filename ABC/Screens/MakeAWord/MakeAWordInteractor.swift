@@ -11,15 +11,18 @@ final class MakeAWordInteractor: MakeAWordInteractable {
 
     struct Parameters {
         let wordsStorage: WordsStorable
+        let wordsCount: Int = 5
         let canvas: Canvas
     }
 
     private let parameters: Parameters
     var ui: MakeAWordUserInterface?
     weak var router: MakeAWordRoutable?
+
     private var words: [Word]
     var currentWord: Word?
-    var placedLetters: [Letter] = []
+    var placedLettersCount = 0
+    var finishedWordsCount = 0
 
     init(parameters: Parameters, ui: MakeAWordUserInterface? = nil, router: MakeAWordRoutable? = nil) {
         self.parameters = parameters
@@ -30,16 +33,26 @@ final class MakeAWordInteractor: MakeAWordInteractable {
 
     func didLoad() {
         ui?.configureCanvas(with: parameters.canvas)
+        ui?.configureStarsCount(to: parameters.wordsCount)
         createNewWord()
     }
 
     func didPlaceLetter(_ letter: Letter) {
-        placedLetters.append(letter)
+        placedLettersCount += 1
         guard let word = currentWord else { return }
-        guard placedLetters.count == word.letters.count else { return }
-        placedLetters.removeAll()
-        ui?.didFinishWord()
+        guard placedLettersCount == word.letters.count else { return }
+        finishWord()
+        guard finishedWordsCount < parameters.wordsCount else {
+            ui?.didFinishGame()
+            return
+        }
         createNewWord()
+    }
+
+    private func finishWord() {
+        placedLettersCount = 0
+        finishedWordsCount += 1
+        ui?.didFinishWord()
     }
 
     private func createNewWord() {

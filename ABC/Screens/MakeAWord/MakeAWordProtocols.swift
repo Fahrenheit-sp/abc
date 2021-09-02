@@ -18,5 +18,7 @@ protocol MakeAWordInteractable: AnyObject {
 protocol MakeAWordUserInterface: AnyObject {
     func configureCanvas(with canvas: Canvas)
     func configureWord(with word: Word)
+    func configureStarsCount(to count: Int)
     func didFinishWord()
+    func didFinishGame()
 }

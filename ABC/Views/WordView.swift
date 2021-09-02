@@ -9,12 +9,10 @@ import UIKit
 
 final class WordView: UIView {
 
-    private let word: Word
-    private var stackView: UIStackView!
+    private let stackView = UIStackView().disableAutoresizing()
 
-    required init(word: Word) {
-        self.word = word
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUI()
     }
 
@@ -23,15 +21,19 @@ final class WordView: UIView {
     }
 
     private func setupUI() {
+        stackView.distribution = .fillProportionally
+        embedSubview(stackView)
+    }
+
+    func setWord(to word: Word) {
+        stackView.removeAllArrangedSubviews()
+
         let letterViews = word.letters.map { letter -> LetterView in
             let view = LetterView()
             view.configure(with: .init(letter: letter, tintColor: .lightGray))
             return view
         }
-
-        stackView = UIStackView(arrangedSubviews: letterViews)
-        stackView.distribution = .fillProportionally
-        embedSubview(stackView)
+        letterViews.forEach { stackView.addArrangedSubview($0) }
     }
 
     func letterView(at point: CGPoint) -> LetterView? {

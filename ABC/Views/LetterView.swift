@@ -14,8 +14,18 @@ struct LetterViewModel {
 
 final class LetterView: UIView {
 
+    enum State {
+        case placed
+        case gray
+    }
+
     private let imageView = UIImageView().disableAutoresizing()
     private(set) var letter: Letter?
+    private var state: State = .gray
+
+    var isPlaced: Bool {
+        state == .placed
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,6 +51,8 @@ final class LetterView: UIView {
         
         imageView.image = image
         imageView.tintColor = model.tintColor
+
+        self.state = model.tintColor == nil ? .placed : .gray
     }
 
 }

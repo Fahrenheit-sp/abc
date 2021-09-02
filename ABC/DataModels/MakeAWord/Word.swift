@@ -14,6 +14,6 @@ struct Word {
 
     init(string: String) {
         self.string = string
-        self.letters = string.map { Letter(symbol: $0) }
+        self.letters = string.lowercased().map { Letter(symbol: $0) }
     }
 }
