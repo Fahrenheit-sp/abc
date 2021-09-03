@@ -21,7 +21,7 @@ class DraggableLetterView: UIView {
         return recognizer
     }()
 
-    private var lastLocation: CGPoint = .zero
+    private var lastLocation: CGPoint?
     private var startingPoint: CGPoint?
 
     let letter: Letter?
@@ -37,6 +37,9 @@ class DraggableLetterView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        if lastLocation == nil {
+            lastLocation = center
+        }
         if startingPoint == nil {
             startingPoint = center
         }
@@ -54,7 +57,7 @@ class DraggableLetterView: UIView {
     }
 
     @objc private func panRecognized(_ recognizer: UIPanGestureRecognizer) {
-        center = recognizer.translation(in: superview) + lastLocation
+        center = recognizer.translation(in: superview) + lastLocation.or(center)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
