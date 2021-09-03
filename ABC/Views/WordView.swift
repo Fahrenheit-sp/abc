@@ -9,38 +9,53 @@ import UIKit
 
 final class WordView: UIView {
 
-    private let stackView = UIStackView().disableAutoresizing()
+    private var stackView: UIStackView!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupUI() {
-        stackView.distribution = .fillProportionally
-        addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard stackView.frame.width == 0 else { return }
+        fixStackWidth()
     }
 
     func setWord(to word: Word) {
-        stackView.removeAllArrangedSubviews()
+        stackView?.removeFromSuperview()
 
         let letterViews = word.letters.map { letter -> LetterView in
             let view = LetterView()
             view.configure(with: .init(letter: letter, tintColor: .lightGray))
             return view
         }
-        letterViews.forEach { stackView.addArrangedSubview($0) }
+
+        stackView = UIStackView(arrangedSubviews: letterViews).disableAutoresizing()
+        stackView.distribution = .fillProportionally
+        addSubview(stackView)
+
+        NSLayoutConstraint.activate(flexibleConstraints())
+    }
+
+    private func flexibleConstraints() -> [NSLayoutConstraint] {
+        [
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ]
+    }
+
+    private func fixedConstraints() -> [NSLayoutConstraint] {
+        [
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ]
+    }
+
+    private func fixStackWidth() {
+        NSLayoutConstraint.deactivate(constraints)
+        NSLayoutConstraint.activate(fixedConstraints())
     }
 
     func letterView(at point: CGPoint) -> LetterView? {
