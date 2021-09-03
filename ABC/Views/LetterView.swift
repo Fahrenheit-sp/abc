@@ -55,4 +55,9 @@ final class LetterView: UIView {
         self.state = model.tintColor == nil ? .placed : .gray
     }
 
+    func setState(to state: State) {
+        guard let letter = letter else { return }
+        configure(with: .init(letter: letter, tintColor: state == .placed ? nil : .lightGray))
+    }
+
 }

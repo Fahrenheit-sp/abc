@@ -22,7 +22,14 @@ final class WordView: UIView {
 
     private func setupUI() {
         stackView.distribution = .fillProportionally
-        embedSubview(stackView)
+        addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+            stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
     }
 
     func setWord(to word: Word) {
@@ -37,7 +44,17 @@ final class WordView: UIView {
     }
 
     func letterView(at point: CGPoint) -> LetterView? {
-        let selfPoint = convert(point, from: superview)
+        let selfPoint = stackView.convert(point, from: superview)
         return stackView.arrangedSubviews.first { $0.frame.contains(selfPoint) }.flatMap { $0 as? LetterView }
+    }
+
+    func place(_ letterView: LetterView, at targetView: LetterView, completion: @escaping () -> Void) {
+        UIView.animate(withDuration: 0.3) { [self] in
+            letterView.frame = superview.or(self).convert(targetView.frame, from: stackView)
+        } completion: { _ in
+            targetView.setState(to: .placed)
+            letterView.removeFromSuperview()
+            completion()
+        }
     }
 }

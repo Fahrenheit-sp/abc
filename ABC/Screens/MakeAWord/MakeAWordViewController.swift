@@ -42,8 +42,8 @@ final class MakeAWordViewController: UIViewController {
 
             wordView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             wordView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            wordView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 8),
-            wordView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -8)
+            wordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            wordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
         ])
     }
 
@@ -87,11 +87,7 @@ extension MakeAWordViewController: CanvasAlphabetViewDelegate {
 
         letterView.resetWithScale()
 
-        UIView.animate(withDuration: 0.3) { [self] in
-            newView.frame = view.convert(targetView.frame, from: wordView)
-        } completion: { [weak self] _ in
-            targetView.configure(with: .init(letter: letter, tintColor: nil))
-            newView.removeFromSuperview()
+        wordView.place(newView, at: targetView) { [weak self] in
             self?.interactor?.didPlaceLetter(letter)
         }
     }
