@@ -7,8 +7,7 @@
 
 import Foundation
 
-protocol CanvasRoutable: AnyObject, Router {
-}
+protocol CanvasRoutable: AnyObject, Router {}
 
 protocol CanvasInteractable: AnyObject {
     func didLoad()

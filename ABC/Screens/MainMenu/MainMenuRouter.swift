@@ -63,9 +63,11 @@ final class MainMenuRouter: MainMenuRoutable {
             let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
-        default:
-            router = MainMenuRouter(parameters: .init(items: []))
-            view?.present(UIViewController(), animated: true)
+        case .listen:
+            router = ListenRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english)))
+            let controller = router.makeController()
+            controller.modalPresentationStyle = .overFullScreen
+            view?.present(controller, animated: true)
         }
         currentRouter = router
     }
