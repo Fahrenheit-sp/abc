@@ -20,9 +20,9 @@ final class MakeAWordInteractor: MakeAWordInteractable {
     weak var router: MakeAWordRoutable?
 
     private var words: [Word]
-    var currentWord: Word?
-    var placedLettersCount = 0
-    var finishedWordsCount = 0
+    private var currentWord: Word?
+    private var placedLettersCount = 0
+    private var finishedWordsCount = 0
 
     init(parameters: Parameters, ui: MakeAWordUserInterface? = nil, router: MakeAWordRoutable? = nil) {
         self.parameters = parameters

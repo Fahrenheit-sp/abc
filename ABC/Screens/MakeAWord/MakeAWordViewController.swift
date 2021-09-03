@@ -80,7 +80,7 @@ extension MakeAWordViewController: CanvasAlphabetViewDelegate {
 
     private func place(_ letterView: DraggableLetterView, to targetView: LetterView, from point: CGPoint) {
         guard let letter = letterView.letter else { return }
-        let newView = LetterView(frame: CGRect(origin: .zero, size: letterView.frame.size))
+        let newView = LetterView(frame: .init(origin: .zero, size: letterView.frame.size))
         newView.center = point
         newView.configure(with: .init(letter: letter, tintColor: nil))
         view.addSubview(newView)

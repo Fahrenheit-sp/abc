@@ -88,7 +88,7 @@ final class CanvasAlphabetView: UIView {
 
 extension CanvasAlphabetView: DraggableLetterViewDelegate {
     func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
-        let point = letterView.superview?.convert(letterView.center, to: superview) ?? .zero
+        let point = letterView.superview.or(self).convert(letterView.center, to: superview)
         delegate?.canvasView(self, didEndDragging: letterView, at: point)
     }
 }

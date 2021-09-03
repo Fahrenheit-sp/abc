@@ -7,8 +7,7 @@
 
 import Foundation
 
-protocol MakeAWordRoutable: AnyObject, Router {
-}
+protocol MakeAWordRoutable: AnyObject, Router {}
 
 protocol MakeAWordInteractable: AnyObject {
     func didLoad()
