@@ -11,8 +11,12 @@ protocol ListenRoutable: AnyObject, Router {}
 
 protocol ListenInteractable: AnyObject {
     func didLoad()
+    func didPressPlay()
+    func didSelect(letter: Letter)
 }
 
 protocol ListenUserInterface: AnyObject {
     func configure(with model: ListenViewModel)
+    func handleWrongSelection(of letter: Letter)
+    func handleRightSelection(of letter: Letter)
 }

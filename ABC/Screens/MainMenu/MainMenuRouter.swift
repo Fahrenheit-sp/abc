@@ -64,7 +64,7 @@ final class MainMenuRouter: MainMenuRoutable {
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .listen:
-            router = ListenRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.numbers),
+            router = ListenRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english),
                                                     mode: .alphabet))
             let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen

@@ -52,6 +52,9 @@ internal enum Asset {
     internal static let y = ImageAsset(name: "y")
     internal static let z = ImageAsset(name: "z")
   }
+  internal enum Listen {
+    internal static let playButton = ImageAsset(name: "play_button")
+  }
   internal enum Numbers {
     internal static let _0 = ImageAsset(name: "0")
     internal static let _1 = ImageAsset(name: "1")

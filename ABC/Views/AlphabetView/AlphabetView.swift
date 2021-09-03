@@ -73,8 +73,11 @@ final class AlphabetView: UIView {
         }
     }
 
-    func reload() {
+    func reload(animated: Bool = false) {
+        guard animated else { return collectionView.reloadData() }
+
         collectionView.reloadData()
+        UIView.transition(with: collectionView, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
     }
     
 }
