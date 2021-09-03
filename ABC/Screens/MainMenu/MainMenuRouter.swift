@@ -38,13 +38,13 @@ final class MainMenuRouter: MainMenuRoutable {
         switch item {
         case .alphabet:
             router = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english),
-                                                      configuration: .alphabet))
+                                                      mode: .alphabet))
             let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .numbers:
             router = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.numbers),
-                                                      configuration: .numbers))
+                                                      mode: .numbers))
             let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
@@ -64,7 +64,8 @@ final class MainMenuRouter: MainMenuRoutable {
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)
         case .listen:
-            router = ListenRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english)))
+            router = ListenRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.numbers),
+                                                    mode: .alphabet))
             let controller = router.makeController()
             controller.modalPresentationStyle = .overFullScreen
             view?.present(controller, animated: true)

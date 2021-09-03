@@ -11,6 +11,7 @@ final class ListenRouter: ListenRoutable {
 
     struct Parameters {
         let alphabet: Alphabet
+        let mode: AlphabetViewMode
     }
 
     private let parameters: Parameters
@@ -20,7 +21,8 @@ final class ListenRouter: ListenRoutable {
     }
 
     func makeController() -> UIViewController {
-        let controller = ListenViewController()
+        let controller = ListenViewController(model: .init(alphabet: parameters.alphabet),
+                                              configuration: .init(spacing: parameters.mode.spacing))
         let interactor = ListenInteractor(parameters: .init(alphabet: parameters.alphabet),
                                           router: self,
                                           ui: controller)

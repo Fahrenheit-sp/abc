@@ -13,4 +13,6 @@ protocol ListenInteractable: AnyObject {
     func didLoad()
 }
 
-protocol ListenUserInterface: AnyObject {}
+protocol ListenUserInterface: AnyObject {
+    func configure(with model: ListenViewModel)
+}

@@ -24,6 +24,6 @@ final class ListenInteractor: ListenInteractable {
     }
 
     func didLoad() {
-        print("Loaded")
+        ui.configure(with: .init(alphabet: parameters.alphabet))
     }
 }
