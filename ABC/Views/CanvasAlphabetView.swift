@@ -7,13 +7,17 @@
 
 import UIKit
 
+protocol CanvasAlphabetViewDelegate: AnyObject {
+    func canvasView(_ canvasView: CanvasAlphabetView, didEndDragging letterView: DraggableLetterView, at point: CGPoint)
+}
+
 final class CanvasAlphabetView: UIView {
 
     private let topStack = UIStackView().disableAutoresizing()
     private let middleStack = UIStackView().disableAutoresizing()
     private let bottomStack = UIStackView().disableAutoresizing()
 
-    weak var lettersDelegate: DraggableLetterViewDelegate?
+    weak var delegate: CanvasAlphabetViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,7 +75,7 @@ final class CanvasAlphabetView: UIView {
             .map { model.letters(in: $0)
                 .map { letter -> DraggableLetterView in
                     let view = DraggableLetterView(letter: letter)
-                    view.delegate = lettersDelegate
+                    view.delegate = self
                     return view
                 }
             }
@@ -79,5 +83,12 @@ final class CanvasAlphabetView: UIView {
         letterViews[0].forEach { topStack.addArrangedSubview($0) }
         letterViews[1].forEach { middleStack.addArrangedSubview($0) }
         letterViews[2].forEach { bottomStack.addArrangedSubview($0) }
+    }
+}
+
+extension CanvasAlphabetView: DraggableLetterViewDelegate {
+    func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
+        let point = letterView.superview.or(self).convert(letterView.center, to: superview)
+        delegate?.canvasView(self, didEndDragging: letterView, at: point)
     }
 }
