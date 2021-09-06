@@ -33,6 +33,7 @@ final class ListenInteractor: ListenInteractable {
     func didPressPlay() {
         if currentLetter == nil {
             currentLetter = getNextLetter()
+            ui.configure(with: .init(alphabet: getRandomElementsExcept(currentLetter)))
         }
         playCurrentLetterSound()
     }
@@ -43,6 +44,7 @@ final class ListenInteractor: ListenInteractable {
         ui.handleRightSelection(of: letter)
 
         currentLetter = getNextLetter()
+        ui.configure(with: .init(alphabet: getRandomElementsExcept(currentLetter)))
         playCurrentLetterSound()
     }
 
@@ -57,5 +59,14 @@ final class ListenInteractor: ListenInteractable {
 
     private func playCurrentLetterSound() {
         currentLetter.map { player.playLetterSound(named: String($0.symbol)) }
+    }
+
+    private func getRandomElementsExcept(_ element: Letter?, count: Int = 5) -> Alphabet {
+        guard let letter = element, count < parameters.alphabet.letters.count else { return parameters.alphabet }
+        var letters: Set<Letter> = [letter]
+        while letters.count < count + 1 {
+            parameters.alphabet.letters.randomElement().map { letters.insert($0) }
+        }
+        return Custom(letters: Array(letters), numberOfRows: 3, numberOfLettersInRow: 2)
     }
 }

@@ -25,7 +25,7 @@ final class AlphabetView: UIView {
     }()
 
     private let configuration: Configuration
-    private let viewModel: AlphabetViewViewModel
+    private var viewModel: AlphabetViewViewModel
     private var rowWidthsCache: [Int: CGFloat] = [:]
 
     weak var dataSource: AlphabetViewDataSource?
@@ -79,6 +79,11 @@ final class AlphabetView: UIView {
         collectionView.reloadData()
         UIView.transition(with: collectionView, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
     }
+
+    func setModel(to model: AlphabetViewViewModel, animated: Bool = true) {
+        self.viewModel = model
+        reload(animated: animated)
+    }
     
 }
 
@@ -118,6 +123,7 @@ extension AlphabetView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
+        guard !viewModel.isAligned else { return .zero }
         let rowWidth = calculateWidth(of: section)
         guard collectionView.bounds.width > rowWidth else { return .zero }
         let sideInset = (collectionView.bounds.width - rowWidth) / 2.0
@@ -128,6 +134,7 @@ extension AlphabetView: UICollectionViewDelegateFlowLayout {
     }
 
     private func widthForItem(at indexPath: IndexPath) -> CGFloat {
+        guard !viewModel.isAligned else { return calculateAlignedItemWidth() }
         let collectionWidth = collectionView.bounds.width
         let rowWidth = calculateWidth(of: indexPath.section)
 
@@ -139,6 +146,11 @@ extension AlphabetView: UICollectionViewDelegateFlowLayout {
         let difference = rowWidth - collectionWidth
         let reducingAmount = (difference / CGFloat(viewModel.numberOfLetters(in: indexPath.section))) + 0.1
         return imageWidth.or(.zero) - reducingAmount
+    }
+
+    private func calculateAlignedItemWidth() -> CGFloat {
+        let spacings = CGFloat(viewModel.numberOfLetters(in: 0) - 1) * configuration.spacing
+        return (collectionView.bounds.width - spacings - 1) / CGFloat(viewModel.numberOfLetters(in: 0))
     }
 
     private func calculateWidth(of row: Int) -> CGFloat {

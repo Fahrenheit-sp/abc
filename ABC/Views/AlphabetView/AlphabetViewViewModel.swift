@@ -15,6 +15,10 @@ struct AlphabetViewViewModel {
         alphabet.numberOfRows
     }
 
+    var isAligned: Bool {
+        alphabet.numberOfLetters(in: 0) * alphabet.numberOfRows == alphabet.letters.count
+    }
+
     init(alphabet: Alphabet) {
         self.alphabet = alphabet
     }

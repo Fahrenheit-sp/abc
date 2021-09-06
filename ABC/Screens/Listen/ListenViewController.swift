@@ -16,9 +16,6 @@ final class ListenViewController: UIViewController {
     private let playButton = UIButton().disableAutoresizing()
     private let alphabetView: AlphabetView
     private let configuration: Configuration
-    private var isGameStarted = false {
-        didSet { alphabetView.reload(animated: true) }
-    }
 
     var interactor: ListenInteractable?
 
@@ -78,16 +75,13 @@ final class ListenViewController: UIViewController {
     }
 
     @objc private func didPressPlay() {
-        if !isGameStarted {
-            isGameStarted = true
-        }
         interactor?.didPressPlay()
     }
 }
 
 extension ListenViewController: ListenUserInterface {
     func configure(with model: ListenViewModel) {
-        alphabetView.reload()
+        alphabetView.setModel(to: .init(alphabet: model.alphabet), animated: false)
     }
 
     func handleWrongSelection(of letter: Letter) {
@@ -101,7 +95,7 @@ extension ListenViewController: ListenUserInterface {
 
 extension ListenViewController: AlphabetViewDataSource {
     func state(for letter: Letter) -> LetterView.State {
-        isGameStarted ? .placed : .gray
+        .placed
     }
 }
 
