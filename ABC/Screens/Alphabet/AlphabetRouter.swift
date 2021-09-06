@@ -9,17 +9,9 @@ import UIKit
 
 final class AlphabetRouter: AlphabetRoutable {
 
-    struct Configuration {
-        let insets: UIEdgeInsets
-        let spacing: CGFloat
-
-        static let alphabet = Self.init(insets: .zero, spacing: UIScreen.main.bounds.width > 400 ? 8 : 0)
-        static let numbers = Self.init(insets: .init(top: 32, left: 32, bottom: 0, right: 32), spacing: 16)
-    }
-
     struct Parameters {
         let alphabet: Alphabet
-        let configuration: Configuration
+        let mode: AlphabetViewMode
     }
 
     private let parameters: Parameters
@@ -31,7 +23,8 @@ final class AlphabetRouter: AlphabetRoutable {
 
     func makeController() -> UIViewController {
         let view = AlphabetViewController(viewModel: .init(alphabet: parameters.alphabet),
-                                          configuration: .init(insets: parameters.configuration.insets, spacing: parameters.configuration.spacing))
+                                          configuration: .init(insets: parameters.mode.insets,
+                                                               spacing: parameters.mode.spacing))
         let interactor = AlphabetInteractor(parameters: .init(alphabet: parameters.alphabet, mode: .ordered))
         interactor.router = self
         interactor.ui = view

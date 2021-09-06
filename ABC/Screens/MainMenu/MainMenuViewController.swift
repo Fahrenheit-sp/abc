@@ -15,8 +15,7 @@ struct MainMenuScreenViewModel {
     }
 
     var cellModels: [MainMenuCellViewModel] {
-        #warning("Image")
-        return items.map { MainMenuCellViewModel(title: $0.title, image: UIImage()) }
+        return items.map { MainMenuCellViewModel(title: $0.title, image: $0.image.image) }
     }
 }
 
@@ -56,6 +55,12 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
 
         collectionView.dataSource = self
         collectionView.delegate = self
+
+        backgroundImageView.image = Asset.Menu.background.image
+        backgroundImageView.contentMode = .scaleAspectFill
+        
+        titleImageView.image = Asset.Menu.abc.image
+        titleImageView.contentMode = .scaleAspectFit
     }
 
     private func setupLayout() {
@@ -72,7 +77,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
         ]
 
         let collectionConstraints = [
-            collectionView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 8),
+            collectionView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 8)

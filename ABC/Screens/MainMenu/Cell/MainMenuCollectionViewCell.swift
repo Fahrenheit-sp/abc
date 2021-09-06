@@ -23,17 +23,18 @@ final class MainMenuCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
+        contentView.roundCorners(to: 20)
+
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
 
         let imageConstraints = [
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -8)
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ]
 
         let labelConstraints = [
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
@@ -47,9 +48,10 @@ final class MainMenuCollectionViewCell: UICollectionViewCell {
         
         imageView.contentMode = .scaleAspectFit
 
-        titleLabel.numberOfLines = 0
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         titleLabel.textAlignment = .center
         titleLabel.textColor = .black
+        titleLabel.font = .current(size: 29)
     }
 
     func configure(with model: MainMenuCellViewModel) {
