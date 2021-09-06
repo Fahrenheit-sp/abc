@@ -33,14 +33,13 @@ final class CanvasViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         view.addSubview(clearButton)
         view.addSubview(canvasAlphabetView)
 
         canvasAlphabetView.delegate = self
 
-        clearButton.setTitle(L10n.Canvas.clear.uppercased(), for: .normal)
-        clearButton.setTitleColor(.systemBlue, for: .normal)
+        clearButton.setImage(Asset.Icons.recycleBin.image, for: .normal)
         clearButton.addTarget(self, action: #selector(didTapClear), for: .touchUpInside)
     }
 
@@ -51,6 +50,8 @@ final class CanvasViewController: UIViewController {
             canvasAlphabetView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             canvasAlphabetView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.23),
 
+            clearButton.widthAnchor.constraint(equalTo: clearButton.heightAnchor),
+            clearButton.widthAnchor.constraint(equalToConstant: 44),
             clearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])

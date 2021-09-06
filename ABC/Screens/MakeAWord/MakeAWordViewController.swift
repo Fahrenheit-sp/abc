@@ -23,7 +23,7 @@ final class MakeAWordViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         view.addSubview(starsView)
         view.addSubview(canvasView)
         view.addSubview(wordView)

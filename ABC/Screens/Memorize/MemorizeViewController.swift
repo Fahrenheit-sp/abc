@@ -11,6 +11,8 @@ final class MemorizeViewController: UIViewController {
 
     var interactor: MemorizeInteractable?
 
+    private let backgroundImageView = UIImageView().disableAutoresizing()
+
     private lazy var collectionView = {
         UICollectionView(frame: .zero, collectionViewLayout: layout).disableAutoresizing()
     }()
@@ -33,19 +35,26 @@ final class MemorizeViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .white
+        view.addSubview(backgroundImageView)
         view.addSubview(collectionView)
+
+        backgroundImageView.image = Asset.Menu.background.image
+        backgroundImageView.contentMode = .scaleAspectFill
 
         collectionView.register(MemorizeCollectionViewCell.self)
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
 
-        NSLayoutConstraint.activate([
+        let backgroundConstraints = backgroundImageView.createConstraintsForEmbedding(in: view)
+        let collectionConstraints = [
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
-        ])
+        ]
+
+        NSLayoutConstraint.activate(backgroundConstraints + collectionConstraints)
     }
 
 }

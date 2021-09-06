@@ -24,6 +24,9 @@ internal enum Asset {
     internal static let starEmpty = ImageAsset(name: "star_empty")
     internal static let starFilled = ImageAsset(name: "star_filled")
   }
+  internal enum Icons {
+    internal static let recycleBin = ImageAsset(name: "recycle_bin")
+  }
   internal enum Letters {
     internal static let a = ImageAsset(name: "a")
     internal static let b = ImageAsset(name: "b")
@@ -54,6 +57,16 @@ internal enum Asset {
   }
   internal enum Listen {
     internal static let playButton = ImageAsset(name: "play_button")
+  }
+  internal enum Menu {
+    internal static let abc = ImageAsset(name: "abc")
+    internal static let alphabet = ImageAsset(name: "alphabet")
+    internal static let background = ImageAsset(name: "background")
+    internal static let canvas = ImageAsset(name: "canvas")
+    internal static let listen = ImageAsset(name: "listen")
+    internal static let makeAWord = ImageAsset(name: "make_a_word")
+    internal static let memorize = ImageAsset(name: "memorize")
+    internal static let numbers = ImageAsset(name: "numbers")
   }
   internal enum Numbers {
     internal static let _0 = ImageAsset(name: "0")

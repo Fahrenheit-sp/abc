@@ -41,7 +41,7 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
     }
 
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .background
 
         alphabetView.dataSource = self
     }

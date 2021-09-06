@@ -45,7 +45,7 @@ final class ListenViewController: UIViewController {
 
 
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .background
 
         alphabetView.delegate = self
         alphabetView.dataSource = self

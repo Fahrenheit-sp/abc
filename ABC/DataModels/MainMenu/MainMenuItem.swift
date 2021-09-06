@@ -25,4 +25,15 @@ enum MainMenuItem: CaseIterable {
         case .memorize: return L10n.Menu.Item.memorize
         }
     }
+
+    var image: ImageAsset {
+        switch self {
+        case .alphabet: return Asset.Menu.alphabet
+        case .numbers: return Asset.Menu.numbers
+        case .canvas: return Asset.Menu.canvas
+        case .makeAWord: return Asset.Menu.makeAWord
+        case .listen: return Asset.Menu.listen
+        case .memorize: return Asset.Menu.memorize
+        }
+    }
 }
