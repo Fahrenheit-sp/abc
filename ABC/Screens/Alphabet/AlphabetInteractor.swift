@@ -17,7 +17,7 @@ final class AlphabetInteractor: AlphabetInteractable {
     private let parameters: Parameters
     private var placedLetters: Set<Letter> = []
 
-    var ui: AlphabetUserInterface?
+    weak var ui: AlphabetUserInterface?
     weak var router: AlphabetRoutable?
 
     internal init(parameters: Parameters, ui: AlphabetUserInterface? = nil, router: AlphabetRoutable? = nil) {

@@ -14,7 +14,7 @@ final class CanvasInteractor: CanvasInteractable {
     }
 
     private let parameters: Parameters
-    var ui: CanvasUserInterface?
+    weak var ui: CanvasUserInterface?
     weak var router: CanvasRoutable?
 
     init(parameters: Parameters, ui: CanvasUserInterface? = nil, router: CanvasRoutable? = nil) {

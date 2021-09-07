@@ -25,7 +25,7 @@ final class AlphabetRouter: AlphabetRoutable {
         let view = AlphabetViewController(viewModel: .init(alphabet: parameters.alphabet),
                                           configuration: .init(insets: parameters.mode.insets,
                                                                spacing: parameters.mode.spacing))
-        let interactor = AlphabetInteractor(parameters: .init(alphabet: parameters.alphabet, mode: .ordered))
+        let interactor = AlphabetInteractor(parameters: .init(alphabet: parameters.alphabet, mode: .shuffled))
         interactor.router = self
         interactor.ui = view
         view.interactor = interactor

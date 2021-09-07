@@ -62,12 +62,12 @@ final class ListenViewController: UIViewController {
         view.addSubview(playButton)
 
         NSLayoutConstraint.activate([
-            playButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            playButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             playButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
             playButton.widthAnchor.constraint(equalTo: playButton.heightAnchor),
 
-            alphabetView.topAnchor.constraint(equalTo: playButton.bottomAnchor, constant: 24),
+            alphabetView.topAnchor.constraint(equalTo: playButton.bottomAnchor, constant: 12),
             alphabetView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             alphabetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             alphabetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
