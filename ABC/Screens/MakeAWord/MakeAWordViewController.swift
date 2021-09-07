@@ -67,7 +67,15 @@ extension MakeAWordViewController: MakeAWordUserInterface {
     }
 
     func didFinishGame() {
-        print("Finished")
+        let confettiView = ConfettiView()
+        view.addSubview(confettiView)
+
+        confettiView.emit(with: [
+          .text("🤩"),
+          .text("📱"),
+          .shape(.circle, .purple),
+          .shape(.triangle, .orange),
+        ]) { [weak self] _ in self?.interactor?.finish() }
     }
 }
 

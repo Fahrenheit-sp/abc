@@ -7,11 +7,18 @@
 
 import Foundation
 
-protocol MakeAWordRoutable: AnyObject, Router {}
+protocol MakeAWordRouterDelegate: AnyObject {
+    func makeAWordRouterDidFinish(_ router: Router)
+}
+
+protocol MakeAWordRoutable: AnyObject, Router {
+    func finish()
+}
 
 protocol MakeAWordInteractable: AnyObject {
     func didLoad()
     func didPlaceLetter(_ letter: Letter)
+    func finish()
 }
 
 protocol MakeAWordUserInterface: AnyObject {

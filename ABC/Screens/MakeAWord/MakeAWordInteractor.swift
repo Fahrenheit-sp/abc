@@ -49,6 +49,10 @@ final class MakeAWordInteractor: MakeAWordInteractable {
         createNewWord()
     }
 
+    func finish() {
+        router?.finish()
+    }
+
     private func finishWord() {
         placedLettersCount = 0
         finishedWordsCount += 1

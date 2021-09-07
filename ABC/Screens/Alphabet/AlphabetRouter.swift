@@ -17,6 +17,8 @@ final class AlphabetRouter: AlphabetRoutable {
     private let parameters: Parameters
     private weak var view: UIViewController?
 
+    weak var delegate: AlphabetRouterDelegate?
+
     init(parameters: Parameters) {
         self.parameters = parameters
     }
@@ -33,5 +35,9 @@ final class AlphabetRouter: AlphabetRoutable {
         self.view = view
 
         return view
+    }
+
+    func finish() {
+        delegate?.alphabetRouterDidFinish(self)
     }
 }

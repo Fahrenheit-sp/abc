@@ -14,6 +14,7 @@ final class MemorizeRouter: MemorizeRoutable {
     }
 
     private let parameters: Parameters
+    weak var delegate: MakeAWordRouterDelegate?
 
     init(parameters: Parameters) {
         self.parameters = parameters
@@ -26,6 +27,6 @@ final class MemorizeRouter: MemorizeRoutable {
     }
 
     func didFinishGame() {
-        print("finished")
+        delegate?.makeAWordRouterDidFinish(self)
     }
 }

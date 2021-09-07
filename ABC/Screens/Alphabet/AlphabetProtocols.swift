@@ -7,7 +7,12 @@
 
 import Foundation
 
+protocol AlphabetRouterDelegate: AnyObject {
+    func alphabetRouterDidFinish(_ router: Router)
+}
+
 protocol AlphabetRoutable: AnyObject, Router {
+    func finish()
 }
 
 protocol AlphabetInteractable: AnyObject {
@@ -15,8 +20,10 @@ protocol AlphabetInteractable: AnyObject {
     func didPlaceLetter(_ letter: Letter)
 
     func getNextLetter() -> Letter?
+    func finish()
 }
 
 protocol AlphabetUserInterface: AnyObject {
     func configure(with model: AlphabetScreenViewModel)
+    func didFinish()
 }

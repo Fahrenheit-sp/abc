@@ -37,6 +37,7 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.backIndicatorImage = Asset.Icons.back.image
         navigationController.navigationBar.backIndicatorTransitionMaskImage = Asset.Icons.back.image
+        navigationController.interactivePopGestureRecognizer?.isEnabled = false
         navigationController.view.backgroundColor = .clear
 
         navigationController.delegate = self
@@ -54,20 +55,25 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
     }
 
     func mainMenuDidSelect(item: MainMenuItem) {
+
         let router: Router
         switch item {
-        case .alphabet:
-            router = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english),
-                                                      mode: .alphabet))
-        case .numbers:
-            router = AlphabetRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.numbers),
-                                                      mode: .numbers))
+        case .alphabet, .numbers:
+            let alphabet = item == .alphabet ? AlphabetsFactory.getAlphabet(.english) : AlphabetsFactory.getAlphabet(.numbers)
+            let mode: AlphabetViewMode = item == .alphabet ? .alphabet : .numbers
+            let alphabetRouter = AlphabetRouter(parameters: .init(alphabet: alphabet, mode: mode))
+            alphabetRouter.delegate = self
+            router = alphabetRouter
         case .canvas:
             router = CanvasRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english)))
         case .memorize:
-            router = MemorizeRouter(parameters: .init(memorizable: AlphabetsFactory.getAlphabet(.english)))
+            let memorizeRouter = MemorizeRouter(parameters: .init(memorizable: AlphabetsFactory.getAlphabet(.english)))
+            memorizeRouter.delegate = self
+            router = memorizeRouter
         case .makeAWord:
-            router = MakeAWordRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english)))
+            let makeAWordRouter = MakeAWordRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english)))
+            makeAWordRouter.delegate = self
+            router = makeAWordRouter
         case .listen:
             router = ListenRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english),
                                                     mode: .alphabet))
@@ -87,5 +93,23 @@ extension MainMenuRouter: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController,
                               willShow viewController: UIViewController, animated: Bool) {
         navigationController.isNavigationBarHidden = viewController is MainMenuViewController
+    }
+}
+
+extension MainMenuRouter: AlphabetRouterDelegate {
+    func alphabetRouterDidFinish(_ router: Router) {
+        view?.popViewController(animated: true)
+    }
+}
+
+extension MainMenuRouter: MakeAWordRouterDelegate {
+    func makeAWordRouterDidFinish(_ router: Router) {
+        view?.popViewController(animated: true)
+    }
+}
+
+extension MainMenuRouter: MemorizeRouterDelegate {
+    func memorizeRouterDidFinish(_ router: Router) {
+        view?.popViewController(animated: true)
     }
 }
