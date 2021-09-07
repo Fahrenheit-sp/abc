@@ -15,6 +15,8 @@ final class MakeAWordRouter: MakeAWordRoutable {
 
     private let parameters: Parameters
 
+    weak var delegate: MakeAWordRouterDelegate?
+
     init(parameters: Parameters) {
         self.parameters = parameters
     }
@@ -26,5 +28,9 @@ final class MakeAWordRouter: MakeAWordRoutable {
                                                     ui: controller,
                                                     router: self)
         return controller
+    }
+
+    func finish() {
+        delegate?.makeAWordRouterDidFinish(self)
     }
 }

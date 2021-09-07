@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AlphabetViewController: UIViewController, AlphabetUserInterface {
+final class AlphabetViewController: UIViewController {
 
     struct Configuration {
         let insets: UIEdgeInsets
@@ -58,12 +58,6 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
         ])
     }
 
-    func configure(with model: AlphabetScreenViewModel) {
-        viewModel = model
-        alphabetView.reload()
-        configureLetterView()
-    }
-
     private func configureLetterView() {
         let letter = interactor?.getNextLetter()
         let letterView = DraggableLetterView(letter: letter).disableAutoresizing()
@@ -76,6 +70,27 @@ final class AlphabetViewController: UIViewController, AlphabetUserInterface {
             letterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             letterView.widthAnchor.constraint(equalTo: letterView.heightAnchor, multiplier: letter?.image?.aspectRatio ?? 1.0)
         ])
+    }
+}
+
+extension AlphabetViewController: AlphabetUserInterface {
+
+    func configure(with model: AlphabetScreenViewModel) {
+        viewModel = model
+        alphabetView.reload()
+        configureLetterView()
+    }
+
+    func didFinish() {
+        let confettiView = ConfettiView()
+        view.addSubview(confettiView)
+
+        confettiView.emit(with: [
+          .text("🤩"),
+          .text("📱"),
+          .shape(.circle, .purple),
+          .shape(.triangle, .orange),
+        ]) { [weak self] _ in self?.interactor?.finish() }
     }
 }
 

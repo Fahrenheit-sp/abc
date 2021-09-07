@@ -36,7 +36,13 @@ final class AlphabetInteractor: AlphabetInteractable {
     }
 
     func getNextLetter() -> Letter? {
-        parameters.mode == .ordered ? getNextOrderedLetter() : getNextShuffledLetter()
+        let letter = parameters.mode == .ordered ? getNextOrderedLetter() : getNextShuffledLetter()
+        guard letter != nil else { ui?.didFinish(); return nil}
+        return letter
+    }
+
+    func finish() {
+        router?.finish()
     }
 
     private func getNextShuffledLetter() -> Letter? {

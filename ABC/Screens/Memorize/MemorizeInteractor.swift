@@ -56,7 +56,7 @@ final class MemorizeInteractor: MemorizeInteractable {
     private var openedLettersCount = 0 {
         didSet {
             guard openedLettersCount == letterPairs.count else { return }
-            router?.didFinishGame()
+            ui?.didFinish()
         }
     }
 
@@ -77,6 +77,10 @@ final class MemorizeInteractor: MemorizeInteractable {
         let letter = letterPairs[index]
         pair.openLetter(letter, at: indexPath)
         checkIsPairMatched()
+    }
+
+    func finish() {
+        router?.didFinishGame()
     }
 
     private func checkIsPairMatched() {
