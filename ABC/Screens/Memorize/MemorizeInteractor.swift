@@ -47,7 +47,7 @@ private struct Pair {
 
 final class MemorizeInteractor: MemorizeInteractable {
 
-    var ui: MemorizeUserInterface?
+    weak var ui: MemorizeUserInterface?
     weak var router: MemorizeRoutable?
     private let memorizable: Memorizable & Alphabet
     private var letterPairs: [Letter] = []

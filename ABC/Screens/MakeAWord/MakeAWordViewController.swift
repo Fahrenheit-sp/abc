@@ -25,8 +25,8 @@ final class MakeAWordViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .background
         view.addSubview(starsView)
-        view.addSubview(canvasView)
         view.addSubview(wordView)
+        view.addSubview(canvasView)
 
         canvasView.delegate = self
 

@@ -16,7 +16,7 @@ final class MakeAWordInteractor: MakeAWordInteractable {
     }
 
     private let parameters: Parameters
-    var ui: MakeAWordUserInterface?
+    weak var ui: MakeAWordUserInterface?
     weak var router: MakeAWordRoutable?
 
     private var words: [Word]

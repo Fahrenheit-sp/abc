@@ -52,7 +52,7 @@ final class CanvasViewController: UIViewController {
 
             clearButton.widthAnchor.constraint(equalTo: clearButton.heightAnchor),
             clearButton.widthAnchor.constraint(equalToConstant: 44),
-            clearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            clearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }

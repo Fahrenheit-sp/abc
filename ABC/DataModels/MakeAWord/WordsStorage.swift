@@ -25,7 +25,7 @@ final class WordsStorage: WordsStorable {
         guard let path = Bundle.main.url(forResource: filename, withExtension: fileExtension) else { return words }
         do {
             let string = try String(contentsOf: path).replacingOccurrences(of: "\r", with: String.empty)
-            words = string.components(separatedBy: String.newline).map { Word(string: $0) }
+            words = string.components(separatedBy: String.newline).filter {!$0.isEmpty}.map { Word(string: $0) }
             return words
         } catch {
             print("Failed to decode words: \(error.localizedDescription)")

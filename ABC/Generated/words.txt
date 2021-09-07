@@ -3,7 +3,6 @@ dog
 cat
 horse
 pig
-parrot
 bird
 duck
 fish
@@ -11,7 +10,6 @@ chicken
 frog
 mouse
 rabbit
-sheep
 snake
 tortoise
 goat
@@ -25,7 +23,6 @@ eagle
 bat
 fox
 camel
-giraffe
 elephant
 deer
 bear
@@ -112,7 +109,6 @@ sister
 baby
 bathtub
 shower
-towel
 paper
 mirror
 soap
@@ -127,13 +123,11 @@ cushion
 mattress
 table
 wardrobe
-dresser
 alarm
 clock
 teapot
 stewpot
 plate
-bowl
 jug
 glass
 tray
@@ -166,7 +160,6 @@ case
 glue
 scissors
 crayon
-palette
 globe
 map
 file
@@ -182,7 +175,6 @@ plane
 train
 bus
 ferry
-taxi
 lorry
 tram
 bicycle
@@ -241,7 +233,6 @@ cola
 chicken
 onion
 kebab
-donut
 ice
 cream
 popcorn
@@ -254,7 +245,6 @@ key
 lift
 pool
 sauna
-buffet
 gym
 office
 word

@@ -47,19 +47,22 @@ final class AlphabetView: UIView {
         
         collectionView.register(AlphabetCollectionViewCell.self)
         collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
 
         collectionView.dataSource = self
         collectionView.delegate = self
     }
 
     func letter(at point: CGPoint) -> Letter? {
-        let indexPath = collectionView.indexPathForItem(at: point)
+        let selfPoint = convert(point, from: superview)
+        let indexPath = collectionView.indexPathForItem(at: selfPoint)
         return indexPath.map { viewModel.letter(at: $0) }
     }
 
     func place(_ letterView: DraggableLetterView, completion: @escaping (Letter) -> Void) {
         guard let letter = letterView.letter else { return }
-        guard let indexPath = collectionView.indexPathForItem(at: letterView.center) else { return }
+        let point = convert(letterView.center, from: superview)
+        guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
 
         letterView.translatesAutoresizingMaskIntoConstraints = true
