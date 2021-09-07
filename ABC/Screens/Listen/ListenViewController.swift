@@ -85,11 +85,7 @@ extension ListenViewController: ListenUserInterface {
     }
 
     func handleWrongSelection(of letter: Letter) {
-        print("Wrong: \(letter)")
-    }
-
-    func handleRightSelection(of letter: Letter) {
-        print("Right: \(letter)")
+        alphabetView.shake(letter)
     }
 }
 

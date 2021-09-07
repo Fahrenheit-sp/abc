@@ -87,6 +87,11 @@ final class AlphabetView: UIView {
         self.viewModel = model
         reload(animated: animated)
     }
+
+    func shake(_ letter: Letter) {
+        let indexPath = viewModel.indexPath(for: letter)
+        collectionView.cellForItem(at: indexPath)?.shake()
+    }
     
 }
 

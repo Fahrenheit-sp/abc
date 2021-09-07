@@ -58,6 +58,7 @@ final class CanvasViewController: UIViewController {
     }
 
     @objc private func didTapClear() {
+        interactor?.didClear()
         view.subviews.filter { $0 is DraggableLetterView }.forEach { $0.removeFromSuperview() }
     }
 }
@@ -75,23 +76,12 @@ extension CanvasViewController: CanvasAlphabetViewDelegate {
         newLetter.center = point
         view.addSubview(newLetter)
 
-        UIView.animate(withDuration: 0.2) {
-            newLetter.transform = .init(scaleX: 2, y: 2)
-        }
-
-        letterView.resetWithScale()
-    }
-    
-    func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
-        let newLetter = DeletableLetterView(letter: letterView.letter)
-        newLetter.frame = CGRect(origin: .zero, size: letterView.frame.size)
-        newLetter.center = letterView.superview?.convert(letterView.center, to: nil) ?? .zero
-        view.addSubview(newLetter)
+        interactor?.didPlaceLetter()
 
         UIView.animate(withDuration: 0.2) {
             newLetter.transform = .init(scaleX: 2, y: 2)
         }
-        
+
         letterView.resetWithScale()
     }
 }

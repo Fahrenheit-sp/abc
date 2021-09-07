@@ -50,12 +50,14 @@ final class MemorizeInteractor: MemorizeInteractable {
     weak var ui: MemorizeUserInterface?
     weak var router: MemorizeRoutable?
     private let memorizable: Memorizable & Alphabet
+    private let player: SoundPlayer
     private var letterPairs: [Letter] = []
     private var pair = Pair()
 
     private var openedLettersCount = 0 {
         didSet {
             guard openedLettersCount == letterPairs.count else { return }
+            player.playWinSound()
             ui?.didFinish()
         }
     }
@@ -63,6 +65,7 @@ final class MemorizeInteractor: MemorizeInteractable {
 
     internal init(memorizable: Memorizable & Alphabet, ui: MemorizeUserInterface? = nil, router: MemorizeRoutable? = nil) {
         self.memorizable = memorizable
+        self.player = SoundPlayer()
         self.ui = ui
         self.router = router
         self.letterPairs = getLetterPairs(from: memorizable)
@@ -86,12 +89,22 @@ final class MemorizeInteractor: MemorizeInteractable {
     private func checkIsPairMatched() {
         guard pair.isFinished else { return }
         if pair.isMatched {
-            ui?.didOpenSameLetters(at: pair.indexPaths)
-            openedLettersCount += 2
+            performMatchActions()
         } else {
-            ui?.didOpenWrongLetters(at: pair.indexPaths)
+            performWrongSelectionActions()
         }
         pair.reset()
+    }
+
+    private func performMatchActions() {
+        ui?.didOpenSameLetters(at: pair.indexPaths)
+        openedLettersCount += 2
+        guard openedLettersCount < letterPairs.count else { return }
+        player.playCardSound()
+    }
+
+    private func performWrongSelectionActions() {
+        ui?.didOpenWrongLetters(at: pair.indexPaths)
     }
 
     private func getLetterPairs(from memo: Memorizable & Alphabet) -> [Letter] {
