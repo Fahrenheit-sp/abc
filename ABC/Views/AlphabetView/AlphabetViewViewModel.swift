@@ -39,4 +39,15 @@ struct AlphabetViewViewModel {
     func letter(at indexPath: IndexPath) -> Letter {
         alphabet.letter(at: indexPath)
     }
+
+    func indexPath(for letter: Letter) -> IndexPath {
+        var section = 0
+        for index in (0..<alphabet.numberOfRows) {
+            guard alphabet.letters(in: index).contains(letter) else { continue }
+            section = index
+            break
+        }
+        guard let row = alphabet.letters(in: section).firstIndex(of: letter) else { return .init(row: 0, section: section) }
+        return .init(row: row, section: section)
+    }
 }

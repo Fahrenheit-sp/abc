@@ -11,6 +11,8 @@ protocol CanvasRoutable: AnyObject, Router {}
 
 protocol CanvasInteractable: AnyObject {
     func didLoad()
+    func didPlaceLetter()
+    func didClear()
 }
 
 protocol CanvasUserInterface: AnyObject {

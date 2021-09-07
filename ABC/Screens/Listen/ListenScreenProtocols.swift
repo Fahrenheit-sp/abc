@@ -18,5 +18,4 @@ protocol ListenInteractable: AnyObject {
 protocol ListenUserInterface: AnyObject {
     func configure(with model: ListenViewModel)
     func handleWrongSelection(of letter: Letter)
-    func handleRightSelection(of letter: Letter)
 }

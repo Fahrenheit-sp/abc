@@ -14,17 +14,27 @@ final class CanvasInteractor: CanvasInteractable {
     }
 
     private let parameters: Parameters
+    private let player: SoundPlayer
     weak var ui: CanvasUserInterface?
     weak var router: CanvasRoutable?
 
     init(parameters: Parameters, ui: CanvasUserInterface? = nil, router: CanvasRoutable? = nil) {
         self.parameters = parameters
+        self.player = SoundPlayer()
         self.ui = ui
         self.router = router
     }
 
     func didLoad() {
         ui?.configure(with: .init(canvas: parameters.canvas))
+    }
+
+    func didPlaceLetter() {
+        player.playLetterPlacedSound()
+    }
+
+    func didClear() {
+        player.playSwooshSound()
     }
     
 }

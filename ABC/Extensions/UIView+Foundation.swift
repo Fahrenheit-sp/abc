@@ -39,6 +39,22 @@ extension UIView {
     func roundCornersToRound() {
         roundCorners(to: bounds.height / 2.0)
     }
+
+    func shake(duration: CFTimeInterval = 0.5) {
+        let translation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        translation.timingFunction = CAMediaTimingFunction(name: .linear)
+        translation.values = [-5, 5, -5, 5, -3, 3, -2, 2, 0]
+
+        let rotation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+        rotation.values = [-5, 5, -5, 5, -3, 3, -2, 2, 0].map {
+            return (CGFloat.pi * $0) / 180.0
+        }
+
+        let shakeGroup: CAAnimationGroup = CAAnimationGroup()
+        shakeGroup.animations = [translation, rotation]
+        shakeGroup.duration = duration
+        self.layer.add(shakeGroup, forKey: "shake")
+    }
 }
 
 

@@ -70,17 +70,17 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
 
         let backgoundConstraints = backgroundImageView.createConstraintsForEmbedding(in: view)
         let titleConstraints = [
-            titleImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            titleImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             titleImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            titleImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
+            titleImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.13)
         ]
 
         let collectionConstraints = [
             collectionView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 8)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ]
 
         NSLayoutConstraint.activate(backgoundConstraints + titleConstraints + collectionConstraints)

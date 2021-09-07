@@ -16,6 +16,7 @@ final class MakeAWordInteractor: MakeAWordInteractable {
     }
 
     private let parameters: Parameters
+    private let player: SoundPlayer
     weak var ui: MakeAWordUserInterface?
     weak var router: MakeAWordRoutable?
 
@@ -26,6 +27,7 @@ final class MakeAWordInteractor: MakeAWordInteractable {
 
     init(parameters: Parameters, ui: MakeAWordUserInterface? = nil, router: MakeAWordRoutable? = nil) {
         self.parameters = parameters
+        self.player = SoundPlayer()
         self.ui = ui
         self.router = router
         self.words = parameters.wordsStorage.getWords()
@@ -39,10 +41,12 @@ final class MakeAWordInteractor: MakeAWordInteractable {
 
     func didPlaceLetter(_ letter: Letter) {
         placedLettersCount += 1
+        player.playLetterPlacedSound()
         guard let word = currentWord else { return }
         guard placedLettersCount == word.letters.count else { return }
         finishWord()
         guard finishedWordsCount < parameters.wordsCount else {
+            player.playWinSound()
             ui?.didFinishGame()
             return
         }

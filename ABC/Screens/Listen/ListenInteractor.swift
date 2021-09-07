@@ -17,7 +17,8 @@ final class ListenInteractor: ListenInteractable {
     weak var router: ListenRoutable?
     weak var ui: ListenUserInterface?
 
-    private let player = SoundPlayer()
+    private let player = LetterSoundPlayer()
+    private let soundPlayer = SoundPlayer()
     private var currentLetter: Letter?
 
     internal init(parameters: ListenInteractor.Parameters, router: ListenRoutable? = nil, ui: ListenUserInterface) {
@@ -40,12 +41,19 @@ final class ListenInteractor: ListenInteractable {
 
     func didSelect(letter: Letter) {
         guard let current = currentLetter else { return }
-        guard letter == current else { ui?.handleWrongSelection(of: letter); return }
-        ui?.handleRightSelection(of: letter)
+        guard letter == current else { return performWrongLetterActions(for: letter) }
+        performRightLetterActions(for: letter)
+    }
 
+    private func performRightLetterActions(for letter: Letter) {
         currentLetter = getNextLetter()
         ui?.configure(with: .init(alphabet: getRandomElementsExcept(currentLetter)))
         playCurrentLetterSound()
+    }
+
+    private func performWrongLetterActions(for letter: Letter) {
+        soundPlayer.playErrorSound()
+        ui?.handleWrongSelection(of: letter)
     }
 
     private func getNextLetter() -> Letter? {
