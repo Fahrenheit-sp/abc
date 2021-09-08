@@ -5,9 +5,12 @@
 //  Created by Игорь Майсюк on 17.08.21.
 //
 
-import UIKit
+import Foundation
+import class UIKit.UIViewController
 
-protocol MainMenuRoutable: AnyObject, Router {
+typealias MainMenuNavigatable = AlphabetRouterDelegate & MemorizeRouterDelegate & MakeAWordRouterDelegate
+
+protocol MainMenuRoutable: Router, MainMenuNavigatable {
     func mainMenuDidSelect(item: MainMenuItem)
 }
 

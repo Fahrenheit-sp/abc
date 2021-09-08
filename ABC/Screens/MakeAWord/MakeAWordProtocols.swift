@@ -5,10 +5,10 @@
 //  Created by Игорь Майсюк on 26.08.21.
 //
 
-import Foundation
+import class UIKit.UIViewController
 
 protocol MakeAWordRouterDelegate: AnyObject {
-    func makeAWordRouterDidFinish(_ router: Router)
+    func makeAWordRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
 protocol MakeAWordRoutable: AnyObject, Router {

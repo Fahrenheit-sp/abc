@@ -9,11 +9,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
 
-        let router = MainMenuRouter(parameters: .init(items: MainMenuItem.allCases))
-        let adapter = MainMenuInterstitialRouterAdapter(adaptee: router)
+        let fabric = DefaultRouterFabric()
+        let router = MainMenuRouter(parameters: .init(items: MainMenuItem.allCases), routersFabric: fabric)
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = adapter.makeController()
+        window?.rootViewController = router.makeController()
         window?.makeKeyAndVisible()
 
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

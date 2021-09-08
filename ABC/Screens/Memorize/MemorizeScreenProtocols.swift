@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import class UIKit.UIViewController
 
 protocol MemorizeRouterDelegate: AnyObject {
-    func memorizeRouterDidFinish(_ router: Router)
+    func memorizeRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
 protocol MemorizeRoutable: AnyObject, Router {

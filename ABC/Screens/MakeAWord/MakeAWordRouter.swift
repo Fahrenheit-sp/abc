@@ -14,6 +14,7 @@ final class MakeAWordRouter: MakeAWordRoutable {
     }
 
     private let parameters: Parameters
+    private weak var view: UIViewController?
 
     weak var delegate: MakeAWordRouterDelegate?
 
@@ -27,10 +28,11 @@ final class MakeAWordRouter: MakeAWordRoutable {
                                                                       canvas: parameters.canvas),
                                                     ui: controller,
                                                     router: self)
+        self.view = controller
         return controller
     }
 
     func finish() {
-        delegate?.makeAWordRouterDidFinish(self)
+        view.map { delegate?.makeAWordRouterDidFinishPresenting($0) }
     }
 }

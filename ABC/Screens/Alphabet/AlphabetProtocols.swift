@@ -5,10 +5,10 @@
 //  Created by Игорь Майсюк on 17.08.21.
 //
 
-import Foundation
+import class UIKit.UIViewController
 
 protocol AlphabetRouterDelegate: AnyObject {
-    func alphabetRouterDidFinish(_ router: Router)
+    func alphabetRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
 protocol AlphabetRoutable: AnyObject, Router {
