@@ -21,5 +21,6 @@ xcuserdata/
 *.xcodeproj
 xcdebugger/
 xcuserdata/
-/Dependencies/Carthage/Build
-/Dependencies/Carthage/Checkouts
+Pods/
+Podfile.lock
+*.xcuserstate

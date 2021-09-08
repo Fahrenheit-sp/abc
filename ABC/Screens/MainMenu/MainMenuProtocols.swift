@@ -5,7 +5,7 @@
 //  Created by Игорь Майсюк on 17.08.21.
 //
 
-import Foundation
+import UIKit
 
 protocol MainMenuRoutable: AnyObject, Router {
     func mainMenuDidSelect(item: MainMenuItem)
@@ -16,6 +16,7 @@ protocol MainMenuInteractable: AnyObject {
     func didSelectItem(at indexPath: IndexPath)
 }
 
-protocol MainMenuUserInterface: AnyObject {
+protocol MainMenuUserInterface: UIViewController {
+    var interactor: MainMenuInteractable? { get set }
     func configure(with model: MainMenuScreenViewModel)
 }

@@ -14,8 +14,9 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
     }
 
     private let parameters: Parameters
-    private var view: UINavigationController?
+    private var navigation: UINavigationController?
     private var currentRouter: Router?
+    private(set) var view: MainMenuUserInterface?
 
     init(parameters: Parameters) {
         self.parameters = parameters
@@ -24,12 +25,23 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
     func makeController() -> UIViewController {
         let view = MainMenuViewController()
         view.navigationItem.backButtonTitle = .empty
+        view.interactor = makeInteractor(for: view, router: self)
+        self.view = view
+        
+        let navigation = makeNavigationController(with: view)
+        self.navigation = navigation
 
+        return navigation
+    }
+
+    func makeInteractor(for ui: MainMenuUserInterface, router: MainMenuRoutable) -> MainMenuInteractable {
         let interactor = MainMenuInteractor(parameters: .init(items: parameters.items))
-        interactor.router = self
-        interactor.ui = view
-        view.interactor = interactor
+        interactor.router = router
+        interactor.ui = ui
+        return interactor
+    }
 
+    private func makeNavigationController(with view: UIViewController) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: view)
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController.navigationBar.shadowImage = UIImage()
@@ -49,13 +61,10 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
 
         UINavigationBar.appearance().titleTextAttributes = attrs
 
-        self.view = navigationController
-
         return navigationController
     }
 
     func mainMenuDidSelect(item: MainMenuItem) {
-
         let router: Router
         switch item {
         case .alphabet, .numbers:
@@ -82,14 +91,13 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
         let controller = router.makeController()
         controller.title = item.title
         controller.navigationItem.backButtonTitle = .empty
-        view?.pushViewController(controller, animated: true)
+        navigation?.pushViewController(controller, animated: true)
         
         currentRouter = router
     }
 }
 
 extension MainMenuRouter: UINavigationControllerDelegate {
-
     func navigationController(_ navigationController: UINavigationController,
                               willShow viewController: UIViewController, animated: Bool) {
         navigationController.isNavigationBarHidden = viewController is MainMenuViewController
@@ -98,18 +106,18 @@ extension MainMenuRouter: UINavigationControllerDelegate {
 
 extension MainMenuRouter: AlphabetRouterDelegate {
     func alphabetRouterDidFinish(_ router: Router) {
-        view?.popViewController(animated: true)
+        navigation?.popViewController(animated: true)
     }
 }
 
 extension MainMenuRouter: MakeAWordRouterDelegate {
     func makeAWordRouterDidFinish(_ router: Router) {
-        view?.popViewController(animated: true)
+        navigation?.popViewController(animated: true)
     }
 }
 
 extension MainMenuRouter: MemorizeRouterDelegate {
     func memorizeRouterDidFinish(_ router: Router) {
-        view?.popViewController(animated: true)
+        navigation?.popViewController(animated: true)
     }
 }
