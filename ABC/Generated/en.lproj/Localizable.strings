@@ -6,8 +6,7 @@
   
 */
 
-"canvas.clear" = "Clear";
-
+"menu.item.subscribe" = "Subscribe";
 "menu.item.alphabet" = "Alphabet";
 "menu.item.numbers" = "Numbers";
 "menu.item.games" = "Games";

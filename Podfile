@@ -9,5 +9,6 @@ target 'ABC' do
   # Pods for ABC
 
   pod 'Google-Mobile-Ads-SDK'
+  pod 'Purchases'
 
 end

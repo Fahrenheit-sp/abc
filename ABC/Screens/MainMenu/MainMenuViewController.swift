@@ -9,13 +9,15 @@ import UIKit
 
 struct MainMenuScreenViewModel {
     private let items: [MainMenuItem]
+    let isSubscribeAvailable: Bool
 
-    init(items: [MainMenuItem]) {
+    init(items: [MainMenuItem], isSubscribeAvailable: Bool) {
         self.items = items
+        self.isSubscribeAvailable = isSubscribeAvailable
     }
 
     var cellModels: [MainMenuCellViewModel] {
-        return items.map { MainMenuCellViewModel(title: $0.title, image: $0.image.image) }
+        items.map { MainMenuCellViewModel(title: $0.title, image: $0.image.image) }
     }
 }
 
@@ -50,6 +52,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
     private func setupUI() {
         view.backgroundColor = .white
 
+        collectionView.registerView(SubscribeHeaderReusableView.self, ofKind: UICollectionView.elementKindSectionHeader)
         collectionView.register(MainMenuCollectionViewCell.self)
         collectionView.backgroundColor = .clear
 
@@ -77,7 +80,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
         ]
 
         let collectionConstraints = [
-            collectionView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 16),
+            collectionView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 8),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
@@ -88,6 +91,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
 
     func configure(with model: MainMenuScreenViewModel) {
         cellModels = model.cellModels
+        layout.headerReferenceSize = model.isSubscribeAvailable ? CGSize(width: collectionView.bounds.width, height: 80) : .zero
         collectionView.reloadData()
     }
 }
@@ -102,12 +106,21 @@ extension MainMenuViewController: UICollectionViewDataSource {
         cell.configure(with: cellModels[indexPath.row])
         return cell
     }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        let header: SubscribeHeaderReusableView = collectionView.dequeueReusableView(ofKind: UICollectionView.elementKindSectionHeader, forIndexPath: indexPath)
+        header.delegate = self
+        return header
+    }
 }
 
 extension MainMenuViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         interactor?.didSelectItem(at: indexPath)
     }
+    
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -115,5 +128,11 @@ extension MainMenuViewController: UICollectionViewDelegateFlowLayout {
         let halfWidth = collectionView.bounds.width / 2
         let itemWIdth = halfWidth - layout.minimumInteritemSpacing - layout.sectionInset.left
         return CGSize(width: itemWIdth, height: itemWIdth)
+    }
+}
+
+extension MainMenuViewController: SubscribeHeaderViewDelegate {
+    func subscribeHeaderViewDidTap() {
+        interactor?.didPressSubscribe()
     }
 }

@@ -11,11 +11,6 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
-  internal enum Canvas {
-    /// Clear
-    internal static let clear = L10n.tr("Localizable", "canvas.clear")
-  }
-
   internal enum Menu {
     internal enum Item {
       /// Alphabet
@@ -32,6 +27,8 @@ internal enum L10n {
       internal static let memorize = L10n.tr("Localizable", "menu.item.memorize")
       /// Numbers
       internal static let numbers = L10n.tr("Localizable", "menu.item.numbers")
+      /// Subscribe
+      internal static let subscribe = L10n.tr("Localizable", "menu.item.subscribe")
     }
   }
 }

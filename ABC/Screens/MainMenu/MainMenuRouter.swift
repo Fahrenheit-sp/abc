@@ -77,7 +77,11 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
         let controller = router.makeController()
         controller.title = item.title
         controller.navigationItem.backButtonTitle = .empty
-        navigation?.pushViewController(controller, animated: true)
+        switch item {
+        case .subscribe: navigation?.present(controller, animated: true)
+        default: navigation?.pushViewController(controller, animated: true)
+        }
+
         
         currentRouter = router
     }
@@ -105,5 +109,11 @@ extension MainMenuRouter: MakeAWordRouterDelegate {
 extension MainMenuRouter: MemorizeRouterDelegate {
     func memorizeRouterDidFinishPresenting(_ controller: UIViewController) {
         navigation?.popViewController(animated: true)
+    }
+}
+
+extension MainMenuRouter: SubscribeRouterDelegate {
+    func subscribeRouterDidFinishPresenting(_ controller: UIViewController) {
+        controller.dismiss(animated: true)
     }
 }

@@ -68,6 +68,7 @@ internal enum Asset {
     internal static let makeAWord = ImageAsset(name: "make_a_word")
     internal static let memorize = ImageAsset(name: "memorize")
     internal static let numbers = ImageAsset(name: "numbers")
+    internal static let subscribe = ImageAsset(name: "subscribe")
   }
   internal enum Numbers {
     internal static let _0 = ImageAsset(name: "0")

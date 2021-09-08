@@ -11,9 +11,13 @@ final class MainMenuInteractor: MainMenuInteractable {
 
     struct Parameters {
         let items: [MainMenuItem]
+
+        var gameItems: [MainMenuItem] {
+            items.filter { $0 != .subscribe }
+        }
     }
 
-    let parameters: Parameters
+    private let parameters: Parameters
     weak var ui: MainMenuUserInterface?
     var router: MainMenuRoutable?
 
@@ -22,10 +26,15 @@ final class MainMenuInteractor: MainMenuInteractable {
     }
 
     func didLoad() {
-        ui?.configure(with: MainMenuScreenViewModel(items: parameters.items))
+        ui?.configure(with: MainMenuScreenViewModel(items: parameters.gameItems,
+                                                    isSubscribeAvailable: parameters.items.contains(.subscribe)))
+    }
+
+    func didPressSubscribe() {
+        router?.mainMenuDidSelect(item: .subscribe)
     }
 
     func didSelectItem(at indexPath: IndexPath) {
-        router?.mainMenuDidSelect(item: parameters.items[indexPath.row])
+        router?.mainMenuDidSelect(item: parameters.gameItems[indexPath.row])
     }
 }
