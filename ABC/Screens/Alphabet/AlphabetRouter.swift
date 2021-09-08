@@ -38,6 +38,6 @@ final class AlphabetRouter: AlphabetRoutable {
     }
 
     func finish() {
-        delegate?.alphabetRouterDidFinish(self)
+        view.map { delegate?.alphabetRouterDidFinishPresenting($0) }
     }
 }

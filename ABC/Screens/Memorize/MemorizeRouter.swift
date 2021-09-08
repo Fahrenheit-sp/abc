@@ -14,7 +14,8 @@ final class MemorizeRouter: MemorizeRoutable {
     }
 
     private let parameters: Parameters
-    weak var delegate: MakeAWordRouterDelegate?
+    private weak var view: UIViewController?
+    weak var delegate: MemorizeRouterDelegate?
 
     init(parameters: Parameters) {
         self.parameters = parameters
@@ -23,10 +24,11 @@ final class MemorizeRouter: MemorizeRoutable {
     func makeController() -> UIViewController {
         let controller = MemorizeViewController()
         controller.interactor = MemorizeInteractor(memorizable: parameters.memorizable, ui: controller, router: self)
+        view = controller
         return controller
     }
 
     func didFinishGame() {
-        delegate?.makeAWordRouterDidFinish(self)
+        view.map { delegate?.memorizeRouterDidFinishPresenting($0) }
     }
 }

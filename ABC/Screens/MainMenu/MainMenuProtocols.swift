@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import class UIKit.UIViewController
 
-protocol MainMenuRoutable: AnyObject, Router {
+typealias MainMenuNavigatable = AlphabetRouterDelegate & MemorizeRouterDelegate & MakeAWordRouterDelegate
+
+protocol MainMenuRoutable: Router, MainMenuNavigatable {
     func mainMenuDidSelect(item: MainMenuItem)
 }
 
@@ -16,6 +19,7 @@ protocol MainMenuInteractable: AnyObject {
     func didSelectItem(at indexPath: IndexPath)
 }
 
-protocol MainMenuUserInterface: AnyObject {
+protocol MainMenuUserInterface: UIViewController {
+    var interactor: MainMenuInteractable? { get set }
     func configure(with model: MainMenuScreenViewModel)
 }

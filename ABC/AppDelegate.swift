@@ -1,4 +1,5 @@
 import UIKit
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -6,7 +7,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let router = MainMenuRouter(parameters: .init(items: MainMenuItem.allCases))
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+
+        let fabric = DefaultRouterFabric()
+        let router = MainMenuRouter(parameters: .init(items: MainMenuItem.allCases), routersFabric: fabric)
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = router.makeController()
