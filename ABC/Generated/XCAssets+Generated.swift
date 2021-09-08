@@ -26,6 +26,7 @@ internal enum Asset {
   }
   internal enum Icons {
     internal static let back = ImageAsset(name: "back")
+    internal static let close = ImageAsset(name: "close")
     internal static let recycleBin = ImageAsset(name: "recycle_bin")
   }
   internal enum Letters {
@@ -81,6 +82,10 @@ internal enum Asset {
     internal static let _7 = ImageAsset(name: "7")
     internal static let _8 = ImageAsset(name: "8")
     internal static let _9 = ImageAsset(name: "9")
+  }
+  internal enum Subscription {
+    internal static let check = ImageAsset(name: "check")
+    internal static let subscriptionBackground = ImageAsset(name: "subscription_background")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

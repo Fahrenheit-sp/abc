@@ -32,28 +32,10 @@ final class ListenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         setupLayout()
+        setupUI()
 
         interactor?.didLoad()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        playButton.roundCornersToRound()
-    }
-
-
-    private func setupUI() {
-        view.backgroundColor = .background
-
-        alphabetView.delegate = self
-        alphabetView.dataSource = self
-
-        playButton.addTarget(self, action: #selector(didPressPlay), for: .touchUpInside)
-        playButton.setImage(Asset.Listen.playButton.image, for: .normal)
-        playButton.layer.borderWidth = 1.0
-        playButton.layer.borderColor = UIColor.black.cgColor
     }
 
     private func setupLayout() {
@@ -72,6 +54,19 @@ final class ListenViewController: UIViewController {
             alphabetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             alphabetView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+    }
+
+    private func setupUI() {
+        view.backgroundColor = .background
+
+        alphabetView.delegate = self
+        alphabetView.dataSource = self
+
+        playButton.addTarget(self, action: #selector(didPressPlay), for: .touchUpInside)
+        playButton.setImage(Asset.Listen.playButton.image, for: .normal)
+        playButton.layer.borderWidth = 1.0
+        playButton.layer.borderColor = UIColor.black.cgColor
+        playButton.roundCornersToRound()
     }
 
     @objc private func didPressPlay() {

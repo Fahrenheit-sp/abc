@@ -6,6 +6,8 @@
   
 */
 
+"general.and" = "and";
+
 "menu.item.subscribe" = "Subscribe";
 "menu.item.alphabet" = "Alphabet";
 "menu.item.numbers" = "Numbers";
@@ -14,3 +16,13 @@
 "menu.item.makeAWord" = "Make a word";
 "menu.item.memorize" = "Memorize";
 "menu.item.listen" = "Listen";
+
+"subscription.title" = "Get unlimited access";
+"subscription.freeUpdates" = "Free upcoming updates and features";
+"subscription.noAds" = "No annoying ads";
+"subscription.fullAccess" = "Full access to all available games";
+"subscription.price" = "%@ days free, then %@/%@";
+"subscription.termsOfUse" = "Terms of Use";
+"subscription.privacyPolicy" = "Privacy Policy";
+"subscription.tryFreeAndSubscribe" = "Try Free & Subscribe";
+"subscription.moreBillingOptions" = "More billing options";

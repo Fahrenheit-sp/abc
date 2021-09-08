@@ -20,4 +20,8 @@ extension UIScreen {
     static var isiPhoneFive: Bool {
         width == 320
     }
+
+    static var isIphoneEightOrLess: Bool {
+        height <= 667
+    }
 }
