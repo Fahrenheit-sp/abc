@@ -12,6 +12,14 @@ extension UIColor {
     static let cardGradientEnd = UIColor(hex: "3D5AFE")
     static let background = UIColor(hex: "0b3f54")
     static let menuItem = UIColor(hex: "ffab40")
+    static let checkmark = UIColor(hex: "3c9534")
+    
+    static let subscribeBlue = UIColor(hex: "c1ddff")
+    static let subscribeGradientStart = UIColor(hex: "3cb3d1")
+    static let subscriptionPriceText = UIColor(hex: "6e7a86")
+    static let subscriptionRed = UIColor(hex: "e87f6a")
+    static let subscriptionGreen = UIColor(hex: "7cc590")
+    static let subscriptionPrivacy = UIColor(hex: "919ba4")
 
 
     convenience init(hex: String, alpha: CGFloat = 1.0) {

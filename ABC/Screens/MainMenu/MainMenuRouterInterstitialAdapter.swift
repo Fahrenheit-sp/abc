@@ -55,7 +55,7 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
                 wrapped.makeAWordRouterDidFinishPresenting(controller)
             case .memorize:
                 wrapped.memorizeRouterDidFinishPresenting(controller)
-            case .canvas, .listen: return
+            case .canvas, .listen, .subscribe: return
             }
             controllerPresentingAd = nil
         }
@@ -103,5 +103,11 @@ extension MainMenuInterstitialRouterDecorator: MakeAWordRouterDelegate {
     func makeAWordRouterDidFinishPresenting(_ controller: UIViewController) {
         controllerPresentingAd = controller
         presenter.presentAd(from: controller)
+    }
+}
+
+extension MainMenuInterstitialRouterDecorator: SubscribeRouterDelegate {
+    func subscribeRouterDidFinishPresenting(_ controller: UIViewController) {
+        wrapped.subscribeRouterDidFinishPresenting(controller)
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import class UIKit.UIViewController
 
-typealias MainMenuNavigatable = AlphabetRouterDelegate & MemorizeRouterDelegate & MakeAWordRouterDelegate
+typealias MainMenuNavigatable = AlphabetRouterDelegate & MemorizeRouterDelegate & MakeAWordRouterDelegate & SubscribeRouterDelegate
 
 protocol MainMenuRoutable: Router, MainMenuNavigatable {
     func mainMenuDidSelect(item: MainMenuItem)
@@ -16,6 +16,7 @@ protocol MainMenuRoutable: Router, MainMenuNavigatable {
 
 protocol MainMenuInteractable: AnyObject {
     func didLoad()
+    func didPressSubscribe()
     func didSelectItem(at indexPath: IndexPath)
 }
 

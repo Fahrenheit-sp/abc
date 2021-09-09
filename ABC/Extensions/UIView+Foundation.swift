@@ -37,6 +37,7 @@ extension UIView {
     }
 
     func roundCornersToRound() {
+        layoutIfNeeded()
         roundCorners(to: bounds.height / 2.0)
     }
 

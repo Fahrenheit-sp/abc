@@ -18,6 +18,10 @@ final class DefaultRouterFabric: RoutersFabric {
 
     func makeRouter(for item: MainMenuItem) -> Router {
         switch item {
+        case .subscribe:
+            let router = SubscribeRouter(parameters: .init())
+            router.delegate = delegate
+            return router
         case .alphabet, .numbers:
             let alphabet = item == .alphabet ? AlphabetsFactory.getAlphabet(.english) : AlphabetsFactory.getAlphabet(.numbers)
             let mode: AlphabetViewMode = item == .alphabet ? .alphabet : .numbers

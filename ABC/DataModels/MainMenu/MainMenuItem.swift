@@ -8,6 +8,7 @@
 import Foundation
 
 enum MainMenuItem: CaseIterable {
+    case subscribe
     case alphabet
     case numbers
     case listen
@@ -15,8 +16,11 @@ enum MainMenuItem: CaseIterable {
     case makeAWord
     case canvas
 
+    static let gameItems = Self.allCases.filter { $0 != .subscribe }
+
     var title: String {
         switch self {
+        case .subscribe: return L10n.Menu.Item.subscribe
         case .alphabet: return L10n.Menu.Item.alphabet
         case .numbers: return L10n.Menu.Item.numbers
         case .canvas: return L10n.Menu.Item.canvas
@@ -28,6 +32,7 @@ enum MainMenuItem: CaseIterable {
 
     var image: ImageAsset {
         switch self {
+        case .subscribe: return Asset.Menu.subscribe
         case .alphabet: return Asset.Menu.alphabet
         case .numbers: return Asset.Menu.numbers
         case .canvas: return Asset.Menu.canvas
