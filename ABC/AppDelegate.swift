@@ -1,4 +1,5 @@
 import UIKit
+import Purchases
 import GoogleMobileAds
 
 @main
@@ -8,6 +9,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        #if DEBUG
+        Purchases.logLevel = .debug
+        #endif
+        Purchases.configure(withAPIKey: Constants.revenueCatId)
+
+        ProductsFetcher.shared.fetchPurchases()
 
         let fabric = DefaultRouterFabric()
         let router = MainMenuRouter(parameters: .init(items: MainMenuItem.allCases), routersFabric: fabric)

@@ -12,12 +12,21 @@ protocol SubscribeRouterDelegate: AnyObject {
     func subscribeRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
-protocol SubscribeRoutable: AnyObject, Router {}
+protocol SubscribeRoutable: AnyObject, Router {
+    func didClose()
+}
 
 protocol SubscribeInteractable: AnyObject {
     func didLoad()
+    func didClose()
+    func didRestore()
+    func didTapPrivacy()
+    func didTapTerms()
+    func didTapBuyMain()
 }
 
 protocol SubscribeUserInterface: AnyObject {
-    func configure()
+    func configure(with model: SubscribeScreenViewModel)
+    func didCancelPurchase()
+    func didFailPurchase(with message: String)
 }

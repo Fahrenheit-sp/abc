@@ -22,11 +22,14 @@ final class SubscribeRouter: SubscribeRoutable {
     }
 
     func makeController() -> UIViewController {
-        let interactor = SubscribeInteractor()
         let controller = SubscribeViewController()
-        controller.interactor = interactor
+        controller.interactor = SubscribeInteractor(ui: controller, router: self)
 
         view = controller
         return controller
+    }
+
+    func didClose() {
+        view.map { delegate?.subscribeRouterDidFinishPresenting($0) }
     }
 }
