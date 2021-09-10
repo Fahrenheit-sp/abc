@@ -6,6 +6,7 @@ import GoogleMobileAds
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private var currentFlow: Flow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
@@ -16,18 +17,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         ProductsFetcher.shared.fetchPurchases()
 
-        let fabric = DefaultRouterFabric()
-        let router = MainMenuRouter(parameters: .init(items: MainMenuItem.allCases), routersFabric: fabric)
-
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = router.makeController()
+        let loading = UIViewController()
+        loading.view.backgroundColor = .white
+        window?.rootViewController = loading
         window?.makeKeyAndVisible()
 
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.window?.resignKey()
-//            self.window = nil
-//        }
+        setupFlow(animated: false)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(didUpdateUser), name: .userUpdated, object: nil)
+
         return true
+    }
+
+    private func setupFlow(animated: Bool) {
+        let user = UserDataManager().getUser()
+        let flow: Flow = user.isSubscribed ? SubscribedFlow() : FreeFlow()
+        changeFlow(to: flow, animated: animated)
+    }
+
+    private func changeFlow(to flow: Flow, animated: Bool = true) {
+        guard currentFlow?.description != flow.description else { return }
+        currentFlow = flow
+        currentFlow?.start(from: window, animated: animated)
+    }
+
+    @objc private func didUpdateUser() {
+        setupFlow(animated: true)
     }
 
 }

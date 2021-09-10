@@ -12,8 +12,8 @@ import StoreKit
 protocol ProductsFetcherDelegate: AnyObject {
     func fetcher(_ fetcher: ProductsFetcher, didFailToPurchaseWith error: Error)
     func fetcherDidCancelPurchase(_ fetcher: ProductsFetcher)
-    func fetcherDidSubscribeSuccesfully(_ fetcher: ProductsFetcher)
-    func fetcherDidRestoreSuccesfully(_ fetcher: ProductsFetcher)
+    func fetcherDidSubscribeSuccesfully(_ fetcher: ProductsFetcher, until date: Date?)
+    func fetcherDidRestoreSuccesfully(_ fetcher: ProductsFetcher, until date: Date?)
 }
 
 final class ProductsFetcher: NSObject {
@@ -35,7 +35,10 @@ final class ProductsFetcher: NSObject {
         return SubscriptionInfo(trial: trial, price: package.localizedPriceString, term: package.term)
     }
 
-    private override init() {}
+    private override init() {
+        super.init()
+        Purchases.shared.delegate = self
+    }
 
     func fetchPurchases() {
         Purchases.shared.offerings { offerings, error in
@@ -69,7 +72,7 @@ final class ProductsFetcher: NSObject {
                 self.delegate?.fetcher(self, didFailToPurchaseWith: SubscriptionError.nothingToRestore)
                 return
             }
-            self.delegate?.fetcherDidRestoreSuccesfully(self)
+            self.delegate?.fetcherDidRestoreSuccesfully(self, until: info?.expirationDate(forEntitlement: Self.entitlementId))
         }
     }
 
@@ -82,8 +85,16 @@ final class ProductsFetcher: NSObject {
                 return
             }
             guard info?.entitlements[Self.entitlementId]?.isActive == true else { return }
-            self.delegate?.fetcherDidSubscribeSuccesfully(self)
+            self.delegate?.fetcherDidSubscribeSuccesfully(self, until: info?.expirationDate(forEntitlement: Self.entitlementId))
         }
+    }
+}
+
+extension ProductsFetcher: PurchasesDelegate {
+    func purchases(_ purchases: Purchases, didReceiveUpdated purchaserInfo: Purchases.PurchaserInfo) {
+        let manager = UserDataManager()
+        let user = manager.getUser().withUpdatedExpirationDate(to: purchaserInfo.expirationDate(forEntitlement: Self.entitlementId))
+        manager.save(user: user)
     }
 }
 

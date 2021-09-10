@@ -10,12 +10,14 @@ import Foundation
 
 final class SubscribeInteractor: SubscribeInteractable {
 
+    private let manager: UserDataManager
     weak var ui: SubscribeUserInterface?
     weak var router: SubscribeRoutable?
 
     init(ui: SubscribeUserInterface? = nil, router: SubscribeRoutable? = nil) {
         self.ui = ui
         self.router = router
+        self.manager = UserDataManager()
         ProductsFetcher.shared.delegate = self
     }
     
@@ -57,11 +59,13 @@ extension SubscribeInteractor: ProductsFetcherDelegate {
         ui?.didCancelPurchase()
     }
 
-    func fetcherDidSubscribeSuccesfully(_ fetcher: ProductsFetcher) {
-        print("Subscribed")
+    func fetcherDidSubscribeSuccesfully(_ fetcher: ProductsFetcher, until date: Date?) {
+        let newUser = manager.getUser().withUpdatedExpirationDate(to: date)
+        manager.save(user: newUser)
     }
 
-    func fetcherDidRestoreSuccesfully(_ fetcher: ProductsFetcher) {
-        print("Restored")
+    func fetcherDidRestoreSuccesfully(_ fetcher: ProductsFetcher, until date: Date?) {
+        let newUser = manager.getUser().withUpdatedExpirationDate(to: date)
+        manager.save(user: newUser)
     }
 }

@@ -15,7 +15,8 @@ final class AlphabetInteractor: AlphabetInteractable {
     }
 
     private let parameters: Parameters
-    private let player: SoundPlayer
+    private let player: LetterSoundPlayer
+    private let winPlayer: SoundPlayer
     private var placedLetters: Set<Letter> = []
 
     weak var ui: AlphabetUserInterface?
@@ -23,7 +24,8 @@ final class AlphabetInteractor: AlphabetInteractable {
 
     internal init(parameters: Parameters, ui: AlphabetUserInterface? = nil, router: AlphabetRoutable? = nil) {
         self.parameters = parameters
-        self.player = SoundPlayer()
+        self.player = LetterSoundPlayer()
+        self.winPlayer = SoundPlayer()
         self.ui = ui
         self.router = router
     }
@@ -34,7 +36,7 @@ final class AlphabetInteractor: AlphabetInteractable {
 
     func didPlaceLetter(_ letter: Letter) {
         placedLetters.insert(letter)
-        player.playLetterPlacedSound()
+        player.playLetterSound(named: String(letter.symbol))
         ui?.configure(with: .init(alphabet: parameters.alphabet, placedLetters: placedLetters))
     }
 
@@ -53,7 +55,7 @@ final class AlphabetInteractor: AlphabetInteractable {
 
     private func performGameFinishedActions() {
         ui?.didFinish()
-        player.playWinSound()
+        winPlayer.playWinSound()
     }
 
     private func getNextShuffledLetter() -> Letter? {
