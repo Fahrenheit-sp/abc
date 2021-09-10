@@ -32,8 +32,9 @@ final class CardView: GradientBackgroundView {
 
     private func setupUI() {
         configureGradient(using: .card)
-        roundCorners(to: 8)
-        embedSubview(imageView, insets: .init(top: 16, left: 8, bottom: 16, right: 8))
+        roundCorners(to: UIDevice.isiPhone ? 8 : 16)
+        let offset: CGFloat = UIDevice.isiPhone ? 16 : 24
+        embedSubview(imageView, insets: .init(top: offset, left: offset / 2, bottom: offset, right: offset / 2))
 
         imageView.contentMode = .scaleAspectFit
         imageView.image = backImage
