@@ -11,6 +11,7 @@ import StoreKit
 
 protocol ProductsFetcherDelegate: AnyObject {
     func fetcher(_ fetcher: ProductsFetcher, didFailToPurchaseWith error: Error)
+    func fetcherDidLoadPurchases(_ fetcher: ProductsFetcher)
     func fetcherDidCancelPurchase(_ fetcher: ProductsFetcher)
     func fetcherDidSubscribeSuccesfully(_ fetcher: ProductsFetcher, until date: Date?)
     func fetcherDidRestoreSuccesfully(_ fetcher: ProductsFetcher, until date: Date?)
@@ -41,9 +42,11 @@ final class ProductsFetcher: NSObject {
     }
 
     func fetchPurchases() {
+        guard packages.isEmpty else { return }
         Purchases.shared.offerings { offerings, error in
             guard let packages = offerings?.current?.availablePackages else { return }
             self.packages = packages
+            self.delegate?.fetcherDidLoadPurchases(self)
         }
     }
 

@@ -19,6 +19,7 @@ final class SubscribeInteractor: SubscribeInteractable {
         self.router = router
         self.manager = UserDataManager()
         ProductsFetcher.shared.delegate = self
+        ProductsFetcher.shared.fetchPurchases()
     }
     
     func didLoad() {
@@ -51,6 +52,11 @@ final class SubscribeInteractor: SubscribeInteractable {
 }
 
 extension SubscribeInteractor: ProductsFetcherDelegate {
+
+    func fetcherDidLoadPurchases(_ fetcher: ProductsFetcher) {
+        DispatchQueue.main.async { self.didLoad() }
+    }
+
     func fetcher(_ fetcher: ProductsFetcher, didFailToPurchaseWith error: Error) {
         ui?.didFailPurchase(with: error.localizedDescription)
     }
