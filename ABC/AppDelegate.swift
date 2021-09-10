@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ProductsFetcher.shared.fetchPurchases()
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = makeDefaultController()
+        window?.rootViewController = LoadingViewController()
         window?.makeKeyAndVisible()
 
         setupFlow(animated: false)
@@ -28,12 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(didUpdateUser), name: .userUpdated, object: nil)
 
         return true
-    }
-
-    private func makeDefaultController() -> UIViewController {
-        let loading = UIViewController()
-        loading.view.backgroundColor = .white
-        return loading
     }
 
     private func setupFlow(animated: Bool) {
