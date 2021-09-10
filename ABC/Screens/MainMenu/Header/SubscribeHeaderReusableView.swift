@@ -39,8 +39,10 @@ final class SubscribeHeaderReusableView: UICollectionReusableView {
     private func setupLayout() {
         contentView.roundCorners(to: 20)
 
-        let contentConstraints = contentView.createConstraintsForEmbedding(in: self,
-                                                                           insets: .init(top: 0, left: 16, bottom: 8, right: 16))
+        let insets: UIEdgeInsets = UIDevice.isiPhone
+            ? .init(top: 0, left: 16, bottom: 8, right: 16)
+            : .init(top: 0, left: 40, bottom: 32, right: 40)
+        let contentConstraints = contentView.createConstraintsForEmbedding(in: self, insets: insets)
         addSubview(contentView)
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)

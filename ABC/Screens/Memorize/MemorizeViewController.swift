@@ -19,8 +19,8 @@ final class MemorizeViewController: UIViewController {
 
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 16
-        layout.minimumInteritemSpacing = 16
+        layout.minimumLineSpacing = UIDevice.isiPhone ? 16 : 40
+        layout.minimumInteritemSpacing = UIDevice.isiPhone ? 16 : 40
         return layout
     }()
 
@@ -46,12 +46,13 @@ final class MemorizeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
 
+        let offset: CGFloat = UIDevice.isiPhone ? 16 : 40
         let backgroundConstraints = backgroundImageView.createConstraintsForEmbedding(in: view)
         let collectionConstraints = [
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: offset),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: offset),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -offset),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -offset)
         ]
 
         NSLayoutConstraint.activate(backgroundConstraints + collectionConstraints)

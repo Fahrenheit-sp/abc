@@ -68,7 +68,7 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
 
         let attrs = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont.current(size: 27)
+            NSAttributedString.Key.font: UIFont.current(size: UIDevice.isiPhone ? 27 : 41)
         ]
 
         UINavigationBar.appearance().titleTextAttributes = attrs

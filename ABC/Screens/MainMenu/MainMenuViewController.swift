@@ -32,9 +32,10 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 16.0
-        layout.minimumInteritemSpacing = 8.0
-        layout.sectionInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        let spacing: CGFloat = UIDevice.isiPhone ? 16.0 : 40.0
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing / 2.0
+        layout.sectionInset = .init(top: 0, left: spacing, bottom: 0, right: spacing)
         return layout
     }()
 
@@ -80,7 +81,8 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
         ]
 
         let collectionConstraints = [
-            collectionView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 8),
+            collectionView.topAnchor.constraint(equalTo: titleImageView.bottomAnchor,
+                                                constant: UIDevice.isiPhone ? 8 : 40),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
@@ -91,7 +93,8 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
 
     func configure(with model: MainMenuScreenViewModel) {
         cellModels = model.cellModels
-        layout.headerReferenceSize = model.isSubscribeAvailable ? CGSize(width: collectionView.bounds.width, height: 80) : .zero
+        let headerHeight: CGFloat = UIDevice.isiPhone ? 80 : 120
+        layout.headerReferenceSize = model.isSubscribeAvailable ? CGSize(width: collectionView.bounds.width, height: headerHeight) : .zero
         collectionView.reloadData()
     }
 }
@@ -125,7 +128,8 @@ extension MainMenuViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let halfWidth = collectionView.bounds.width / 2
+        let divider: CGFloat = UIDevice.isiPhone ? 2 : 3
+        let halfWidth = collectionView.bounds.width / divider
         let itemWIdth = halfWidth - layout.minimumInteritemSpacing - layout.sectionInset.left
         return CGSize(width: itemWIdth, height: itemWIdth)
     }
