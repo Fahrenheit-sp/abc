@@ -12,6 +12,8 @@ typealias MainMenuNavigatable = AlphabetRouterDelegate & MemorizeRouterDelegate 
 
 protocol MainMenuRoutable: Router, MainMenuNavigatable {
     func mainMenuDidSelect(item: MainMenuItem)
+    func setInteractorDelegate(to router: MainMenuRoutable)
+    func setFabricDelegate(to delegate: MainMenuNavigatable)
 }
 
 protocol MainMenuInteractable: AnyObject {

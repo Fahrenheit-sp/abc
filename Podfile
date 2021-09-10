@@ -12,4 +12,9 @@ target 'ABC' do
   pod 'Firebase/Analytics'
   pod 'Purchases'
 
+  target 'Tests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
 end

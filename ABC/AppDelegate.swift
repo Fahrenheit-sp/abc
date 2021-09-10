@@ -2,6 +2,8 @@ import Firebase
 import GoogleMobileAds
 import Purchases
 import UIKit
+import AppTrackingTransparency
+import AdSupport
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -13,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseApp.configure()
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID]
         Purchases.configure(withAPIKey: Constants.revenueCatId)
 
         ProductsFetcher.shared.fetchPurchases()

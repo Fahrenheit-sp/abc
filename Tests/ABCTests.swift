@@ -6,8 +6,3 @@
 //
 
 import XCTest
-@testable import ABC
-
-class ABCTests: XCTestCase {
-
-}
