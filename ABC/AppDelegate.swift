@@ -2,8 +2,6 @@ import Firebase
 import GoogleMobileAds
 import Purchases
 import UIKit
-import AppTrackingTransparency
-import AdSupport
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
