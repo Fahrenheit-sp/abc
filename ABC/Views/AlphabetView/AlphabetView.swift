@@ -122,9 +122,12 @@ extension AlphabetView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let spacings = layout.minimumLineSpacing * CGFloat(viewModel.numberOfRows-1)
-        let height = (collectionView.bounds.height - spacings) / CGFloat(viewModel.numberOfRows)
-        let width = widthForItem(at: indexPath)
+        let verticalSpacings = layout.minimumLineSpacing * CGFloat(viewModel.numberOfRows-1)
+        let height = (collectionView.bounds.height - verticalSpacings) / CGFloat(viewModel.numberOfRows)
+        let horizontalSpacings = layout.minimumInteritemSpacing * CGFloat(viewModel.numberOfLetters(in: indexPath.section))
+        let width = UIDevice.isiPhone
+            ? widthForItem(at: indexPath)
+            : (collectionView.bounds.width - horizontalSpacings - 80) / CGFloat(viewModel.numberOfLetters(in: indexPath.section))
         return CGSize(width: width, height: height)
     }
 
@@ -132,6 +135,7 @@ extension AlphabetView: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         guard !viewModel.isAligned else { return .zero }
+        guard UIDevice.isiPhone else { return .init(top: 0, left: 40, bottom: 0, right: 40) }
         let rowWidth = calculateWidth(of: section)
         guard collectionView.bounds.width > rowWidth else { return .zero }
         let sideInset = (collectionView.bounds.width - rowWidth) / 2.0
