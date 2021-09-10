@@ -44,7 +44,6 @@ final class MakeAWordViewController: UIViewController {
             wordView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             wordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             wordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-          //  wordView.heightAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 100 : 250)
         ])
     }
 
