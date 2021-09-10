@@ -28,10 +28,6 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
         presenter.loadAd()
     }
 
-    deinit {
-        print("INTER DEINIT")
-    }
-
     func makeController() -> UIViewController {
         let controller = wrapped.makeController()
         setFabricDelegate(to: self)
