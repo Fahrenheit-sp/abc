@@ -24,15 +24,19 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
         self.wrapped = adaptee
         self.presenter = InterstitialPresenter()
         super.init()
-        wrapped.setFabricDelegate(to: self)
         presenter.delegate = self
         presenter.loadAd()
     }
 
     func makeController() -> UIViewController {
-        let root = wrapped.makeController()
-        view.map { $0.interactor = wrapped.makeInteractor(for: $0, router: self) }
-        return root
+        let controller = wrapped.makeController()
+        setFabricDelegate(to: self)
+        setInteractorDelegate(to: self)
+        return controller
+    }
+
+    func setInteractorDelegate(to router: MainMenuRoutable) {
+        wrapped.setInteractorDelegate(to: router)
     }
 
     func mainMenuDidSelect(item: MainMenuItem) {
@@ -41,6 +45,10 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
         case .listen, .canvas: view.map { presenter.presentAd(from: $0) }
         default: wrapped.mainMenuDidSelect(item: item)
         }
+    }
+
+    func setFabricDelegate(to delegate: MainMenuNavigatable) {
+        wrapped.setFabricDelegate(to: delegate)
     }
 
     private func procceedAfterPresentingAd() {

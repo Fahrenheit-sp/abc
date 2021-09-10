@@ -38,15 +38,19 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
         return navigation
     }
 
-    func makeInteractor(for ui: MainMenuUserInterface, router: MainMenuRoutable) -> MainMenuInteractable {
-        let interactor = MainMenuInteractor(parameters: .init(items: parameters.items))
-        interactor.router = router
-        interactor.ui = ui
-        return interactor
+    func setInteractorDelegate(to router: MainMenuRoutable) {
+        view.map { $0.interactor = makeInteractor(for: $0, router: router) }
     }
 
     func setFabricDelegate(to delegate: MainMenuNavigatable) {
         fabric.delegate = delegate
+    }
+
+    private func makeInteractor(for ui: MainMenuUserInterface, router: MainMenuRoutable) -> MainMenuInteractable {
+        let interactor = MainMenuInteractor(parameters: .init(items: parameters.items))
+        interactor.router = router
+        interactor.ui = ui
+        return interactor
     }
 
     private func makeNavigationController(with view: UIViewController) -> UINavigationController {

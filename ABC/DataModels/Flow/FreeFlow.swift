@@ -8,12 +8,18 @@
 import UIKit
 
 struct FreeFlow: Flow {
-    func start(from window: UIWindow?, animated: Bool) {
+
+    let router: Router
+
+    init() {
         let fabric = DefaultRouterFabric()
         let router = MainMenuRouter(parameters: .init(items: MainMenuItem.allCases), routersFabric: fabric)
-        let adapter = MainMenuInterstitialRouterDecorator(adaptee: router)
-        let controller = adapter.makeController()
-        setupRootViewController(controller, in: window, animated: animated)
+        let ad = MainMenuInterstitialRouterDecorator(adaptee: router)
+        let paywall = MainMenuPaywallRouterDecorator(adaptee: ad)
+        self.router = paywall
+    }
+    func start(from window: UIWindow?, animated: Bool) {
+        setupRootViewController(router.makeController(), in: window, animated: animated)
     }
 
 }
