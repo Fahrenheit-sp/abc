@@ -32,7 +32,7 @@ final class MakeAWordViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             starsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            starsView.heightAnchor.constraint(equalToConstant: 36),
+            starsView.heightAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 36 : 54),
             starsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -43,7 +43,8 @@ final class MakeAWordViewController: UIViewController {
             wordView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             wordView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             wordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            wordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+            wordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+          //  wordView.heightAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 100 : 250)
         ])
     }
 

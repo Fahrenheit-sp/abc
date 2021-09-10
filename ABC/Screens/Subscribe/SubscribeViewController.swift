@@ -60,6 +60,8 @@ final class SubscribeViewController: UIViewController {
         view.addSubview(moreOptionsButton)
         view.addSubview(spinner)
 
+        let offset: CGFloat = UIDevice.isiPhone ? 16 : 32
+
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -79,17 +81,17 @@ final class SubscribeViewController: UIViewController {
             gradient.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             gradient.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: offset),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: offset),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -offset),
 
-            featuresStack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            featuresStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            featuresStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            featuresStack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: offset),
+            featuresStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: offset),
+            featuresStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -offset),
 
-            priceLabel.topAnchor.constraint(equalTo: featuresStack.bottomAnchor, constant: 16),
-            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            priceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            priceLabel.topAnchor.constraint(equalTo: featuresStack.bottomAnchor, constant: offset),
+            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: offset),
+            priceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -offset),
 
             termsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             termsStack.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant: 12),
@@ -97,7 +99,7 @@ final class SubscribeViewController: UIViewController {
             subscribeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             subscribeButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             subscribeButton.heightAnchor.constraint(equalToConstant: 60),
-            subscribeButton.bottomAnchor.constraint(equalTo: moreOptionsButton.topAnchor, constant: -16),
+            subscribeButton.bottomAnchor.constraint(equalTo: moreOptionsButton.topAnchor, constant: -offset),
 
             moreOptionsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             moreOptionsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
@@ -114,7 +116,7 @@ final class SubscribeViewController: UIViewController {
 
         let restore = NSAttributedString(string: L10n.Subscription.restore,
                                              attributes: [.foregroundColor: UIColor.background,
-                                                          .font: UIFont.systemFont(ofSize: 15, weight: .medium)])
+                                                          .font: UIFont.systemFont(ofSize: UIDevice.isiPhone ? 15 : 17, weight: .medium)])
         restoreButton.setAttributedTitle(restore, for: .normal)
         restoreButton.addTarget(self, action: #selector(restoreTapped), for: .touchUpInside)
 
@@ -133,7 +135,7 @@ final class SubscribeViewController: UIViewController {
 
         featuresStack.axis = .vertical
         featuresStack.alignment = .leading
-        featuresStack.spacing = 8
+        featuresStack.spacing = UIDevice.isiPhone ? 8 : 16
 
         [L10n.Subscription.freeUpdates, L10n.Subscription.noAds, L10n.Subscription.fullAccess].map {
             let view = SubscriptionFeatureView().disableAutoresizing()
@@ -163,7 +165,7 @@ final class SubscribeViewController: UIViewController {
 
         let tryFree = NSAttributedString(string: L10n.Subscription.tryFreeAndSubscribe,
                                          attributes: [.foregroundColor: UIColor.white,
-                                                      .font: UIFont.systemFont(ofSize: 15, weight: .semibold)])
+                                                      .font: UIFont.systemFont(ofSize: UIDevice.isiPhone ? 15 : 17, weight: .semibold)])
         subscribeButton.setAttributedTitle(tryFree, for: .normal)
         subscribeButton.addTarget(self, action: #selector(subscribeTapped), for: .touchUpInside)
 

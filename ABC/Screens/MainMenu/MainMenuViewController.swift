@@ -93,8 +93,8 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
 
     func configure(with model: MainMenuScreenViewModel) {
         cellModels = model.cellModels
-        let height: CGFloat = UIDevice.isiPhone ? 80 : 120
-        layout.headerReferenceSize = model.isSubscribeAvailable ? CGSize(width: collectionView.bounds.width, height: height) : .zero
+        let headerHeight: CGFloat = UIDevice.isiPhone ? 80 : 120
+        layout.headerReferenceSize = model.isSubscribeAvailable ? CGSize(width: collectionView.bounds.width, height: headerHeight) : .zero
         collectionView.reloadData()
     }
 }
