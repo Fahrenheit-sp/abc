@@ -1,6 +1,7 @@
-import UIKit
-import Purchases
+import Firebase
 import GoogleMobileAds
+import Purchases
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -9,10 +10,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var currentFlow: Flow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        FirebaseApp.configure()
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-        #if DEBUG
-        Purchases.logLevel = .debug
-        #endif
         Purchases.configure(withAPIKey: Constants.revenueCatId)
 
         ProductsFetcher.shared.fetchPurchases()

@@ -9,6 +9,7 @@ target 'ABC' do
   # Pods for ABC
 
   pod 'Google-Mobile-Ads-SDK'
+  pod 'Firebase/Analytics'
   pod 'Purchases'
 
 end
