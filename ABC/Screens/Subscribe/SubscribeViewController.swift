@@ -161,6 +161,7 @@ final class SubscribeViewController: UIViewController {
         privacyButton.setAttributedTitle(privacy, for: .normal)
         privacyButton.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
 
+        subscribeButton.titleLabel?.adjustsFontSizeToFitWidth = true
         subscribeButton.roundCornersToRound()
         subscribeButton.backgroundColor = .subscriptionGreen
 

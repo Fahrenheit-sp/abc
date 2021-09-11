@@ -22,16 +22,16 @@
 
 "subscription.title" = "Erhalten Sie unbegrenzten Zugang";
 "subscription.restore" = "Wiederherstellen";
-"subscription.freeUpdates" = "Kostenlose bevorstehende Updates und Funktionen";
+"subscription.freeUpdates" = "Gratis bevorstehende Updates und Funktionen";
 "subscription.noAds" = "Keine nervige Werbung";
 "subscription.fullAccess" = "Voller Zugriff auf alle verfügbaren Spiele";
 "subscription.priceWithoutTrial" = "%@/%@";
-"subscription.priceWithTrial" = "%@ kostenlos, dann %@/%@";
+"subscription.priceWithTrial" = "%@ gratis, dann %@/%@";
 "subscription.termsOfUse" = "Nutzungsbedingungen";
 "subscription.privacyPolicy" = "Datenschutz-Bestimmungen";
-"subscription.tryFreeAndSubscribe" = "Kostenlos testen & abonnieren";
+"subscription.tryFreeAndSubscribe" = "Gratis testen & abonnieren";
 "subscription.moreBillingOptions" = "Weitere Abrechnungsoptionen";
 
 "term.year" = "Jahr";
-"term.month" = "Monat";
+"term.month" = "das Monat";
 "term.week" = "Woche";
