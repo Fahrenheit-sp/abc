@@ -10,6 +10,7 @@ import UIKit
 extension UIFont {
 
     static func current(size: CGFloat = 17.0, weight: UIFont.Weight = .regular) -> UIFont {
-        UIFont(name: "PlaytimeWithHotToddies", size: size).or(.systemFont(ofSize: size, weight: weight))
+        let name = Locale.preferredLanguages[0] == "ru" ? "AntipastoPro-Demibold" : "PlaytimeWithHotToddies"
+        return UIFont(name: name, size: size).or(.systemFont(ofSize: size, weight: weight))
     }
 }
