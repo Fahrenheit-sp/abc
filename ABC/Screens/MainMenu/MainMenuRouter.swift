@@ -59,8 +59,6 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.tintColor = .white
         navigationController.navigationBar.isTranslucent = true
-        navigationController.navigationBar.backIndicatorImage = Asset.Icons.back.image
-        navigationController.navigationBar.backIndicatorTransitionMaskImage = Asset.Icons.back.image
         navigationController.interactivePopGestureRecognizer?.isEnabled = false
         navigationController.view.backgroundColor = .clear
 
