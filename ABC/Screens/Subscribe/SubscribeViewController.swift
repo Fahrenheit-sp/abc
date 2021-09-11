@@ -132,6 +132,7 @@ final class SubscribeViewController: UIViewController {
         titleLabel.font = .systemFont(ofSize: UIScreen.isIphoneEightOrLess ? 27 : 33, weight: .semibold)
         titleLabel.textColor = .background
         titleLabel.text = L10n.Subscription.title
+        titleLabel.adjustsFontSizeToFitWidth = true
 
         featuresStack.axis = .vertical
         featuresStack.alignment = .leading
