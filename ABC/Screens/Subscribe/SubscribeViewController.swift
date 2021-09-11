@@ -132,6 +132,7 @@ final class SubscribeViewController: UIViewController {
         titleLabel.font = .systemFont(ofSize: UIScreen.isIphoneEightOrLess ? 27 : 33, weight: .semibold)
         titleLabel.textColor = .background
         titleLabel.text = L10n.Subscription.title
+        titleLabel.adjustsFontSizeToFitWidth = true
 
         featuresStack.axis = .vertical
         featuresStack.alignment = .leading
@@ -160,6 +161,7 @@ final class SubscribeViewController: UIViewController {
         privacyButton.setAttributedTitle(privacy, for: .normal)
         privacyButton.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
 
+        subscribeButton.titleLabel?.adjustsFontSizeToFitWidth = true
         subscribeButton.roundCornersToRound()
         subscribeButton.backgroundColor = .subscriptionGreen
 

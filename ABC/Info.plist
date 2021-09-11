@@ -24,6 +24,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>antipastopro.otf</string>
 		<string>playtime.ttf</string>
 	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

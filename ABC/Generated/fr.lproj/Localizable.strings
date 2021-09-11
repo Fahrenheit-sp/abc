@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  ABC
+
+  Created by Игорь Майсюк on 17.08.21.
+  
+*/
+
+"general.and" = "et";
+"general.ok" = "OK";
+"general.error" = "Quelque chose ne va pas";
+
+"error.nothingToRestore" = "Nous n'avons trouvé aucun achat à restaurer";
+
+"menu.item.subscribe" = "S'abonner";
+"menu.item.alphabet" = "Alphabet";
+"menu.item.numbers" = "Nombres";
+"menu.item.canvas" = "Toile";
+"menu.item.makeAWord" = "Faire un mot";
+"menu.item.memorize" = "Mémoriser";
+"menu.item.listen" = "Ecoutez";
+
+"subscription.title" = "Obtenez un accès illimité";
+"subscription.restore" = "Restaurer";
+"subscription.freeUpdates" = "Mises à jour et fonctionnalités gratuites à venir";
+"subscription.noAds" = "Pas de publicités ennuyeuses";
+"subscription.fullAccess" = "Accès complet à tous les jeux disponibles";
+"subscription.priceWithoutTrial" = "%@/%@";
+"subscription.priceWithTrial" = "%@ gratis, alors %@/%@";
+"subscription.termsOfUse" = "Conditions d'utilisation";
+"subscription.privacyPolicy" = "Politique de confidentialité";
+"subscription.tryFreeAndSubscribe" = "Essayez gratuitement et abonnez-vous";
+"subscription.moreBillingOptions" = "Plus d'options de facturation";
+
+"term.year" = "année";
+"term.month" = "mois";
+"term.week" = "la semaine";

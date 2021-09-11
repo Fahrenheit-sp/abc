@@ -51,7 +51,8 @@ final class MainMenuCollectionViewCell: UICollectionViewCell {
         titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         titleLabel.textAlignment = .center
         titleLabel.textColor = .black
-        titleLabel.font = .current(size: UIScreen.isiPhoneFive ? 23 : 29)
+        let iPhoneSize: CGFloat = UIScreen.isiPhoneFive ? 23 : 25
+        titleLabel.font = .current(size: UIDevice.isiPhone ? iPhoneSize : 29)
     }
 
     func configure(with model: MainMenuCellViewModel) {
