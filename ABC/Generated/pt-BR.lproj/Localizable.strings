@@ -6,32 +6,32 @@
   
 */
 
-"general.and" = "and";
+"general.and" = "e";
 "general.ok" = "OK";
-"general.error" = "Something wrong";
+"general.error" = "Algo errado";
 
-"error.nothingToRestore" = "We were not able to find any purchases to restore";
+"error.nothingToRestore" = "Não foi possível encontrar nenhuma compra para restaurar";
 
-"menu.item.subscribe" = "Subscribe";
-"menu.item.alphabet" = "Alphabet";
-"menu.item.numbers" = "Numbers";
-"menu.item.canvas" = "Canvas";
-"menu.item.makeAWord" = "Make a word";
-"menu.item.memorize" = "Memorize";
-"menu.item.listen" = "Listen";
+"menu.item.subscribe" = "Se inscrever";
+"menu.item.alphabet" = "Alfabeto";
+"menu.item.numbers" = "Números";
+"menu.item.canvas" = "Tela";
+"menu.item.makeAWord" = "Palavras";
+"menu.item.memorize" = "Memorizar";
+"menu.item.listen" = "Ouço";
 
-"subscription.title" = "Get unlimited access";
-"subscription.restore" = "Restore";
-"subscription.freeUpdates" = "Free upcoming updates and features";
-"subscription.noAds" = "No annoying ads";
-"subscription.fullAccess" = "Full access to all available games";
+"subscription.title" = "Tenha acesso ilimitado";
+"subscription.restore" = "Restaurar";
+"subscription.freeUpdates" = "Próximas atualizações e recursos gratuitos";
+"subscription.noAds" = "Sem anúncios irritantes";
+"subscription.fullAccess" = "Acesso total a todos os jogos disponíveis";
 "subscription.priceWithoutTrial" = "%@/%@";
-"subscription.priceWithTrial" = "%@ free then %@/%@";
-"subscription.termsOfUse" = "Terms of Use";
-"subscription.privacyPolicy" = "Privacy Policy";
-"subscription.tryFreeAndSubscribe" = "Try Free & Subscribe";
-"subscription.moreBillingOptions" = "More billing options";
+"subscription.priceWithTrial" = "%@ grátis, então %@/%@";
+"subscription.termsOfUse" = "Termos de uso";
+"subscription.privacyPolicy" = "Política de Privacidade";
+"subscription.tryFreeAndSubscribe" = "Experimente grátis e assine";
+"subscription.moreBillingOptions" = "Mais opções de faturamento";
 
-"term.year" = "year";
-"term.month" = "month";
-"term.week" = "week";
+"term.year" = "ano";
+"term.month" = "mês";
+"term.week" = "semana";
