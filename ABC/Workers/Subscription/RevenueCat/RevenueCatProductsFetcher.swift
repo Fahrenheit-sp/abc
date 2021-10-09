@@ -9,19 +9,9 @@ import Foundation
 import Purchases
 import StoreKit
 
-protocol ProductsFetcherDelegate: AnyObject {
-    func fetcher(_ fetcher: ProductsFetcher, didFailToPurchaseWith error: Error)
-    func fetcherDidLoadPurchases(_ fetcher: ProductsFetcher)
-    func fetcherDidCancelPurchase(_ fetcher: ProductsFetcher)
-    func fetcherDidSubscribeSuccesfully(_ fetcher: ProductsFetcher, until date: Date?)
-    func fetcherDidRestoreSuccesfully(_ fetcher: ProductsFetcher, until date: Date?)
-}
+final class RevenueCatProductsFetcher: NSObject {
 
-final class ProductsFetcher: NSObject {
-
-    private static let entitlementId = "Subscribed"
-
-    static let shared = ProductsFetcher()
+    static let shared = RevenueCatProductsFetcher()
     private var packages: [Purchases.Package] = []
 
     weak var delegate: ProductsFetcherDelegate?
@@ -40,63 +30,32 @@ final class ProductsFetcher: NSObject {
         super.init()
         Purchases.shared.delegate = self
     }
+}
 
-    func fetchPurchases() {
-        guard packages.isEmpty else { return }
+extension RevenueCatProductsFetcher: ProductsFetchable {
+    func fetchProducts() {
+        guard packages.isEmpty else {
+            delegate?.fetcherDidLoadPurchases(self)
+            return
+        }
         Purchases.shared.offerings { offerings, error in
             guard let packages = offerings?.current?.availablePackages else { return }
+            packages.forEach { print($0) }
             self.packages = packages
             self.delegate?.fetcherDidLoadPurchases(self)
         }
     }
 
-    func buyYearSubscription() {
-        guard let package = packages.first(where: { $0.packageType == .annual }) else { return }
-        purchase(package)
-    }
-
-    func buyMonthlySubscription() {
-        guard let package = packages.first(where: { $0.packageType == .monthly }) else { return }
-        purchase(package)
-    }
-
-    func buyWeeklySubscription() {
-        guard let package = packages.first(where: { $0.packageType == .weekly }) else { return }
-        purchase(package)
-    }
-
-    func restorePurchases() {
-        Purchases.shared.restoreTransactions { info, error in
-            if let error = error {
-                self.delegate?.fetcher(self, didFailToPurchaseWith: error)
-                return
-            }
-            guard info?.entitlements[Self.entitlementId]?.isActive == true else {
-                self.delegate?.fetcher(self, didFailToPurchaseWith: SubscriptionError.nothingToRestore)
-                return
-            }
-            self.delegate?.fetcherDidRestoreSuccesfully(self, until: info?.expirationDate(forEntitlement: Self.entitlementId))
-        }
-    }
-
-    private func purchase(_ package: Purchases.Package) {
-        Purchases.shared.purchasePackage(package) { _, info, error, isCancelled in
-            if let error = error {
-                isCancelled
-                    ? self.delegate?.fetcherDidCancelPurchase(self)
-                    : self.delegate?.fetcher(self, didFailToPurchaseWith: error)
-                return
-            }
-            guard info?.entitlements[Self.entitlementId]?.isActive == true else { return }
-            self.delegate?.fetcherDidSubscribeSuccesfully(self, until: info?.expirationDate(forEntitlement: Self.entitlementId))
-        }
+    func getPurchaser() -> SubscriptionPurchaseable {
+        RevenueCatSubscriptionPurchaser(packages: packages)
     }
 }
 
-extension ProductsFetcher: PurchasesDelegate {
+extension RevenueCatProductsFetcher: PurchasesDelegate {
     func purchases(_ purchases: Purchases, didReceiveUpdated purchaserInfo: Purchases.PurchaserInfo) {
         let manager = UserDataManager()
-        let user = manager.getUser().withUpdatedExpirationDate(to: purchaserInfo.expirationDate(forEntitlement: Self.entitlementId))
+        let expirationDate = purchaserInfo.expirationDate(forEntitlement: Constants.revenueCatEntitlement)
+        let user = manager.getUser().withUpdatedExpirationDate(to: expirationDate)
         manager.save(user: user)
     }
 }

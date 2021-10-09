@@ -15,4 +15,6 @@ enum Constants {
 
     static let privacyUrl = URL(string: "https://abc-32.flycricket.io/privacy.html")!
     static let termsUrl = URL(string: "https://abc-32.flycricket.io/terms.html")!
+
+    static let revenueCatEntitlement = "Subscribed"
 }
