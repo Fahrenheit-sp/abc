@@ -31,6 +31,10 @@
 "subscription.privacyPolicy" = "Privacy Policy";
 "subscription.tryFreeAndSubscribe" = "Try Free & Subscribe";
 "subscription.moreBillingOptions" = "More billing options";
+"subscription.perTerm" = "per %@";
+"subscription.trialTerm" = "%@ free trial";
+"subscription.paymentWithTrialDescription" = "Free trial is available for new subscribers only. Renews after %@ at %@";
+"subscription.paymentWithoutTrialDescription" = "Renews at %@";
 
 "term.year" = "year";
 "term.month" = "month";

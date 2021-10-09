@@ -31,6 +31,10 @@
 "subscription.privacyPolicy" = "Политика конфиденциальности";
 "subscription.tryFreeAndSubscribe" = "Попробовать бесплатно и подписаться";
 "subscription.moreBillingOptions" = "Больше опций подписок";
+"subscription.perTerm" = "в %@";
+"subscription.trialTerm" = "%@ бесплатно";
+"subscription.paymentWithTrialDescription" = "Пробный период доступен только для новых подписчиков. Автоматически возобновляется после %@ по %@/%@";
+"subscription.paymentWithoutTrialDescription" = "Автоматически возобновляется по %@/%@";
 
 "term.year" = "год";
 "term.month" = "месяц";

@@ -31,6 +31,10 @@
 "subscription.privacyPolicy" = "隐私政策";
 "subscription.tryFreeAndSubscribe" = "免费试用并订阅";
 "subscription.moreBillingOptions" = "更多计费选项";
+"subscription.perTerm" = "每 %@";
+"subscription.trialTerm" = "%@ 免费试用";
+"subscription.paymentWithTrialDescription" = "免费试用仅适用于新订阅者。 %@ 天后 %@ 日续订";
+"subscription.paymentWithoutTrialDescription" = "%@ 点更新";
 
 "term.year" = "年";
 "term.month" = "月";

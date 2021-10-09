@@ -14,15 +14,15 @@ protocol SubscribeRouterDelegate: AnyObject {
 
 protocol SubscribeRoutable: AnyObject, Router {
     func didClose()
+    func didTapMoreOptions()
 }
 
 protocol SubscribeInteractable: AnyObject {
     func didLoad()
     func didClose()
     func didRestore()
-    func didTapPrivacy()
-    func didTapTerms()
     func didTapBuyMain()
+    func didTapMoreOptions()
 }
 
 protocol SubscribeUserInterface: AnyObject {

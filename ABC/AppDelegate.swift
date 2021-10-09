@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Purchases.configure(withAPIKey: Constants.revenueCatId)
 
-        ProductsFetcher.shared.fetchPurchases()
+        RevenueCatProductsFetcher.shared.fetchProducts()
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = LoadingViewController()
