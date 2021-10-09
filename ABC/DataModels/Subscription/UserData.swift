@@ -8,17 +8,20 @@
 import Foundation
 
 struct UserData: Codable {
-    let isSubscribed: Bool
     let expirationDate: Date?
     var lastListenPlayedDate: Date?
     var lastMemorizePlayedDate: Date?
     var lastMakeAWordPlayedDate: Date?
 
     func withUpdatedExpirationDate(to date: Date?) -> UserData {
-        .init(isSubscribed: date.or(Date()) > Date(),
-              expirationDate: date,
+        .init(expirationDate: date,
               lastListenPlayedDate: lastListenPlayedDate,
               lastMemorizePlayedDate: lastMemorizePlayedDate,
               lastMakeAWordPlayedDate: lastMakeAWordPlayedDate)
+    }
+
+    var isSubscribed: Bool {
+        let currentDate = Date()
+        return expirationDate.or(currentDate) > currentDate
     }
 }

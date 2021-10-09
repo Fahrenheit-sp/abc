@@ -94,7 +94,7 @@ final class SubscribeViewController: UIViewController {
             priceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -offset),
 
             termsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            termsStack.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant: 12),
+            termsStack.bottomAnchor.constraint(equalTo: subscribeButton.topAnchor, constant: -12),
 
             subscribeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             subscribeButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
@@ -176,8 +176,6 @@ final class SubscribeViewController: UIViewController {
                                                           .font: UIFont.systemFont(ofSize: 13, weight: .semibold)])
         moreOptionsButton.setAttributedTitle(moreOptions, for: .normal)
         moreOptionsButton.addTarget(self, action: #selector(moreOptionsTapped), for: .touchUpInside)
-        #warning("Enable in next updates")
-        moreOptionsButton.isHidden = true
 
         spinner.backgroundColor = .subscribeBlue.withAlphaComponent(0.5)
     }
@@ -205,8 +203,7 @@ final class SubscribeViewController: UIViewController {
     }
 
     @objc private func moreOptionsTapped() {
-        #warning("Add more options")
-        print("More options tapped")
+        interactor?.didTapMoreOptions()
     }
 
     private func startSpinner() {

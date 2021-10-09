@@ -11,19 +11,26 @@ import Foundation
 final class SubscribeInteractor: SubscribeInteractable {
 
     private let manager: UserDataManager
+    private var purchaser: SubscriptionPurchaseable?
+    private let fetcher: ProductsFetchable
     weak var ui: SubscribeUserInterface?
     weak var router: SubscribeRoutable?
 
-    init(ui: SubscribeUserInterface? = nil, router: SubscribeRoutable? = nil) {
+    init(ui: SubscribeUserInterface? = nil,
+         router: SubscribeRoutable? = nil,
+         userDataManager: UserDataManager = .init(),
+         fetcher: ProductsFetchable) {
         self.ui = ui
         self.router = router
-        self.manager = UserDataManager()
-        ProductsFetcher.shared.delegate = self
-        ProductsFetcher.shared.fetchPurchases()
+        self.manager = userDataManager
+        self.fetcher = fetcher
+        updatePurchaser(from: fetcher)
+        fetcher.delegate = self
+        fetcher.fetchProducts()
     }
     
     func didLoad() {
-        let info = ProductsFetcher.shared.mainSubscriptionInfo
+        let info = RevenueCatProductsFetcher.shared.mainSubscriptionInfo
         let price = info.trial == nil
             ? L10n.Subscription.priceWithoutTrial(info.price, info.term)
             : L10n.Subscription.priceWithTrial(info.trial!, info.price, info.term)
@@ -35,7 +42,7 @@ final class SubscribeInteractor: SubscribeInteractable {
     }
 
     func didRestore() {
-        ProductsFetcher.shared.restorePurchases()
+        purchaser?.restore()
     }
 
     func didTapPrivacy() {
@@ -47,31 +54,42 @@ final class SubscribeInteractor: SubscribeInteractable {
     }
 
     func didTapBuyMain() {
-        ProductsFetcher.shared.buyYearSubscription()
+        purchaser?.buyYearSubscription()
+    }
+
+    func didTapMoreOptions() {
+        router?.didTapMoreOptions()
+    }
+
+    private func updatePurchaser(from fetcher: ProductsFetchable) {
+        purchaser = fetcher.getPurchaser()
+        purchaser?.delegate = self
     }
 }
 
 extension SubscribeInteractor: ProductsFetcherDelegate {
-
-    func fetcherDidLoadPurchases(_ fetcher: ProductsFetcher) {
+    func fetcherDidLoadPurchases(_ fetcher: ProductsFetchable) {
+        updatePurchaser(from: fetcher)
         DispatchQueue.main.async { self.didLoad() }
     }
+}
 
-    func fetcher(_ fetcher: ProductsFetcher, didFailToPurchaseWith error: Error) {
+extension SubscribeInteractor: SubscriptionPurchaserDelegate {
+    func purchaser(_ purchaser: SubscriptionPurchaseable, didFailToPurchaseWith error: Error) {
         ui?.didFailPurchase(with: error.localizedDescription)
     }
 
-    func fetcherDidCancelPurchase(_ fetcher: ProductsFetcher) {
+    func purchaser(_ purchaser: SubscriptionPurchaseable, didSubscribeSuccesfullyUntil date: Date?) {
+        let newUser = manager.getUser().withUpdatedExpirationDate(to: date)
+        manager.save(user: newUser)
+    }
+
+    func purchaser(_ purchaser: SubscriptionPurchaseable, didRestoreSuccesfullyUntil date: Date?) {
+        let newUser = manager.getUser().withUpdatedExpirationDate(to: date)
+        manager.save(user: newUser)
+    }
+
+    func purchaserDidCancelPurchase(_ purchaser: SubscriptionPurchaseable) {
         ui?.didCancelPurchase()
-    }
-
-    func fetcherDidSubscribeSuccesfully(_ fetcher: ProductsFetcher, until date: Date?) {
-        let newUser = manager.getUser().withUpdatedExpirationDate(to: date)
-        manager.save(user: newUser)
-    }
-
-    func fetcherDidRestoreSuccesfully(_ fetcher: ProductsFetcher, until date: Date?) {
-        let newUser = manager.getUser().withUpdatedExpirationDate(to: date)
-        manager.save(user: newUser)
     }
 }

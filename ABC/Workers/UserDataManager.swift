@@ -37,8 +37,7 @@ struct UserDataManager {
     }
 
     private func createNewUser() -> UserData {
-        let data = UserData(isSubscribed: false,
-                            expirationDate: nil,
+        let data = UserData(expirationDate: nil,
                             lastListenPlayedDate: nil,
                             lastMemorizePlayedDate: nil,
                             lastMakeAWordPlayedDate: nil)
