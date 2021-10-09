@@ -16,19 +16,37 @@ final class RevenueCatProductsFetcher: NSObject {
 
     weak var delegate: ProductsFetcherDelegate?
 
-    private var fallbackInfo: SubscriptionInfo {
-        .init(trial: "7 days", price: "44,99 US$", term: L10n.Term.year)
-    }
-
-    var mainSubscriptionInfo: SubscriptionInfo {
-        guard let package = packages.first(where: { $0.packageType == .annual }) else { return fallbackInfo }
-        let trial = package.product.introductoryPrice?.subscriptionPeriod.localizedPeriod()
-        return SubscriptionInfo(trial: trial, price: package.localizedPriceString, term: package.term)
-    }
-
     private override init() {
         super.init()
         Purchases.shared.delegate = self
+    }
+
+    private func subscriptionInfo(for term: Purchases.PackageType) -> SubscriptionInfo {
+        #warning("Localize per")
+        guard let package = packages.first(where: { $0.packageType == .monthly }) else { return fallbackSubscriptionInfo(for: term) }
+        let trial = package.product.introductoryPrice?.subscriptionPeriod.localizedPeriod()
+        let description = subscriptionDescription(for: term)
+        let isMain = term == .annual
+        return .init(trial: trial, price: package.localizedPriceString, term: package.term, description: description, isMain: isMain)
+    }
+
+    private func fallbackSubscriptionInfo(for term: Purchases.PackageType) -> SubscriptionInfo {
+        let description = subscriptionDescription(for: term)
+        switch term {
+        case .annual: return .init(trial: "7 days", price: "39,99 US$", term: L10n.Term.year, description: description, isMain: true)
+        case .monthly: return .init(trial: nil, price: "4,99 US$", term: L10n.Term.month, description: description, isMain: false)
+        default: return .init(trial: "7 days", price: "39,99 US$", term: L10n.Term.year, description: description, isMain: false)
+        }
+    }
+
+    private func subscriptionDescription(for term: Purchases.PackageType) -> String {
+        return L10n.Subscription.perTerm(L10n.Term.year)
+        #warning("Localize Year description")
+        switch term {
+        case .annual: return L10n.Subscription.perTerm(L10n.Term.year)
+        case .monthly: return L10n.Subscription.perTerm(L10n.Term.month)
+        default: return L10n.Subscription.perTerm(L10n.Term.year)
+        }
     }
 }
 
@@ -44,6 +62,10 @@ extension RevenueCatProductsFetcher: ProductsFetchable {
             self.packages = packages
             self.delegate?.fetcherDidLoadPurchases(self)
         }
+    }
+
+    func getProductsInfo() -> [SubscriptionInfo] {
+        packages.map { subscriptionInfo(for: $0.packageType) }
     }
 
     func getPurchaser() -> SubscriptionPurchaseable {

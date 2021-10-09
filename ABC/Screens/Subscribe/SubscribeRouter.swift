@@ -36,7 +36,8 @@ final class SubscribeRouter: SubscribeRoutable {
     }
 
     func didTapMoreOptions() {
-        let router = MoreBillingOptionsRouter(parameters: .init(purchaser: parameters.fetcher.getPurchaser()))
+        let router = MoreBillingOptionsRouter(parameters: .init(fetcher: parameters.fetcher,
+                                                                purchaser: parameters.fetcher.getPurchaser()))
         router.delegate = self
         moreOptionsRouter = router
 

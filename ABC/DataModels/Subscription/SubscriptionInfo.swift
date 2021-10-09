@@ -11,4 +11,6 @@ struct SubscriptionInfo {
     let trial: String?
     let price: String
     let term: String
+    let description: String
+    let isMain: Bool
 }

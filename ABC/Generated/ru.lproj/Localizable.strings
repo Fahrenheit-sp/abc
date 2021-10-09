@@ -31,6 +31,7 @@
 "subscription.privacyPolicy" = "Политика конфиденциальности";
 "subscription.tryFreeAndSubscribe" = "Попробовать бесплатно и подписаться";
 "subscription.moreBillingOptions" = "Больше опций подписок";
+"subscription.perTerm" = "в %@";
 
 "term.year" = "год";
 "term.month" = "месяц";

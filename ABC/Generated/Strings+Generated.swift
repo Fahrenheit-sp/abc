@@ -53,6 +53,10 @@ internal enum L10n {
     internal static let moreBillingOptions = L10n.tr("Localizable", "subscription.moreBillingOptions")
     /// No annoying ads
     internal static let noAds = L10n.tr("Localizable", "subscription.noAds")
+    /// per %@
+    internal static func perTerm(_ p1: Any) -> String {
+      return L10n.tr("Localizable", "subscription.perTerm", String(describing: p1))
+    }
     /// %@/%@
     internal static func priceWithoutTrial(_ p1: Any, _ p2: Any) -> String {
       return L10n.tr("Localizable", "subscription.priceWithoutTrial", String(describing: p1), String(describing: p2))

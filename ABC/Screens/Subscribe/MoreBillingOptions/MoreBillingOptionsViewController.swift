@@ -27,6 +27,7 @@ final class MoreBillingOptionsViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupUI()
+        setupInteraction()
 
         interactor?.didLoad()
     }
@@ -34,6 +35,7 @@ final class MoreBillingOptionsViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(closeButton)
         view.addSubview(annualView)
+        view.addSubview(monthlyView)
 
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -58,6 +60,11 @@ final class MoreBillingOptionsViewController: UIViewController {
         closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
     }
 
+    private func setupInteraction() {
+        annualView.delegate = self
+        monthlyView.delegate = self
+    }
+
     @objc private func closeTapped() {
         interactor?.didClose()
     }
@@ -66,7 +73,8 @@ final class MoreBillingOptionsViewController: UIViewController {
 
 extension MoreBillingOptionsViewController: MoreBillingOptionsUserInterface {
     func configure(with model: MoreBillingOptionsViewModel) {
-
+        model.mainBillingOption.map { annualView.configure(with: $0) }
+        model.secondaryBillingOption.map { monthlyView.configure(with: $0) }
     }
 
     func didCancelPurchase() {
@@ -77,4 +85,11 @@ extension MoreBillingOptionsViewController: MoreBillingOptionsUserInterface {
         
     }
 
+}
+
+extension MoreBillingOptionsViewController: BillingOptionViewDelegate {
+    func billingOptionViewDidBecomeSelected(_ billingOptionView: BillingOptionView) {
+        let isMain = billingOptionView == annualView
+        isMain ? interactor?.didSelectMain() : interactor?.didSelectSecondary()
+    }
 }

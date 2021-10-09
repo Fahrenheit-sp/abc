@@ -10,6 +10,7 @@ import Foundation
 protocol ProductsFetchable: AnyObject {
     var delegate: ProductsFetcherDelegate? { get set }
     func fetchProducts()
+    func getProductsInfo() -> [SubscriptionInfo]
     func getPurchaser() -> SubscriptionPurchaseable
 }
 

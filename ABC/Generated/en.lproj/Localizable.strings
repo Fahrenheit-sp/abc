@@ -31,6 +31,7 @@
 "subscription.privacyPolicy" = "Privacy Policy";
 "subscription.tryFreeAndSubscribe" = "Try Free & Subscribe";
 "subscription.moreBillingOptions" = "More billing options";
+"subscription.perTerm" = "per %@";
 
 "term.year" = "year";
 "term.month" = "month";

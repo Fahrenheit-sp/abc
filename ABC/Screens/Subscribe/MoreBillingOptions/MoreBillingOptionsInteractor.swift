@@ -10,38 +10,53 @@ import Foundation
 final class MoreBillingOptionsInteractor {
 
     struct Parameters {
-        let billingOptions: [BillingOption]
+        let purchaser: SubscriptionPurchaseable
+        let subscriptions: [SubscriptionInfo]
     }
 
     private weak var ui: MoreBillingOptionsUserInterface?
     private weak var router: MoreBillingOptionsRoutable?
-    private let purchaser: SubscriptionPurchaseable
+    private let parameters: Parameters
+    private var selectedSubscriptionInfo: SubscriptionInfo?
 
     init(ui: MoreBillingOptionsUserInterface? = nil,
          router: MoreBillingOptionsRoutable? = nil,
-         purchaser: SubscriptionPurchaseable) {
+         parameters: Parameters) {
         self.ui = ui
         self.router = router
-        self.purchaser = purchaser
-        self.purchaser.delegate = self
+        self.parameters = parameters
+        self.parameters.purchaser.delegate = self
+        self.selectedSubscriptionInfo = getMainSubscriptionInfo()
     }
 }
 
 extension MoreBillingOptionsInteractor: MoreBillingOptionsInteractable {
     func didLoad() {
-        #warning("Handle billing options")
+        let main = getMainSubscriptionInfo()
+        let secondary = getSecondarySubscriptionInfo()
+        ui?.configure(with: .init(mainBillingOption: .init(subscriptionInfo: main, isSelected: true),
+                                  secondaryBillingOption: .init(subscriptionInfo: secondary, isSelected: false)))
     }
 
     func didClose() {
         router?.didClose()
     }
 
-    func didTapBuyMain() {
-        purchaser.buyYearSubscription()
+    func didSelectMain() {
+        selectedSubscriptionInfo = getMainSubscriptionInfo()
+        ui?.configure(with: .init(mainBillingOption: <#T##BillingOption?#>, secondaryBillingOption: <#T##BillingOption?#>))
     }
 
-    func didTapBuySecondary() {
-        purchaser.buyMonthSubscription()
+    func didSelectSecondary() {
+        selectedSubscriptionInfo = getSecondarySubscriptionInfo()
+    }
+
+    private func getMainSubscriptionInfo() -> SubscriptionInfo? {
+        parameters.subscriptions.first { $0.isMain } ?? parameters.subscriptions.first
+    }
+
+    private func getSecondarySubscriptionInfo() -> SubscriptionInfo? {
+        parameters.subscriptions.first { !$0.isMain } ?? parameters.subscriptions.last
     }
 
 }

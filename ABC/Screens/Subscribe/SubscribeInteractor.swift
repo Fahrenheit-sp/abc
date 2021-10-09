@@ -30,7 +30,7 @@ final class SubscribeInteractor: SubscribeInteractable {
     }
     
     func didLoad() {
-        let info = RevenueCatProductsFetcher.shared.mainSubscriptionInfo
+        guard let info = fetcher.getProductsInfo().first(where: { $0.isMain }) else { return }
         let price = info.trial == nil
             ? L10n.Subscription.priceWithoutTrial(info.price, info.term)
             : L10n.Subscription.priceWithTrial(info.trial!, info.price, info.term)
