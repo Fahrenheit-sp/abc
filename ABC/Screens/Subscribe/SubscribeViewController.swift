@@ -90,10 +90,10 @@ final class SubscribeViewController: UIViewController {
             subscribeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             subscribeButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             subscribeButton.heightAnchor.constraint(equalToConstant: 60),
-            subscribeButton.bottomAnchor.constraint(equalTo: moreOptionsButton.topAnchor, constant: -offset),
+            subscribeButton.bottomAnchor.constraint(equalTo: moreOptionsButton.topAnchor, constant: -16),
 
             moreOptionsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            moreOptionsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
+            moreOptionsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
 
             spinner.topAnchor.constraint(equalTo: view.topAnchor),
             spinner.leadingAnchor.constraint(equalTo: view.leadingAnchor),
