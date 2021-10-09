@@ -30,11 +30,15 @@ final class SubscribeInteractor: SubscribeInteractable {
     }
     
     func didLoad() {
-        guard let info = fetcher.getProductsInfo().first(where: { $0.isMain }) else { return }
+        let features = [L10n.Subscription.freeUpdates, L10n.Subscription.noAds, L10n.Subscription.fullAccess]
+        guard let info = fetcher.getProductsInfo().first(where: { $0.isMain }) else {
+            ui?.configure(with: .init(priceString: .empty, features: features))
+            return
+        }
         let price = info.trial == nil
             ? L10n.Subscription.priceWithoutTrial(info.price, info.term)
             : L10n.Subscription.priceWithTrial(info.trial!, info.price, info.term)
-        ui?.configure(with: .init(priceString: price))
+        ui?.configure(with: .init(priceString: price, features: features))
     }
 
     func didClose() {
@@ -43,14 +47,6 @@ final class SubscribeInteractor: SubscribeInteractable {
 
     func didRestore() {
         purchaser?.restore()
-    }
-
-    func didTapPrivacy() {
-        UIApplication.shared.open(Constants.privacyUrl, options: [:], completionHandler: nil)
-    }
-
-    func didTapTerms() {
-        UIApplication.shared.open(Constants.termsUrl, options: [:], completionHandler: nil)
     }
 
     func didTapBuyMain() {

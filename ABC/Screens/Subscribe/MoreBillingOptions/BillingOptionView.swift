@@ -40,19 +40,19 @@ final class BillingOptionView: UIView {
                                           shadowOffset: .init(width: 4, height: 4),
                                           shadowRadius: 8)
 
-        trialView.configuration = .init(cornerRadius: 12,
+        trialView.configuration = .init(cornerRadius: 17,
                                         shadowColor: .darkGray,
                                         shadowOpacity: 0.3,
-                                        shadowOffset: .init(width: 4, height: 4),
+                                        shadowOffset: .init(width: 2, height: 2),
                                         shadowRadius: 8)
 
-        titleLabel.font = .systemFont(ofSize: 15, weight: .semibold)
-        titleLabel.textColor = .darkText
+        titleLabel.font = .systemFont(ofSize: 14, weight: .bold)
+        titleLabel.textColor = .gray
 
-        trialLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        trialLabel.textColor = .background
+        trialLabel.font = .systemFont(ofSize: 15, weight: .bold)
+        trialLabel.textColor = .subscriptionRed
 
-        priceLabel.font = .systemFont(ofSize: 24, weight: .semibold)
+        priceLabel.font = .systemFont(ofSize: 28, weight: .semibold)
         priceLabel.textColor = .black
 
         subtitleLabel.font = .systemFont(ofSize: 14, weight: .regular)
@@ -77,7 +77,7 @@ final class BillingOptionView: UIView {
         let trialLabelConstraints = [
             trialLabel.centerYAnchor.constraint(equalTo: trialView.centerYAnchor),
             trialLabel.centerXAnchor.constraint(equalTo: trialView.centerXAnchor),
-            trialLabel.topAnchor.constraint(equalTo: trialView.topAnchor, constant: 16),
+            trialLabel.topAnchor.constraint(equalTo: trialView.topAnchor, constant: 8),
             trialLabel.leadingAnchor.constraint(equalTo: trialView.leadingAnchor, constant: 16)
         ]
         let title = [
@@ -85,14 +85,14 @@ final class BillingOptionView: UIView {
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
         ]
         let price = [
-            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             priceLabel.trailingAnchor.constraint(equalTo: checkmarkView.leadingAnchor, constant: -16)
         ]
         let subtitle = [
             subtitleLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8),
             subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            subtitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 16)
+            subtitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ]
         let checkmark = [
             checkmarkView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
@@ -105,7 +105,6 @@ final class BillingOptionView: UIView {
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        print("TOUCHES ENDED")
         delegate?.billingOptionViewDidBecomeSelected(self)
     }
 

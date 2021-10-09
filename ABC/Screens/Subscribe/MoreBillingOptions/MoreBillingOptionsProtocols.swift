@@ -23,6 +23,7 @@ protocol MoreBillingOptionsInteractable: AnyObject {
     func didClose()
     func didSelectMain()
     func didSelectSecondary()
+    func didPressSubscribe()
 }
 
 protocol MoreBillingOptionsUserInterface: AnyObject {

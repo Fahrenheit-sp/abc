@@ -31,6 +31,10 @@
 "subscription.privacyPolicy" = "Política de Privacidade";
 "subscription.tryFreeAndSubscribe" = "Experimente grátis e assine";
 "subscription.moreBillingOptions" = "Mais opções de faturamento";
+"subscription.perTerm" = "por %@";
+"subscription.trialTerm" = "%@ teste grátis";
+"subscription.paymentWithTrialDescription" = "O teste gratuito está disponível apenas para novos assinantes. Renova após %@ por %@";
+"subscription.paymentWithoutTrialDescription" = "Renova em %@";
 
 "term.year" = "ano";
 "term.month" = "mês";

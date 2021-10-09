@@ -22,8 +22,7 @@ final class RevenueCatProductsFetcher: NSObject {
     }
 
     private func subscriptionInfo(for term: Purchases.PackageType) -> SubscriptionInfo {
-        #warning("Localize per")
-        guard let package = packages.first(where: { $0.packageType == .monthly }) else { return fallbackSubscriptionInfo(for: term) }
+        guard let package = packages.first(where: { $0.packageType == term }) else { return fallbackSubscriptionInfo(for: term) }
         let trial = package.product.introductoryPrice?.subscriptionPeriod.localizedPeriod()
         let description = subscriptionDescription(for: term)
         let isMain = term == .annual
@@ -40,8 +39,6 @@ final class RevenueCatProductsFetcher: NSObject {
     }
 
     private func subscriptionDescription(for term: Purchases.PackageType) -> String {
-        return L10n.Subscription.perTerm(L10n.Term.year)
-        #warning("Localize Year description")
         switch term {
         case .annual: return L10n.Subscription.perTerm(L10n.Term.year)
         case .monthly: return L10n.Subscription.perTerm(L10n.Term.month)
@@ -58,7 +55,6 @@ extension RevenueCatProductsFetcher: ProductsFetchable {
         }
         Purchases.shared.offerings { offerings, error in
             guard let packages = offerings?.current?.availablePackages else { return }
-            packages.forEach { print($0) }
             self.packages = packages
             self.delegate?.fetcherDidLoadPurchases(self)
         }

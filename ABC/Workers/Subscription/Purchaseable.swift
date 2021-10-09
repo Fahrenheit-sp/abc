@@ -9,6 +9,7 @@ import Foundation
 
 protocol SubscriptionPurchaseable: AnyObject {
     var delegate: SubscriptionPurchaserDelegate? { get set }
+    func purchase(_ subscriptionInfo: SubscriptionInfo)
     func buyYearSubscription()
     func buyMonthSubscription()
     func buyWeekSubscription()

@@ -32,6 +32,6 @@ struct BillingOption {
     }
 
     var trialText: String? {
-        subscriptionInfo.trial
+        subscriptionInfo.trial.map { L10n.Subscription.trialTerm($0) }
     }
 }

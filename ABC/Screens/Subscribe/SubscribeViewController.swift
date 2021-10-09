@@ -9,6 +9,7 @@ import UIKit
 
 struct SubscribeScreenViewModel {
     let priceString: String
+    let features: [String]
 }
 
 final class SubscribeViewController: UIViewController {
@@ -21,21 +22,11 @@ final class SubscribeViewController: UIViewController {
     private let featuresStack = UIStackView().disableAutoresizing()
     private let priceLabel = UILabel().disableAutoresizing()
 
-    private let termsButton = UIButton().disableAutoresizing()
-    private let andLabel = UILabel().disableAutoresizing()
-    private let privacyButton = UIButton().disableAutoresizing()
-
-    private let spinner = UIActivityIndicatorView(style: .whiteLarge).disableAutoresizing()
-
-    private lazy var termsStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [termsButton, andLabel, privacyButton]).disableAutoresizing()
-        stack.axis = .horizontal
-        stack.spacing = 4
-        return stack
-    }()
-
+    private let termsView = TermsAndPrivacyView().disableAutoresizing()
     private let subscribeButton = UIButton().disableAutoresizing()
     private let moreOptionsButton = UIButton().disableAutoresizing()
+
+    private let spinner = UIActivityIndicatorView(style: .whiteLarge).disableAutoresizing()
 
     var interactor: SubscribeInteractable?
 
@@ -55,7 +46,7 @@ final class SubscribeViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(featuresStack)
         view.addSubview(priceLabel)
-        view.addSubview(termsStack)
+        view.addSubview(termsView)
         view.addSubview(subscribeButton)
         view.addSubview(moreOptionsButton)
         view.addSubview(spinner)
@@ -93,8 +84,8 @@ final class SubscribeViewController: UIViewController {
             priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: offset),
             priceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -offset),
 
-            termsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            termsStack.bottomAnchor.constraint(equalTo: subscribeButton.topAnchor, constant: -12),
+            termsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            termsView.bottomAnchor.constraint(equalTo: subscribeButton.topAnchor, constant: -12),
 
             subscribeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             subscribeButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
@@ -138,28 +129,8 @@ final class SubscribeViewController: UIViewController {
         featuresStack.alignment = .leading
         featuresStack.spacing = UIDevice.isiPhone ? 8 : 16
 
-        [L10n.Subscription.freeUpdates, L10n.Subscription.noAds, L10n.Subscription.fullAccess].map {
-            let view = SubscriptionFeatureView().disableAutoresizing()
-            view.setText(to: $0)
-            return view
-        }.forEach { featuresStack.addArrangedSubview($0) }
-
         priceLabel.font = .systemFont(ofSize: UIScreen.isIphoneEightOrLess ? 15 : 17)
         priceLabel.textColor = .subscriptionPriceText
-
-        let termsAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.subscriptionPriceText,
-                                                              .font: UIFont.systemFont(ofSize: 11, weight: .regular)]
-        let terms = NSAttributedString(string: L10n.Subscription.termsOfUse, attributes: termsAttributes)
-        termsButton.setAttributedTitle(terms, for: .normal)
-        termsButton.addTarget(self, action: #selector(termsTapped), for: .touchUpInside)
-
-        andLabel.font = .systemFont(ofSize: 12, weight: .regular)
-        andLabel.textColor = .subscriptionPrivacy
-        andLabel.text = L10n.General.and
-
-        let privacy = NSAttributedString(string: L10n.Subscription.privacyPolicy, attributes: termsAttributes)
-        privacyButton.setAttributedTitle(privacy, for: .normal)
-        privacyButton.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
 
         subscribeButton.titleLabel?.adjustsFontSizeToFitWidth = true
         subscribeButton.roundCornersToRound()
@@ -189,14 +160,6 @@ final class SubscribeViewController: UIViewController {
         interactor?.didRestore()
     }
 
-    @objc private func termsTapped() {
-        interactor?.didTapTerms()
-    }
-
-    @objc private func privacyTapped() {
-        interactor?.didTapPrivacy()
-    }
-
     @objc private func subscribeTapped() {
         startSpinner()
         interactor?.didTapBuyMain()
@@ -218,6 +181,13 @@ final class SubscribeViewController: UIViewController {
 extension SubscribeViewController: SubscribeUserInterface {
     func configure(with model: SubscribeScreenViewModel) {
         priceLabel.text = model.priceString
+
+        featuresStack.removeAllArrangedSubviews()
+        model.features.map {
+            let view = SubscriptionFeatureView().disableAutoresizing()
+            view.setText(to: $0)
+            return view
+        }.forEach { featuresStack.addArrangedSubview($0) }
     }
 
     func didCancelPurchase() {

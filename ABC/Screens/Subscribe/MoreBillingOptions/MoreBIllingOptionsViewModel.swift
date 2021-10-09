@@ -11,4 +11,5 @@ struct MoreBillingOptionsViewModel {
 
     let mainBillingOption: BillingOption?
     let secondaryBillingOption: BillingOption?
+    let description: String
 }

@@ -50,6 +50,11 @@ extension RevenueCatSubscriptionPurchaser: SubscriptionPurchaseable {
         purchase(package)
     }
 
+    func purchase(_ subscriptionInfo: SubscriptionInfo) {
+        guard let package = packages.first(where: { subscriptionInfo.price == $0.localizedPriceString }) else { return }
+        purchase(package)
+    }
+
     func restore() {
         Purchases.shared.restoreTransactions { [weak self] info, error in
             guard let self = self else { return }

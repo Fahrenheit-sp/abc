@@ -21,8 +21,6 @@ protocol SubscribeInteractable: AnyObject {
     func didLoad()
     func didClose()
     func didRestore()
-    func didTapPrivacy()
-    func didTapTerms()
     func didTapBuyMain()
     func didTapMoreOptions()
 }
