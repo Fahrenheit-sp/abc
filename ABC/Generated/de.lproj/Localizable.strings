@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  ABC
+
+  Created by Игорь Майсюк on 17.08.21.
+  
+*/
+
+"general.and" = "und";
+"general.ok" = "OK";
+"general.error" = "Etwas stimmt nicht";
+
+"error.nothingToRestore" = "Wir konnten keine Einkäufe zum Wiederherstellen finden";
+
+"menu.item.subscribe" = "Abonnieren";
+"menu.item.alphabet" = "Alphabet";
+"menu.item.numbers" = "Zahlen";
+"menu.item.canvas" = "Segeltuch";
+"menu.item.makeAWord" = "Mach ein Wort";
+"menu.item.memorize" = "Sich einprägen";
+"menu.item.listen" = "Hören";
+
+"subscription.title" = "Erhalten Sie unbegrenzten Zugang";
+"subscription.restore" = "Wiederherstellen";
+"subscription.freeUpdates" = "Gratis bevorstehende Updates und Funktionen";
+"subscription.noAds" = "Keine nervige Werbung";
+"subscription.fullAccess" = "Voller Zugriff auf alle verfügbaren Spiele";
+"subscription.priceWithoutTrial" = "%@/%@";
+"subscription.priceWithTrial" = "%@ gratis, dann %@/%@";
+"subscription.termsOfUse" = "Nutzungsbedingungen";
+"subscription.privacyPolicy" = "Datenschutz-Bestimmungen";
+"subscription.tryFreeAndSubscribe" = "Gratis testen & abonnieren";
+"subscription.moreBillingOptions" = "Weitere Abrechnungsoptionen";
+"subscription.perTerm" = "pro %@";
+"subscription.trialTerm" = "%@ Kostenlose Testphase";
+"subscription.paymentWithTrialDescription" = "Eine kostenlose Testversion ist nur für neue Abonnenten verfügbar. Verlängert sich nach %@ für %@";
+"subscription.paymentWithoutTrialDescription" = "Verlängert sich um %@";
+
+"term.year" = "Jahr";
+"term.month" = "das Monat";
+"term.week" = "Woche";

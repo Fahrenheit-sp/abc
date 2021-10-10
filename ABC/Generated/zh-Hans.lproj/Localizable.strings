@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  ABC
+
+  Created by Игорь Майсюк on 17.08.21.
+  
+*/
+
+"general.and" = "和";
+"general.ok" = "OK";
+"general.error" = "有问题";
+
+"error.nothingToRestore" = "我们无法找到任何要恢复的购买";
+
+"menu.item.subscribe" = "订阅";
+"menu.item.alphabet" = "字母";
+"menu.item.numbers" = "数字";
+"menu.item.canvas" = "帆布";
+"menu.item.makeAWord" = "说一句话";
+"menu.item.memorize" = "记住";
+"menu.item.listen" = "听";
+
+"subscription.title" = "获得无限制访问";
+"subscription.restore" = "恢复";
+"subscription.freeUpdates" = "免费即将推出的更新和功能";
+"subscription.noAds" = "没有烦人的广告";
+"subscription.fullAccess" = "完全访问所有可用游戏";
+"subscription.priceWithoutTrial" = "%@/%@";
+"subscription.priceWithTrial" = "%@ 自由 然后 %@/%@";
+"subscription.termsOfUse" = "使用条款";
+"subscription.privacyPolicy" = "隐私政策";
+"subscription.tryFreeAndSubscribe" = "免费试用并订阅";
+"subscription.moreBillingOptions" = "更多计费选项";
+"subscription.perTerm" = "每 %@";
+"subscription.trialTerm" = "%@ 免费试用";
+"subscription.paymentWithTrialDescription" = "免费试用仅适用于新订阅者。 %@ 天后 %@ 日续订";
+"subscription.paymentWithoutTrialDescription" = "%@ 点更新";
+
+"term.year" = "年";
+"term.month" = "月";
+"term.week" = "星期";

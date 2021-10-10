@@ -1,9 +1,36 @@
-name: Keyboards
+name: ABC
 options:
   bundleIdPrefix: com.fahrenheit
+  deploymentTarget:
+    iOS: "11.2"
 targets:
-  Keyboards:
+  ABC:
     type: application
     platform: iOS
-    deploymentTarget: "12.0"
-    sources: [Keyboards]
+    sources: [ABC]
+    preBuildScripts:
+      - script: swiftgen
+        name: Swiftgen
+        inputFiles:
+          - $(SRCROOT)/swiftgen.yml
+    settings:
+      DEVELOPMENT_TEAM: 66W9KV8MC3
+    scheme:
+      testTargets:
+        - Tests
+      gatherCoverageData: false
+  Tests:
+    platform: iOS
+    type: bundle.unit-test
+    sources:
+      - Tests/
+    dependencies:
+      - target: ABC
+    scheme:
+      testTargets:
+        - Tests
+      gatherCoverageData: true
+    settings:
+      base:
+        CODE_SIGN_IDENTITY: iPhone Developer
+        CODE_SIGN_STYLE: Automatic
