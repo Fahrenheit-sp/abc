@@ -69,7 +69,7 @@ final class MakeAWordInteractor: MakeAWordInteractable {
         if isFirst {
             let shortWords = words.filter { $0.letters.count < 7 }
             currentWord = shortWords.randomElement()
-            _ = currentWord.flatMap { words.firstIndex(of: $0) }.flatMap { words.remove(at: $0) }
+            words.removeElement(currentWord)
         } else {
             currentWord = words.remove(at: Int.random(in: 0..<words.count))
         }
