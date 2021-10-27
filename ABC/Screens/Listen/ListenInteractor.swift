@@ -73,7 +73,7 @@ final class ListenInteractor: ListenInteractable {
         guard let letter = element, count < parameters.alphabet.letters.count else { return parameters.alphabet }
         var letters: Set<Letter> = [letter]
         while letters.count < count + 1 {
-            parameters.alphabet.letters.randomElement().map { letters.insert($0) }
+            _ = parameters.alphabet.letters.randomElement().map { letters.insert($0) }
         }
         return Custom(letters: Array(letters), numberOfRows: 3, numberOfLettersInRow: 2)
     }
