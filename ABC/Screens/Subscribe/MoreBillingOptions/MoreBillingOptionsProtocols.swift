@@ -14,7 +14,7 @@ protocol MoreBillingOptionsDelegate: AnyObject {
     func moreOptionsRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
-protocol MoreBillingOptionsRoutable: AnyObject, Router {
+protocol MoreBillingOptionsRoutable: Router {
     func didClose()
 }
 

@@ -40,7 +40,8 @@ struct UserDataManager {
         let data = UserData(expirationDate: nil,
                             lastListenPlayedDate: nil,
                             lastMemorizePlayedDate: nil,
-                            lastMakeAWordPlayedDate: nil)
+                            lastMakeAWordPlayedDate: nil,
+                            lastPicturesPlayedDate: nil)
         save(user: data)
         return data
     }

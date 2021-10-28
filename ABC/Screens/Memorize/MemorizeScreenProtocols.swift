@@ -12,7 +12,7 @@ protocol MemorizeRouterDelegate: AnyObject {
     func memorizeRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
-protocol MemorizeRoutable: AnyObject, Router {
+protocol MemorizeRoutable: Router {
     func didFinishGame()
 }
 

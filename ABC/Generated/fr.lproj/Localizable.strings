@@ -19,6 +19,7 @@
 "menu.item.makeAWord" = "Faire un mot";
 "menu.item.memorize" = "Mémoriser";
 "menu.item.listen" = "Ecoutez";
+"menu.item.pictures" = "Images";
 
 "subscription.title" = "Obtenez un accès illimité";
 "subscription.restore" = "Restaurer";

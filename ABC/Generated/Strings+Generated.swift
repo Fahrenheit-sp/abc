@@ -39,6 +39,8 @@ internal enum L10n {
       internal static let memorize = L10n.tr("Localizable", "menu.item.memorize")
       /// Numbers
       internal static let numbers = L10n.tr("Localizable", "menu.item.numbers")
+      /// Pictures
+      internal static let pictures = L10n.tr("Localizable", "menu.item.pictures")
       /// Subscribe
       internal static let subscribe = L10n.tr("Localizable", "menu.item.subscribe")
     }

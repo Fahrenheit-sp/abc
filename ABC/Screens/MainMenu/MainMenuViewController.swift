@@ -77,7 +77,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
             titleImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             titleImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            titleImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.13)
+            titleImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.11)
         ]
 
         let collectionConstraints = [
@@ -93,7 +93,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
 
     func configure(with model: MainMenuScreenViewModel) {
         cellModels = model.cellModels
-        let headerHeight: CGFloat = UIDevice.isiPhone ? 80 : 120
+        let headerHeight: CGFloat = UIDevice.isiPhone ? 70 : 120
         layout.headerReferenceSize = model.isSubscribeAvailable ? CGSize(width: collectionView.bounds.width, height: headerHeight) : .zero
         collectionView.reloadData()
     }
