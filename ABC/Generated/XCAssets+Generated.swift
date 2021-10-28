@@ -87,6 +87,9 @@ internal enum Asset {
     internal static let check = ImageAsset(name: "check")
     internal static let subscriptionBackground = ImageAsset(name: "subscription_background")
   }
+  internal enum Words {
+    internal static let apple = ImageAsset(name: "apple")
+  }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

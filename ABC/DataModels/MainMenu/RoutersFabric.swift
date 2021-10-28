@@ -41,7 +41,7 @@ final class DefaultRouterFabric: RoutersFabric {
         case .listen:
             return ListenRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english), mode: .alphabet))
         case .pictures:
-            let router = PicturesRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english)))
+            let router = PicturesRouter(parameters: .init(canvas: AlphabetsFactory.getAlphabet(.english)))
             router.delegate = delegate
             return router
         }

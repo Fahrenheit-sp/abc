@@ -10,7 +10,8 @@ import Foundation
 final class PicturesInteractor: PicturesInteractable {
 
     struct Parameters {
-        let alphabet: Alphabet
+        let wordsCount: Int = 5
+        let canvas: Canvas
     }
 
     private let parameters: Parameters
@@ -25,6 +26,8 @@ final class PicturesInteractor: PicturesInteractable {
     }
 
     func didLoad() {
-        print("Loaded")
+        ui?.configureStarsCount(to: parameters.wordsCount)
+        ui?.setImage(named: "apple")
+        ui?.configureCanvas(with: parameters.canvas)
     }
 }

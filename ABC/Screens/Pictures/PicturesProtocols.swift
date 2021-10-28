@@ -21,5 +21,8 @@ protocol PicturesInteractable: AnyObject {
 
 protocol PicturesUserInterface: UIViewController {
     var interactor: PicturesInteractable? { get set }
-    func configure(with model: MainMenuScreenViewModel)
+
+    func configureStarsCount(to count: Int)
+    func setImage(named: String)
+    func configureCanvas(with canvas: Canvas)
 }
