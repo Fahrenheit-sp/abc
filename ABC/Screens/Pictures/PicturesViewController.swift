@@ -14,7 +14,7 @@ final class PicturesViewController: UIViewController {
     private let starsView = StarsView().disableAutoresizing()
     private let playButton = UIButton().disableAutoresizing()
     private let imageView = UIImageView().disableAutoresizing()
-    private let lineView = UIView().disableAutoresizing()
+    private let lineView = LineView().disableAutoresizing()
     private let canvasView = CanvasAlphabetView().disableAutoresizing()
 
     override func viewDidLoad() {
@@ -38,9 +38,6 @@ final class PicturesViewController: UIViewController {
 
         imageView.contentMode = .scaleAspectFit
 
-        lineView.backgroundColor = .lightGray
-        lineView.roundCorners(to: 1)
-
         NSLayoutConstraint.activate([
             starsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             starsView.heightAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 36 : 54),
@@ -52,11 +49,11 @@ final class PicturesViewController: UIViewController {
             playButton.widthAnchor.constraint(equalToConstant: 36),
 
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            imageView.topAnchor.constraint(equalTo: starsView.bottomAnchor, constant: 24),
+            imageView.topAnchor.constraint(equalTo: starsView.bottomAnchor, constant: UIDevice.isiPhone ? 24 : 48),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.bottomAnchor.constraint(equalTo: lineView.topAnchor, constant: -120),
+            imageView.bottomAnchor.constraint(equalTo: lineView.topAnchor, constant:  UIDevice.isiPhone ? -8 : -24),
 
-            lineView.heightAnchor.constraint(equalToConstant: 2),
+            lineView.heightAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 120 : 180),
             lineView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             lineView.bottomAnchor.constraint(equalTo: canvasView.topAnchor, constant: -40),
             lineView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
@@ -95,15 +92,13 @@ extension PicturesViewController: PicturesUserInterface {
 
 extension PicturesViewController: CanvasAlphabetViewDelegate {
     func canvasView(_ canvasView: CanvasAlphabetView, didEndDragging letterView: DraggableLetterView, at point: CGPoint) {
+        guard lineView.frame.contains(point) else { return letterView.reset() }
+
         let newLetter = DeletableLetterView(letter: letterView.letter)
         newLetter.frame = CGRect(origin: .zero, size: letterView.frame.size)
         newLetter.center = point
-        view.addSubview(newLetter)
-
-        UIView.animate(withDuration: 0.2) {
-            newLetter.transform = .init(scaleX: 1.75, y: 1.75)
-        }
-
+        lineView.place(newLetter, from: point)
+        
         letterView.resetWithScale()
     }
 }
