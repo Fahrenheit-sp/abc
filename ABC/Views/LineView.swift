@@ -56,7 +56,7 @@ final class LineView: UIView {
         let letterViews = allLetterViews(except: letterView)
         let isFirst = letterViews.isEmpty
         guard !isFirst else { return placeFirstLetterView(letterView) }
-        alignIntersections()
+        alignLetters()
     }
 
     private func placeFirstLetterView(_ letterView: DraggableLetterView) {
@@ -65,11 +65,11 @@ final class LineView: UIView {
         letterView.bind(to: point)
     }
 
-    private func alignIntersections(animated: Bool = false) {
+    private func alignLetters(animated: Bool = false) {
         let align = { [self] in
             let halfTotalWidth = letterViews.reduce(.zero) { $0 + $1.frame.width } / 2.0
             var originX = bounds.midX - halfTotalWidth
-            letterViews.enumerated().forEach { index, letterView in
+            letterViews.forEach { letterView in
                 let point = CGPoint(x: originX + letterView.halfWidth, y: getYCenterCoordinate(for: letterView))
                 letterView.center = point
                 letterView.bind(to: point)
@@ -91,14 +91,12 @@ final class LineView: UIView {
 
 extension LineView: DraggableLetterViewDelegate {
     func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
-        let isInBounds = bounds.contains(letterView.center)
-        guard !isInBounds else { return alignIntersections(animated: true) }
-        letterView.reset()
+        bounds.contains(letterView.center) ? alignLetters(animated: true) : letterView.reset()
     }
 }
 
 extension LineView: DeletableLetterViewDelegate {
     func deletableLetterViewDidDelete(_ letterView: DeletableLetterView) {
-        alignIntersections(animated: true)
+        alignLetters(animated: true)
     }
 }
