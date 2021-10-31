@@ -32,9 +32,9 @@ final class RevenueCatProductsFetcher: NSObject {
     private func fallbackSubscriptionInfo(for term: Purchases.PackageType) -> SubscriptionInfo {
         let description = subscriptionDescription(for: term)
         switch term {
-        case .annual: return .init(trial: "7 days", price: "19,99 US$", term: L10n.Term.year, description: description, isMain: true)
-        case .monthly: return .init(trial: nil, price: "2,99 US$", term: L10n.Term.month, description: description, isMain: false)
-        default: return .init(trial: "7 days", price: "19,99 US$", term: L10n.Term.year, description: description, isMain: false)
+        case .annual: return .init(trial: "7 days", price: "29,99 US$", term: L10n.Term.year, description: description, isMain: true)
+        case .monthly: return .init(trial: nil, price: "4,99 US$", term: L10n.Term.month, description: description, isMain: false)
+        default: return .init(trial: "7 days", price: "29,99 US$", term: L10n.Term.year, description: description, isMain: false)
         }
     }
 

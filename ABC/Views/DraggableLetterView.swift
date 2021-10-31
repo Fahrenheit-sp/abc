@@ -72,6 +72,10 @@ class DraggableLetterView: UIView {
         delegate?.draggableViewDidEndDragging(self)
     }
 
+    func bind(to point: CGPoint) {
+        startingPoint = point
+    }
+
     func reset(animated: Bool = true) {
         let setCenter = { [self] in center = startingPoint.or(center) }
 
