@@ -11,6 +11,7 @@ final class PicturesRouter: PicturesRoutable {
 
     struct Parameters {
         let canvas: Canvas
+        let picturesStorage: PicturesStorable
     }
 
     private let parameters: Parameters
@@ -24,7 +25,10 @@ final class PicturesRouter: PicturesRoutable {
 
     func makeController() -> UIViewController {
         let view = PicturesViewController()
-        let interactor = PicturesInteractor(parameters: .init(canvas: parameters.canvas), ui: view, router: self)
+        let interactor = PicturesInteractor(parameters: .init(picturesStorage: parameters.picturesStorage,
+                                                              canvas: parameters.canvas),
+                                            ui: view,
+                                            router: self)
         view.interactor = interactor
 
         self.view = view

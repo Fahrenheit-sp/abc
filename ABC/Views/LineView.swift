@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol LineViewDelegate: AnyObject {
+    func lineView(_ lineView: LineView, didUpdate word: String)
+    func lineView(_ lineView: LineView, didPlace letterView: DraggableLetterView)
+    func lineView(_ lineView: LineView, didDelete letterView: DraggableLetterView)
+}
+
 final class LineView: UIView {
 
     private let footerView = UIView().disableAutoresizing()
@@ -18,6 +24,8 @@ final class LineView: UIView {
         get { footerView.backgroundColor }
         set { footerView.backgroundColor = newValue }
     }
+
+    weak var delegate: LineViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,10 +54,18 @@ final class LineView: UIView {
         addSubview(letterView)
         letterView.center = convert(point, from: superview)
         letterView.delegate = self
-        UIView.animate(withDuration: 0.3) {
-            letterView.transform = .init(scaleX: 1.5, y: 1.5)
+        delegate?.lineView(self, didPlace: letterView)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            letterView.transform = .init(scaleX: 1.3, y: 1.3)
             self.alignHorizontally(letterView)
-        }
+        }) { [self] _ in delegate?.lineView(self, didUpdate: getCurrentWord()) }
+    }
+
+    func clear() {
+        UIView.transition(with: self, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+            self.letterViews.forEach { $0.removeFromSuperview() }
+        })
     }
 
     private func alignHorizontally(_ letterView: DraggableLetterView) {
@@ -66,6 +82,7 @@ final class LineView: UIView {
     }
 
     private func alignLetters(animated: Bool = false) {
+        #warning("Handle case with letters going out of bounds")
         let align = { [self] in
             let halfTotalWidth = letterViews.reduce(.zero) { $0 + $1.frame.width } / 2.0
             var originX = bounds.midX - halfTotalWidth
@@ -77,7 +94,13 @@ final class LineView: UIView {
             }
         }
         guard animated else { return align() }
-        UIView.animate(withDuration: 0.3, animations: align)
+        UIView.animate(withDuration: 0.3, animations: align) { [self] _ in
+            delegate?.lineView(self, didUpdate: getCurrentWord())
+        }
+    }
+
+    private func getCurrentWord() -> String {
+        letterViews.compactMap { $0.letter?.symbol }.map(String.init).joined()
     }
 
     private func allLetterViews(except current: DraggableLetterView) -> [DraggableLetterView] {
@@ -92,11 +115,13 @@ final class LineView: UIView {
 extension LineView: DraggableLetterViewDelegate {
     func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
         bounds.contains(letterView.center) ? alignLetters(animated: true) : letterView.reset()
+        delegate?.lineView(self, didPlace: letterView)
     }
 }
 
 extension LineView: DeletableLetterViewDelegate {
     func deletableLetterViewDidDelete(_ letterView: DeletableLetterView) {
         alignLetters(animated: true)
+        delegate?.lineView(self, didDelete: letterView)
     }
 }

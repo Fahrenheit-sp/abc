@@ -67,11 +67,12 @@ final class PicturesViewController: UIViewController {
 
     private func setupInteractions() {
         canvasView.delegate = self
+        lineView.delegate = self
         playButton.addTarget(self, action: #selector(didTapPlay), for: .touchUpInside)
     }
 
     @objc private func didTapPlay() {
-        print("Play sound")
+        interactor?.speakCurrentPicture()
     }
 }
 
@@ -83,10 +84,32 @@ extension PicturesViewController: PicturesUserInterface {
 
     func setImage(named name: String) {
         imageView.image = UIImage(named: name)
+        UIView.transition(with: imageView, duration: 0.2, options: [.transitionCrossDissolve], animations: nil)
     }
 
     func configureCanvas(with canvas: Canvas) {
         canvasView.configure(with: .init(canvas: canvas))
+    }
+
+    func didFinishPicture() {
+        lineView.clear()
+        starsView.increaseFilledCount()
+    }
+
+    func didFinishGame() {
+        view.isUserInteractionEnabled = false
+        let confettiView = ConfettiView()
+        view.addSubview(confettiView)
+
+        confettiView.emit(with: [
+          .text("🤩"),
+          .text("📱"),
+          .shape(.circle, .purple),
+          .shape(.triangle, .orange),
+        ]) { [weak self] _ in
+            self?.view.isUserInteractionEnabled = true
+            self?.interactor?.finish()
+        }
     }
 }
 
@@ -100,5 +123,19 @@ extension PicturesViewController: CanvasAlphabetViewDelegate {
         lineView.place(newLetter, from: point)
         
         letterView.resetWithScale()
+    }
+}
+
+extension PicturesViewController: LineViewDelegate {
+    func lineView(_ lineView: LineView, didUpdate word: String) {
+        interactor?.validate(word: word)
+    }
+
+    func lineView(_ lineView: LineView, didPlace letterView: DraggableLetterView) {
+        interactor?.playLetterPlacedSound()
+    }
+
+    func lineView(_ lineView: LineView, didDelete letterView: DraggableLetterView) {
+        interactor?.playLetterRemovedSound()
     }
 }

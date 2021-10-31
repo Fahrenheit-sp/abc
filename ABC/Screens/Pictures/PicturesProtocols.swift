@@ -17,12 +17,19 @@ protocol PicturesRoutable: Router {
 
 protocol PicturesInteractable: AnyObject {
     func didLoad()
+    func speakCurrentPicture()
+    func playLetterPlacedSound()
+    func playLetterRemovedSound()
+    func validate(word: String)
+    func finish()
 }
 
 protocol PicturesUserInterface: UIViewController {
     var interactor: PicturesInteractable? { get set }
 
+    func configureCanvas(with canvas: Canvas)
     func configureStarsCount(to count: Int)
     func setImage(named: String)
-    func configureCanvas(with canvas: Canvas)
+    func didFinishPicture()
+    func didFinishGame()
 }

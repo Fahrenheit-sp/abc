@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Picture {
+struct Picture: Hashable, Equatable {
     let title: String
 }
