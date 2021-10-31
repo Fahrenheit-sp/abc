@@ -67,7 +67,8 @@ final class LineView: UIView {
 
     private func alignIntersections(animated: Bool = false) {
         let align = { [self] in
-            var originX: CGFloat = .zero
+            let halfTotalWidth = letterViews.reduce(.zero) { $0 + $1.frame.width } / 2.0
+            var originX = bounds.midX - halfTotalWidth
             letterViews.enumerated().forEach { index, letterView in
                 let point = CGPoint(x: originX + letterView.halfWidth, y: getYCenterCoordinate(for: letterView))
                 letterView.center = point
