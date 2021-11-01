@@ -7,6 +7,6 @@
 
 import class UIKit.UIViewController
 
-protocol Router {
+protocol Router: AnyObject {
     func makeController() -> UIViewController
 }

@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DeletableLetterViewDelegate: DraggableLetterViewDelegate {
+    func deletableLetterViewDidDelete(_ letterView: DeletableLetterView)
+}
+
 final class DeletableLetterView: DraggableLetterView {
 
     private lazy var tapRecognizer: UITapGestureRecognizer = {
@@ -26,6 +30,7 @@ final class DeletableLetterView: DraggableLetterView {
 
     @objc private func tapDetected(_ recognizer: UITapGestureRecognizer) {
         removeFromSuperview()
+        (delegate as? DeletableLetterViewDelegate)?.deletableLetterViewDidDelete(self)
     }
 
 }

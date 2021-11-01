@@ -58,18 +58,18 @@ class DraggableLetterView: UIView {
 
     @objc private func panRecognized(_ recognizer: UIPanGestureRecognizer) {
         center = recognizer.translation(in: superview) + lastLocation.or(center)
+        switch recognizer.state {
+        case .cancelled, .ended: delegate?.draggableViewDidEndDragging(self)
+        default: return
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         lastLocation = center
     }
 
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        delegate?.draggableViewDidEndDragging(self)
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        delegate?.draggableViewDidEndDragging(self)
+    func bind(to point: CGPoint) {
+        startingPoint = point
     }
 
     func reset(animated: Bool = true) {

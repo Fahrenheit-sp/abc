@@ -11,6 +11,7 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
 
     private let wrapped: MainMenuRoutable
     private let userManager: UserDataManager
+    private let itemsToDisplayPaywall: [MainMenuItem] = [.listen, .memorize, .makeAWord, .pictures]
 
     init(adaptee: MainMenuRoutable) {
         self.wrapped = adaptee
@@ -34,10 +35,7 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
     }
 
     func mainMenuDidSelect(item: MainMenuItem) {
-        switch item {
-        case .listen, .memorize, .makeAWord: showPaywallIfNecessary(for: item)
-        default: wrapped.mainMenuDidSelect(item: item)
-        }
+        itemsToDisplayPaywall.contains(item) ? showPaywallIfNecessary(for: item) : wrapped.mainMenuDidSelect(item: item)
     }
 
     private func showPaywallIfNecessary(for item: MainMenuItem) {
@@ -63,6 +61,14 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
         case .makeAWord:
             guard let lastPlayed = user.lastMakeAWordPlayedDate, !now.isOneDayPassed(since: lastPlayed) else {
                 user.lastMakeAWordPlayedDate = now
+                userManager.save(user: user)
+                wrapped.mainMenuDidSelect(item: item)
+                return
+            }
+            wrapped.mainMenuDidSelect(item: .subscribe)
+        case .pictures:
+            guard let lastPlayed = user.lastPicturesPlayedDate, !now.isOneDayPassed(since: lastPlayed) else {
+                user.lastPicturesPlayedDate = now
                 userManager.save(user: user)
                 wrapped.mainMenuDidSelect(item: item)
                 return
@@ -94,5 +100,11 @@ extension MainMenuPaywallRouterDecorator: MakeAWordRouterDelegate {
 extension MainMenuPaywallRouterDecorator: SubscribeRouterDelegate {
     func subscribeRouterDidFinishPresenting(_ controller: UIViewController) {
         wrapped.subscribeRouterDidFinishPresenting(controller)
+    }
+}
+
+extension MainMenuPaywallRouterDecorator: PicturesRouterDelegate {
+    func picturesRouterDidFinishPresenting(_ controller: UIViewController) {
+        wrapped.picturesRouterDidFinishPresenting(controller)
     }
 }

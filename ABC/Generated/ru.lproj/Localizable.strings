@@ -19,6 +19,7 @@
 "menu.item.makeAWord" = "Игра в слова";
 "menu.item.memorize" = "Запоминать";
 "menu.item.listen" = "Слушать";
+"menu.item.pictures" = "Картинки";
 
 "subscription.title" = "Получите неограниченный доступ";
 "subscription.restore" = "Восстановить";

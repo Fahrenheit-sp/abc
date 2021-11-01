@@ -19,6 +19,7 @@
 "menu.item.makeAWord" = "说一句话";
 "menu.item.memorize" = "记住";
 "menu.item.listen" = "听";
+"menu.item.pictures" = "图片";
 
 "subscription.title" = "获得无限制访问";
 "subscription.restore" = "恢复";

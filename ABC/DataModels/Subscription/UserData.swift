@@ -12,12 +12,14 @@ struct UserData: Codable {
     var lastListenPlayedDate: Date?
     var lastMemorizePlayedDate: Date?
     var lastMakeAWordPlayedDate: Date?
+    var lastPicturesPlayedDate: Date?
 
     func withUpdatedExpirationDate(to date: Date?) -> UserData {
         .init(expirationDate: date,
               lastListenPlayedDate: lastListenPlayedDate,
               lastMemorizePlayedDate: lastMemorizePlayedDate,
-              lastMakeAWordPlayedDate: lastMakeAWordPlayedDate)
+              lastMakeAWordPlayedDate: lastMakeAWordPlayedDate,
+              lastPicturesPlayedDate: lastPicturesPlayedDate)
     }
 
     var isSubscribed: Bool {

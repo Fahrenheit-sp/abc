@@ -12,7 +12,7 @@ protocol SubscribeRouterDelegate: AnyObject {
     func subscribeRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
-protocol SubscribeRoutable: AnyObject, Router {
+protocol SubscribeRoutable: Router {
     func didClose()
     func didTapMoreOptions()
 }

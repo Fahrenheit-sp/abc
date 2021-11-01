@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ListenRoutable: AnyObject, Router {}
+protocol ListenRoutable: Router {}
 
 protocol ListenInteractable: AnyObject {
     func didLoad()
