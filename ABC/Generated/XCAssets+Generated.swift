@@ -70,6 +70,7 @@ internal enum Asset {
     internal static let numbers = ImageAsset(name: "numbers")
     internal static let picture = ImageAsset(name: "picture")
     internal static let subscribe = ImageAsset(name: "subscribe")
+    internal static let write = ImageAsset(name: "write")
   }
   internal enum Numbers {
     internal static let _0 = ImageAsset(name: "0")

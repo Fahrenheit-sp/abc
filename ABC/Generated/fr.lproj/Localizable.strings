@@ -20,6 +20,7 @@
 "menu.item.memorize" = "Mémoriser";
 "menu.item.listen" = "Ecoutez";
 "menu.item.pictures" = "Images";
+"menu.item.write" = "Écrivez";
 
 "subscription.title" = "Obtenez un accès illimité";
 "subscription.restore" = "Restaurer";

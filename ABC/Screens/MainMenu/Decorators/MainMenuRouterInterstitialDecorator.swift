@@ -65,6 +65,8 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
                 wrapped.memorizeRouterDidFinishPresenting(controller)
             case .pictures:
                 wrapped.picturesRouterDidFinishPresenting(controller)
+            case .write:
+                wrapped.writeRouterDidFinishPresenting(controller)
             case .canvas, .listen, .subscribe: return
             }
             controllerPresentingAd = nil
@@ -125,5 +127,11 @@ extension MainMenuInterstitialRouterDecorator: SubscribeRouterDelegate {
 extension MainMenuInterstitialRouterDecorator: PicturesRouterDelegate {
     func picturesRouterDidFinishPresenting(_ controller: UIViewController) {
         wrapped.picturesRouterDidFinishPresenting(controller)
+    }
+}
+
+extension MainMenuInterstitialRouterDecorator: WriteRouterDelegate {
+    func writeRouterDidFinishPresenting(_ controller: UIViewController) {
+        wrapped.writeRouterDidFinishPresenting(controller)
     }
 }

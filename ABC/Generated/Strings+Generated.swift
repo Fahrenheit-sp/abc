@@ -43,6 +43,8 @@ internal enum L10n {
       internal static let pictures = L10n.tr("Localizable", "menu.item.pictures")
       /// Subscribe
       internal static let subscribe = L10n.tr("Localizable", "menu.item.subscribe")
+      /// Write
+      internal static let write = L10n.tr("Localizable", "menu.item.write")
     }
   }
 

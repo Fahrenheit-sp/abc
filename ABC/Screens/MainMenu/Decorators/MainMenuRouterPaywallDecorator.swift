@@ -74,6 +74,14 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
                 return
             }
             wrapped.mainMenuDidSelect(item: .subscribe)
+        case .write:
+            guard let lastPlayed = user.lastWritePlayedDate, !now.isOneDayPassed(since: lastPlayed) else {
+                user.lastWritePlayedDate = now
+                userManager.save(user: user)
+                wrapped.mainMenuDidSelect(item: item)
+                return
+            }
+            wrapped.mainMenuDidSelect(item: .subscribe)
         default: return
         }
     }
@@ -106,5 +114,11 @@ extension MainMenuPaywallRouterDecorator: SubscribeRouterDelegate {
 extension MainMenuPaywallRouterDecorator: PicturesRouterDelegate {
     func picturesRouterDidFinishPresenting(_ controller: UIViewController) {
         wrapped.picturesRouterDidFinishPresenting(controller)
+    }
+}
+
+extension MainMenuPaywallRouterDecorator: WriteRouterDelegate {
+    func writeRouterDidFinishPresenting(_ controller: UIViewController) {
+        wrapped.writeRouterDidFinishPresenting(controller)
     }
 }

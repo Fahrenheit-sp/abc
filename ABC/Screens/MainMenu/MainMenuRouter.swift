@@ -125,3 +125,9 @@ extension MainMenuRouter: PicturesRouterDelegate {
         navigation?.popViewController(animated: true)
     }
 }
+
+extension MainMenuRouter: WriteRouterDelegate {
+    func writeRouterDidFinishPresenting(_ controller: UIViewController) {
+        navigation?.popViewController(animated: true)
+    }
+}

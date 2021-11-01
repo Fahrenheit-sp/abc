@@ -11,8 +11,9 @@ enum MainMenuItem: CaseIterable {
     case subscribe
     case alphabet
     case numbers
-    case listen
+    case write
     case pictures
+    case listen
     case memorize
     case makeAWord
     case canvas
@@ -28,6 +29,7 @@ enum MainMenuItem: CaseIterable {
         case .makeAWord: return L10n.Menu.Item.makeAWord
         case .listen: return L10n.Menu.Item.listen
         case .pictures: return L10n.Menu.Item.pictures
+        case .write: return L10n.Menu.Item.write
         case .memorize: return L10n.Menu.Item.memorize
         }
     }
@@ -41,6 +43,7 @@ enum MainMenuItem: CaseIterable {
         case .makeAWord: return Asset.Menu.makeAWord
         case .listen: return Asset.Menu.listen
         case .pictures: return Asset.Menu.picture
+        case .write: return Asset.Menu.write
         case .memorize: return Asset.Menu.memorize
         }
     }

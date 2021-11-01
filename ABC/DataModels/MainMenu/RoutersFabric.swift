@@ -44,6 +44,10 @@ final class DefaultRouterFabric: RoutersFabric {
             let router = PicturesRouter(parameters: .init(picturesStorage: WordsStorage.shared))
             router.delegate = delegate
             return router
+        case .write:
+            let router = WriteRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english)))
+            router.delegate = delegate
+            return router
         }
     }
 }
