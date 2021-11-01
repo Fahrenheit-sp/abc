@@ -15,13 +15,12 @@ final class PicturesViewController: UIViewController {
     private let playButton = UIButton().disableAutoresizing()
     private let imageView = UIImageView().disableAutoresizing()
     private let lineView = LineView().disableAutoresizing()
-    private let canvasView = CanvasAlphabetView().disableAutoresizing()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupInteractions()
-        
+
         interactor?.didLoad()
     }
 
@@ -32,7 +31,6 @@ final class PicturesViewController: UIViewController {
         view.addSubview(playButton)
         view.addSubview(imageView)
         view.addSubview(lineView)
-        view.addSubview(canvasView)
 
         playButton.setImage(Asset.Listen.playButton.image, for: .normal)
 
@@ -49,24 +47,19 @@ final class PicturesViewController: UIViewController {
             playButton.widthAnchor.constraint(equalToConstant: 36),
 
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            imageView.topAnchor.constraint(equalTo: starsView.bottomAnchor, constant: UIDevice.isiPhone ? 24 : 48),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.bottomAnchor.constraint(equalTo: lineView.topAnchor, constant:  UIDevice.isiPhone ? -8 : -24),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
-            lineView.heightAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 120 : 180),
+            lineView.heightAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 120 : 200),
             lineView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            lineView.bottomAnchor.constraint(equalTo: canvasView.topAnchor, constant: -40),
+            lineView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                             constant: UIDevice.isiPhone ? -40 : -100),
             lineView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
 
-            canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            canvasView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            canvasView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.23),
         ])
     }
 
     private func setupInteractions() {
-        canvasView.delegate = self
         lineView.delegate = self
         playButton.addTarget(self, action: #selector(didTapPlay), for: .touchUpInside)
     }
@@ -82,13 +75,10 @@ extension PicturesViewController: PicturesUserInterface {
         starsView.configure(with: .init(numberOfFilled: 0, numberOfEmpty: count))
     }
 
-    func setImage(named name: String) {
+    func setPicture(named name: String) {
         imageView.image = UIImage(named: name)
+        lineView.setup(word: name)
         UIView.transition(with: imageView, duration: 0.2, options: [.transitionCrossDissolve], animations: nil)
-    }
-
-    func configureCanvas(with canvas: Canvas) {
-        canvasView.configure(with: .init(canvas: canvas))
     }
 
     func didFinishPicture() {
@@ -110,19 +100,6 @@ extension PicturesViewController: PicturesUserInterface {
             self?.view.isUserInteractionEnabled = true
             self?.interactor?.finish()
         }
-    }
-}
-
-extension PicturesViewController: CanvasAlphabetViewDelegate {
-    func canvasView(_ canvasView: CanvasAlphabetView, didEndDragging letterView: DraggableLetterView, at point: CGPoint) {
-        guard lineView.frame.contains(point) else { return letterView.reset() }
-
-        let newLetter = DeletableLetterView(letter: letterView.letter)
-        newLetter.frame = CGRect(origin: .zero, size: letterView.frame.size)
-        newLetter.center = point
-        lineView.place(newLetter, from: point)
-        
-        letterView.resetWithScale()
     }
 }
 

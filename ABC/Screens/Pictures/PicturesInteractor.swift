@@ -12,7 +12,6 @@ final class PicturesInteractor {
     struct Parameters {
         let wordsCount: Int = 5
         let picturesStorage: PicturesStorable
-        let canvas: Canvas
     }
 
     private let parameters: Parameters
@@ -38,7 +37,7 @@ final class PicturesInteractor {
         currentPicture = pictures.randomElement()
         pictures.removeElement(currentPicture)
 
-        currentPicture.map { ui?.setImage(named: $0.title) }
+        currentPicture.map { ui?.setPicture(named: $0.title) }
         speakCurrentPicture()
     }
 }
@@ -47,7 +46,6 @@ extension PicturesInteractor: PicturesInteractable {
 
     func didLoad() {
         ui?.configureStarsCount(to: parameters.wordsCount)
-        ui?.configureCanvas(with: parameters.canvas)
         selectNewPicture()
     }
 

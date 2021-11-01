@@ -19,6 +19,7 @@ final class LineView: UIView {
     private var letterViews: [DraggableLetterView] {
         subviews.compactMap { $0 as? DraggableLetterView }.sorted { $0.center.x < $1.center.x }
     }
+    private let insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
 
     override var backgroundColor: UIColor? {
         get { footerView.backgroundColor }
@@ -50,16 +51,21 @@ final class LineView: UIView {
         ])
     }
 
-    func place(_ letterView: DraggableLetterView, from point: CGPoint) {
-        addSubview(letterView)
-        letterView.center = convert(point, from: superview)
+    private func addLetter(_ letter: Character) {
+        let letterView = DraggableLetterView(letter: .init(symbol: letter))
+        letterView.frame = .init(origin: .zero, size: ImageAsset(name: String(letter)).image.size)
         letterView.delegate = self
-        delegate?.lineView(self, didPlace: letterView)
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            letterView.transform = .init(scaleX: 1.3, y: 1.3)
-            self.alignHorizontally(letterView)
-        }) { [self] _ in delegate?.lineView(self, didUpdate: getCurrentWord()) }
+        addSubview(letterView)
+    }
+
+    func setup(word: String) {
+        var shuffled = word.shuffled()
+        while String(shuffled) == word {
+            shuffled = word.shuffled()
+        }
+        shuffled.forEach { addLetter($0) }
+        layoutIfNeeded()
+        alignLetters()
     }
 
     func clear() {
@@ -68,23 +74,10 @@ final class LineView: UIView {
         })
     }
 
-    private func alignHorizontally(_ letterView: DraggableLetterView) {
-        let letterViews = allLetterViews(except: letterView)
-        let isFirst = letterViews.isEmpty
-        guard !isFirst else { return placeFirstLetterView(letterView) }
-        alignLetters()
-    }
-
-    private func placeFirstLetterView(_ letterView: DraggableLetterView) {
-        let point = CGPoint(x: bounds.midX, y: getYCenterCoordinate(for: letterView))
-        letterView.center = point
-        letterView.bind(to: point)
-    }
-
-    private func alignLetters(animated: Bool = false) {
-        #warning("Handle case with letters going out of bounds")
-        let align = { [self] in
-            let halfTotalWidth = letterViews.reduce(.zero) { $0 + $1.frame.width } / 2.0
+    private func alignLetters() {
+        let totalWidth = getLetterViewsWidth()
+        let halfTotalWidth = totalWidth / 2.0
+        UIView.animate(withDuration: 0.3, animations: { [self] in
             var originX = bounds.midX - halfTotalWidth
             letterViews.forEach { letterView in
                 let point = CGPoint(x: originX + letterView.halfWidth, y: getYCenterCoordinate(for: letterView))
@@ -92,19 +85,21 @@ final class LineView: UIView {
                 letterView.bind(to: point)
                 originX += letterView.frame.width
             }
-        }
-        guard animated else { return align() }
-        UIView.animate(withDuration: 0.3, animations: align) { [self] _ in
+        }) { [self] _ in
             delegate?.lineView(self, didUpdate: getCurrentWord())
         }
     }
 
-    private func getCurrentWord() -> String {
-        letterViews.compactMap { $0.letter?.symbol }.map(String.init).joined()
+    private func getLetterViewsWidth() -> CGFloat {
+        let totalWidth = letterViews.reduce(.zero) { $0 + $1.frame.width }
+        guard bounds.width - insets.left - insets.right < totalWidth else { return totalWidth }
+        let multiplier = bounds.width / (totalWidth + (insets.left * 2) + (insets.right * 2))
+        letterViews.forEach { $0.transform = .init(scaleX: multiplier, y: multiplier) }
+        return letterViews.reduce(.zero) { $0 + $1.frame.width }    
     }
 
-    private func allLetterViews(except current: DraggableLetterView) -> [DraggableLetterView] {
-        letterViews.filter { $0 != current }
+    private func getCurrentWord() -> String {
+        letterViews.compactMap { $0.letter?.symbol }.map(String.init).joined()
     }
 
     private func getYCenterCoordinate(for letterView: DraggableLetterView) -> CGFloat {
@@ -114,14 +109,7 @@ final class LineView: UIView {
 
 extension LineView: DraggableLetterViewDelegate {
     func draggableViewDidEndDragging(_ letterView: DraggableLetterView) {
-        bounds.contains(letterView.center) ? alignLetters(animated: true) : letterView.reset()
+        bounds.contains(letterView.center) ? alignLetters() : letterView.reset()
         delegate?.lineView(self, didPlace: letterView)
-    }
-}
-
-extension LineView: DeletableLetterViewDelegate {
-    func deletableLetterViewDidDelete(_ letterView: DeletableLetterView) {
-        alignLetters(animated: true)
-        delegate?.lineView(self, didDelete: letterView)
     }
 }
