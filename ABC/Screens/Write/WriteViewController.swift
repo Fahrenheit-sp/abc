@@ -11,6 +11,8 @@ final class WriteViewController: UIViewController {
 
     var interactor: WriteInteractable?
 
+    private let drawView = DrawView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -20,6 +22,8 @@ final class WriteViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .background
+
+        view.embedSubview(drawView)
     }
 }
 
