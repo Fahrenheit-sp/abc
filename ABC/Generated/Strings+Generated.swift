@@ -31,6 +31,8 @@ internal enum L10n {
       internal static let alphabet = L10n.tr("Localizable", "menu.item.alphabet")
       /// Canvas
       internal static let canvas = L10n.tr("Localizable", "menu.item.canvas")
+      /// Catch a Letter
+      internal static let catchLetter = L10n.tr("Localizable", "menu.item.catchLetter")
       /// Listen
       internal static let listen = L10n.tr("Localizable", "menu.item.listen")
       /// Make a word

@@ -12,7 +12,7 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
     private let wrapped: MainMenuRouter
     private let presenter: InterstitialPresenter
     private var currentItem: MainMenuItem = .alphabet
-    private var itemsToDisplayAdAtStart: [MainMenuItem] = [.listen, .canvas]
+    private var itemsToDisplayAdAtStart: [MainMenuItem] = [.listen, .canvas, .catchLetter]
 
     private var controllerPresentingAd: UIViewController?
 
@@ -65,7 +65,7 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
                 wrapped.memorizeRouterDidFinishPresenting(controller)
             case .pictures:
                 wrapped.picturesRouterDidFinishPresenting(controller)
-            case .canvas, .listen, .subscribe: return
+            case .canvas, .listen, .subscribe, .catchLetter: return
             }
             controllerPresentingAd = nil
         }

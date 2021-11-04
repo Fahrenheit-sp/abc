@@ -64,6 +64,7 @@ internal enum Asset {
     internal static let alphabet = ImageAsset(name: "alphabet")
     internal static let background = ImageAsset(name: "background")
     internal static let canvas = ImageAsset(name: "canvas")
+    internal static let catchLetter = ImageAsset(name: "catchLetter")
     internal static let listen = ImageAsset(name: "listen")
     internal static let makeAWord = ImageAsset(name: "make_a_word")
     internal static let memorize = ImageAsset(name: "memorize")

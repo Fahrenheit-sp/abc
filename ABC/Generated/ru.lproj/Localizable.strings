@@ -20,6 +20,7 @@
 "menu.item.memorize" = "Запоминать";
 "menu.item.listen" = "Слушать";
 "menu.item.pictures" = "Картинки";
+"menu.item.catchLetter" = "Поймай букву";
 
 "subscription.title" = "Получите неограниченный доступ";
 "subscription.restore" = "Восстановить";
