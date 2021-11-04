@@ -83,7 +83,7 @@ final class MoreBillingOptionsViewController: UIViewController {
     private func setupUI() {
         closeButton.setImage(Asset.Icons.close.image, for: .normal)
         closeButton.imageEdgeInsets = .init(top: 12, left: 12, bottom: 12, right: 12)
-        closeButton.tintColor = .background
+        closeButton.tintColor = .darkGray
 
         descriptionLabel.font = .systemFont(ofSize: 13)
         descriptionLabel.textColor = .lightGray

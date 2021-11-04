@@ -106,14 +106,14 @@ final class SubscribeViewController: UIViewController {
         imageView.image = Asset.Subscription.subscriptionBackground.image
 
         let restore = NSAttributedString(string: L10n.Subscription.restore,
-                                             attributes: [.foregroundColor: UIColor.background,
+                                             attributes: [.foregroundColor: UIColor.darkGray,
                                                           .font: UIFont.systemFont(ofSize: UIDevice.isiPhone ? 15 : 17, weight: .medium)])
         restoreButton.setAttributedTitle(restore, for: .normal)
         restoreButton.addTarget(self, action: #selector(restoreTapped), for: .touchUpInside)
 
         closeButton.setImage(Asset.Icons.close.image, for: .normal)
         closeButton.imageEdgeInsets = .init(top: 12, left: 12, bottom: 12, right: 12)
-        closeButton.tintColor = .background
+        closeButton.tintColor = .darkGray
         closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
 
         gradient.configureGradient(using: .init(colors: [.subscribeGradientStart, .white],
@@ -121,7 +121,7 @@ final class SubscribeViewController: UIViewController {
                                                 endPoint: .init(x: 0.5, y: 1)))
 
         titleLabel.font = .systemFont(ofSize: UIScreen.isIphoneEightOrLess ? 27 : 33, weight: .semibold)
-        titleLabel.textColor = .background
+        titleLabel.textColor = .darkGray
         titleLabel.text = L10n.Subscription.title
         titleLabel.adjustsFontSizeToFitWidth = true
 
