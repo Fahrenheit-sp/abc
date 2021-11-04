@@ -45,9 +45,9 @@ final class CatchLetterSelectionViewController: UIViewController {
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            leftButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            leftButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: UIDevice.isiPhone ? 20 : 40),
             leftButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            leftButton.widthAnchor.constraint(equalToConstant: 52),
+            leftButton.widthAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 52 : 80),
             leftButton.heightAnchor.constraint(equalTo: leftButton.widthAnchor),
 
             letterView.leadingAnchor.constraint(equalTo: leftButton.trailingAnchor, constant: 24),
@@ -55,16 +55,17 @@ final class CatchLetterSelectionViewController: UIViewController {
             letterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             letterView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
 
-            rightButton.widthAnchor.constraint(equalToConstant: 52),
+            rightButton.widthAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 52 : 80),
             rightButton.heightAnchor.constraint(equalTo: rightButton.widthAnchor),
             rightButton.leadingAnchor.constraint(equalTo: letterView.trailingAnchor, constant: 24),
             rightButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            rightButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            rightButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: UIDevice.isiPhone ? -20 : -40),
 
             selectButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             selectButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            selectButton.heightAnchor.constraint(equalToConstant: 60),
-            selectButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            selectButton.heightAnchor.constraint(equalToConstant: UIDevice.isiPhone ? 60 : 80),
+            selectButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                 constant: UIDevice.isiPhone ? -20 : -40),
         ])
 
         selectButton.roundCornersToRound()
