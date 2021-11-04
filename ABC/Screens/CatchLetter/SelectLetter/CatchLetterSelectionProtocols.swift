@@ -5,7 +5,9 @@
 //  Created by Игорь Майсюк on 4.11.21.
 //
 
-protocol CatchLetterSelectionRoutable: Router {}
+protocol CatchLetterSelectionRoutable: Router {
+    func didSelectLetter(_ letter: Letter)
+}
 
 protocol CatchLetterSelectionInteractable: AnyObject {
     func didLoad()

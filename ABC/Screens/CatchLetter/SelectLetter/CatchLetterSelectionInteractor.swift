@@ -35,7 +35,7 @@ extension CatchLetterSelectionInteractor: CatchLetterSelectionInteractable {
     }
 
     func onLetterSelected() {
-        print("Selected")
+        router?.didSelectLetter(parameters.alphabet.letters[currentLetterIndex])
     }
 
     func onNextLetterTap() {
