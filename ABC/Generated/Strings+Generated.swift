@@ -23,6 +23,8 @@ internal enum L10n {
     internal static let error = L10n.tr("Localizable", "general.error")
     /// OK
     internal static let ok = L10n.tr("Localizable", "general.ok")
+    /// Start
+    internal static let start = L10n.tr("Localizable", "general.start")
   }
 
   internal enum Menu {

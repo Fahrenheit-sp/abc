@@ -9,6 +9,7 @@
 "general.and" = "und";
 "general.ok" = "OK";
 "general.error" = "Etwas stimmt nicht";
+"general.start" = "Start";
 
 "error.nothingToRestore" = "Wir konnten keine Einkäufe zum Wiederherstellen finden";
 

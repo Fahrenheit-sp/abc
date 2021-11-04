@@ -9,6 +9,7 @@
 "general.and" = "和";
 "general.ok" = "OK";
 "general.error" = "有问题";
+"general.start" = "开始";
 
 "error.nothingToRestore" = "我们无法找到任何要恢复的购买";
 

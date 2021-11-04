@@ -9,6 +9,7 @@
 "general.and" = "и";
 "general.ok" = "OK";
 "general.error" = "Что-то не так";
+"general.start" = "Начать";
 
 "error.nothingToRestore" = "Не удалось найти предыдущих покупок";
 

@@ -31,20 +31,22 @@ final class CatchLetterSelectionInteractor {
 extension CatchLetterSelectionInteractor: CatchLetterSelectionInteractable {
 
     func didLoad() {
-        print("Loaded")
+        ui?.configure(with: .init(letter: parameters.alphabet.letters[currentLetterIndex], tintColor: nil))
     }
 
     func onLetterSelected() {
-
+        print("Selected")
     }
 
-    func getNextLetter() -> Letter {
+    func onNextLetterTap() {
         currentLetterIndex = currentLetterIndex + 1 == parameters.alphabet.letters.endIndex ? 0 : currentLetterIndex + 1
-        return parameters.alphabet.letters[currentLetterIndex]
+        let letter = parameters.alphabet.letters[currentLetterIndex]
+        ui?.configure(with: .init(letter: letter, tintColor: nil))
     }
 
-    func getPreviousLetter() -> Letter {
+    func onPreviousLetterTap() {
         currentLetterIndex = currentLetterIndex - 1 < 0 ? parameters.alphabet.letters.endIndex - 1 : currentLetterIndex - 1
-        return parameters.alphabet.letters[currentLetterIndex]
+        let letter = parameters.alphabet.letters[currentLetterIndex]
+        ui?.configure(with: .init(letter: letter, tintColor: nil))
     }
 }

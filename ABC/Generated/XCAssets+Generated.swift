@@ -26,7 +26,9 @@ internal enum Asset {
   }
   internal enum Icons {
     internal static let close = ImageAsset(name: "close")
+    internal static let `left` = ImageAsset(name: "left")
     internal static let recycleBin = ImageAsset(name: "recycle_bin")
+    internal static let `right` = ImageAsset(name: "right")
   }
   internal enum Letters {
     internal static let a = ImageAsset(name: "a")

@@ -18,7 +18,7 @@ extension UIColor {
     static let subscribeGradientStart = UIColor(hex: "3cb3d1")
     static let subscriptionPriceText = UIColor(hex: "6e7a86")
     static let subscriptionRed = UIColor(hex: "e87f6a")
-    static let subscriptionGreen = UIColor(hex: "7cc590")
+    static let subscriptionGreen = UIColor(hex: "4CBB17")
     static let subscriptionPrivacy = UIColor(hex: "919ba4")
 
 

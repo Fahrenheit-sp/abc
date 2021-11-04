@@ -9,6 +9,7 @@
 "general.and" = "e";
 "general.ok" = "OK";
 "general.error" = "Algo errado";
+"general.start" = "Começar";
 
 "error.nothingToRestore" = "Não foi possível encontrar nenhuma compra para restaurar";
 

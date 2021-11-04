@@ -10,9 +10,10 @@ protocol CatchLetterSelectionRoutable: Router {}
 protocol CatchLetterSelectionInteractable: AnyObject {
     func didLoad()
     func onLetterSelected()
-    func getNextLetter() -> Letter
-    func getPreviousLetter() -> Letter
+    func onNextLetterTap()
+    func onPreviousLetterTap()
 }
 
 protocol CatchLetterSelectionUserInterface: AnyObject {
+    func configure(with letterModel: LetterViewModel)
 }
