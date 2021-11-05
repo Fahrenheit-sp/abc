@@ -11,14 +11,6 @@ final class WordsSpeaker {
 
     private let speaker = AVSpeechSynthesizer()
 
-    init() {
-        try? AVAudioSession.sharedInstance().setCategory(.playback)
-    }
-
-    deinit {
-        try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
-    }
-
     func speak(word: String) {
         let utterance = AVSpeechUtterance(string: word)
         utterance.voice = AVSpeechSynthesisVoice(language: "en")

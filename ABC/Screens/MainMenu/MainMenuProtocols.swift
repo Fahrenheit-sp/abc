@@ -23,6 +23,8 @@ protocol MainMenuRoutable: Router, MainMenuNavigatable {
 
 protocol MainMenuInteractable: AnyObject {
     func didLoad()
+    func didPressEnableSound()
+    func didPressDisableSound()
     func didPressSubscribe()
     func didSelectItem(at indexPath: IndexPath)
 }

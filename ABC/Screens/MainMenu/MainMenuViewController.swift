@@ -25,6 +25,7 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
 
     private let backgroundImageView = UIImageView().disableAutoresizing()
     private let titleImageView = UIImageView().disableAutoresizing()
+    private let soundButton = UIButton().disableAutoresizing()
 
     private lazy var collectionView = {
         UICollectionView(frame: .zero, collectionViewLayout: layout).disableAutoresizing()
@@ -65,14 +66,19 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
         
         titleImageView.image = Asset.Menu.abc.image
         titleImageView.contentMode = .scaleAspectFit
+
+        soundButton.setImage(Asset.Icons.soundOn.image, for: .normal)
+        soundButton.setImage(Asset.Icons.soundOff.image, for: .selected)
+        soundButton.addTarget(self, action: #selector(toggleSound), for: .touchUpInside)
     }
 
     private func setupLayout() {
         view.addSubview(backgroundImageView)
         view.addSubview(titleImageView)
         view.addSubview(collectionView)
+        view.addSubview(soundButton)
 
-        let backgoundConstraints = backgroundImageView.createConstraintsForEmbedding(in: view)
+        let backgroundConstraints = backgroundImageView.createConstraintsForEmbedding(in: view)
         let titleConstraints = [
             titleImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             titleImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -88,7 +94,14 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ]
 
-        NSLayoutConstraint.activate(backgoundConstraints + titleConstraints + collectionConstraints)
+        let soundConstraints = [
+            soundButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            soundButton.centerYAnchor.constraint(equalTo: titleImageView.centerYAnchor),
+            soundButton.widthAnchor.constraint(equalToConstant: 52),
+            soundButton.heightAnchor.constraint(equalTo: soundButton.widthAnchor)
+        ]
+
+        NSLayoutConstraint.activate(backgroundConstraints + titleConstraints + collectionConstraints + soundConstraints)
     }
 
     func configure(with model: MainMenuScreenViewModel) {
@@ -96,6 +109,11 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
         let headerHeight: CGFloat = UIDevice.isiPhone ? 70 : 120
         layout.headerReferenceSize = model.isSubscribeAvailable ? CGSize(width: collectionView.bounds.width, height: headerHeight) : .zero
         collectionView.reloadData()
+    }
+
+    @objc private func toggleSound() {
+        soundButton.isSelected.toggle()
+        soundButton.isSelected ? interactor?.didPressDisableSound() : interactor?.didPressEnableSound()
     }
 }
 

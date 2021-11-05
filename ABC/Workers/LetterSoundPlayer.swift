@@ -12,14 +12,6 @@ final class LetterSoundPlayer {
     private var player: AVAudioPlayer?
     private let queue = DispatchQueue(label: UUID().uuidString, qos: .userInteractive)
 
-    init() {
-        try? AVAudioSession.sharedInstance().setCategory(.playback)
-    }
-
-    deinit {
-        try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
-    }
-
     func playLetterSound(named name: String) {
         queue.async { self.play(name) }
     }

@@ -9,15 +9,16 @@ import GoogleMobileAds
 
 protocol InterstitialPresenterDelegate: AnyObject {
     func presenterDidLoadAd(_ presenter: InterstitialPresenter)
-    func presenterDidFailToPresentAd(_ presenter: InterstitialPresenter, from controller: UIViewController?)
+    func presenterDidFailToPresentAd(_ presenter: InterstitialPresenter, from controller: UIViewController?, isStartingAd: Bool)
     func presenterDidDisplayAd(_ presenter: InterstitialPresenter, from controller: UIViewController?)
-    func presenterWillDismissAd(_ presenter: InterstitialPresenter, from controller: UIViewController?)
+    func presenterWillDismissAd(_ presenter: InterstitialPresenter, from controller: UIViewController?, isStartingAd: Bool)
     func presenterDidDismissAd(_ presenter: InterstitialPresenter, from controller: UIViewController?)
 }
 
 final class InterstitialPresenter: NSObject {
 
     private var interstitial: GADInterstitialAd?
+    private var isStartingAd = true
     private weak var controller: UIViewController?
 
     weak var delegate: InterstitialPresenterDelegate?
@@ -33,14 +34,20 @@ final class InterstitialPresenter: NSObject {
         }
     }
 
-    func presentAd(from controller: UIViewController) {
+    func presentAd(from controller: UIViewController, isStartingAd: Bool) {
         self.controller = controller
-        guard let ad = interstitial else { delegate?.presenterDidFailToPresentAd(self, from: controller); return }
+        self.isStartingAd = isStartingAd
+        guard let ad = interstitial else {
+            delegate?.presenterDidFailToPresentAd(self, from: controller, isStartingAd: isStartingAd)
+            loadAd()
+            return
+        }
         do {
             try ad.canPresent(fromRootViewController: controller)
             ad.present(fromRootViewController: controller)
         } catch {
-            print("Can not present ad: \(error.localizedDescription)")
+            delegate?.presenterDidFailToPresentAd(self, from: controller, isStartingAd: isStartingAd)
+            loadAd()
         }
     }
 }
@@ -51,11 +58,12 @@ extension InterstitialPresenter: GADFullScreenContentDelegate {
     }
 
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-        delegate?.presenterDidFailToPresentAd(self, from: controller)
+        delegate?.presenterDidFailToPresentAd(self, from: controller, isStartingAd: isStartingAd)
+        loadAd()
     }
 
     func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        delegate?.presenterWillDismissAd(self, from: controller)
+        delegate?.presenterWillDismissAd(self, from: controller, isStartingAd: isStartingAd)
     }
 
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {

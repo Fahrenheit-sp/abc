@@ -12,9 +12,7 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
     private let wrapped: MainMenuRouter
     private let presenter: InterstitialPresenter
     private var currentItem: MainMenuItem = .alphabet
-    private let itemsToDisplayAdAtStart: [MainMenuItem] = [.listen, .canvas, .catchLetter]
-    private let itemsToDisplayAdAtEnd: [MainMenuItem] = [.alphabet, .numbers, .makeAWord, .memorize, .pictures, .catchLetter]
-    private var isPresentingFromStart = true
+    private let itemsToDisplayAdAtStart: [MainMenuItem] = [.alphabet, .numbers, .listen, .canvas, .catchLetter]
 
     private var view: MainMenuUserInterface? {
         wrapped.view
@@ -43,8 +41,7 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
         currentItem = item
         switch item {
         case _ where itemsToDisplayAdAtStart.contains(item):
-            isPresentingFromStart = true
-            view.map { presenter.presentAd(from: $0) }
+            view.map { presenter.presentAd(from: $0, isStartingAd: true) }
         default: wrapped.mainMenuDidSelect(item: item)
         }
     }
@@ -53,18 +50,11 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
         wrapped.setFabricDelegate(to: delegate)
     }
 
-    private func proceedAfterPresentingAd(from controller: UIViewController?) {
-        switch currentItem {
-        case _ where itemsToDisplayAdAtStart.contains(currentItem) && isPresentingFromStart:
-            isPresentingFromStart = false
-            wrapped.mainMenuDidSelect(item: currentItem)
-        case _ where itemsToDisplayAdAtEnd.contains(currentItem) && !isPresentingFromStart:
-            dismissAfterFinish(from: controller)
-        default: return
-        }
+    private func proceedAfterPresentingStartingAd() {
+        wrapped.mainMenuDidSelect(item: currentItem)
     }
 
-    private func dismissAfterFinish(from controller: UIViewController?) {
+    private func proceedFromPresentingFinishAd(from controller: UIViewController?) {
         guard let controller = controller else { return }
         switch currentItem {
         case .alphabet, .numbers:
@@ -88,16 +78,16 @@ extension MainMenuInterstitialRouterDecorator: InterstitialPresenterDelegate {
         print("Ad loaded")
     }
 
-    func presenterDidFailToPresentAd(_ presenter: InterstitialPresenter, from controller: UIViewController?) {
-        proceedAfterPresentingAd(from: controller)
+    func presenterDidFailToPresentAd(_ presenter: InterstitialPresenter, from controller: UIViewController?, isStartingAd: Bool) {
+        isStartingAd ? proceedAfterPresentingStartingAd() : proceedFromPresentingFinishAd(from: controller)
     }
 
     func presenterDidDisplayAd(_ presenter: InterstitialPresenter, from controller: UIViewController?) {
         print("Ad displayed")
     }
 
-    func presenterWillDismissAd(_ presenter: InterstitialPresenter, from controller: UIViewController?) {
-        proceedAfterPresentingAd(from: controller)
+    func presenterWillDismissAd(_ presenter: InterstitialPresenter, from controller: UIViewController?, isStartingAd: Bool) {
+        isStartingAd ? proceedAfterPresentingStartingAd() : proceedFromPresentingFinishAd(from: controller)
     }
 
     func presenterDidDismissAd(_ presenter: InterstitialPresenter, from controller: UIViewController?) {
@@ -107,19 +97,19 @@ extension MainMenuInterstitialRouterDecorator: InterstitialPresenterDelegate {
 
 extension MainMenuInterstitialRouterDecorator: AlphabetRouterDelegate {
     func alphabetRouterDidFinishPresenting(_ controller: UIViewController) {
-        presenter.presentAd(from: controller)
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }
 
 extension MainMenuInterstitialRouterDecorator: MemorizeRouterDelegate {
     func memorizeRouterDidFinishPresenting(_ controller: UIViewController) {
-        presenter.presentAd(from: controller)
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }
 
 extension MainMenuInterstitialRouterDecorator: MakeAWordRouterDelegate {
     func makeAWordRouterDidFinishPresenting(_ controller: UIViewController) {
-        presenter.presentAd(from: controller)
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }
 
@@ -131,12 +121,12 @@ extension MainMenuInterstitialRouterDecorator: SubscribeRouterDelegate {
 
 extension MainMenuInterstitialRouterDecorator: PicturesRouterDelegate {
     func picturesRouterDidFinishPresenting(_ controller: UIViewController) {
-        presenter.presentAd(from: controller)
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }
 
 extension MainMenuInterstitialRouterDecorator: CatchLetterGameRouterDelegate {
     func catchLetterGameRouterDidFinishPresenting(_ controller: UIViewController) {
-        presenter.presentAd(from: controller)
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }
