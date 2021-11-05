@@ -12,13 +12,15 @@ final class ItemsManager {
 
     private let correctLetter: String
     private let wrongLetters: [String]
+    private let letterAnimationFinishedAction: (Bool) -> Void
     private var wrongItemsGeneratedCount = 0
     private weak var scene: SKScene?
     private var timer: Timer?
 
-    init(with letter: String, wrongLetters: [String], scene: SKScene) {
+    init(with letter: String, wrongLetters: [String], scene: SKScene, letterAnimationFinishedAction: @escaping (Bool) -> Void) {
         self.correctLetter = letter
         self.wrongLetters = wrongLetters
+        self.letterAnimationFinishedAction = letterAnimationFinishedAction
         self.scene = scene
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { [weak self] _ in self?.generate() }
     }
@@ -37,15 +39,10 @@ final class ItemsManager {
     }
 
     private func createItem() -> TouchableNode? {
-        guard wrongItemsGeneratedCount < 7 else {
-            wrongItemsGeneratedCount = 0
-            return SKLetterNode(letter: correctLetter, isCorrect: true)
-        }
+        guard wrongItemsGeneratedCount < 8 else { return generateCorrectLetter() }
         let item = Int.random(in: 0...3)
         switch item {
-        case 0:
-            wrongItemsGeneratedCount = 0
-            return SKLetterNode(letter: correctLetter, isCorrect: true)
+        case 0: return generateCorrectLetter()
         case 1:
             wrongItemsGeneratedCount += 1
             return Rocket(imageNamed: "rocket")
@@ -54,8 +51,13 @@ final class ItemsManager {
             return Ufo(imageNamed: "ufo")
         default:
             wrongItemsGeneratedCount += 1
-            return wrongLetters.randomElement().map { SKLetterNode(letter: $0, isCorrect: false) }
+            return wrongLetters.randomElement().map { SKLetterNode(letter: $0, isCorrect: false, onFinishAnimation: letterAnimationFinishedAction) }
         }
+    }
+
+    private func generateCorrectLetter() -> TouchableNode {
+        wrongItemsGeneratedCount = 0
+        return SKLetterNode(letter: correctLetter, isCorrect: true, onFinishAnimation: letterAnimationFinishedAction)
     }
 
 

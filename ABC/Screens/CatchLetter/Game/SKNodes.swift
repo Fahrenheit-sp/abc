@@ -22,9 +22,11 @@ extension TouchableNode {
 final class SKLetterNode: SKSpriteNode, TouchableNode {
 
     let isCorrect: Bool
+    let onFinishAnimation: (Bool) -> Void
 
-    init(letter: String, isCorrect: Bool) {
+    init(letter: String, isCorrect: Bool, onFinishAnimation: @escaping (Bool) -> Void) {
         self.isCorrect = isCorrect
+        self.onFinishAnimation = onFinishAnimation
         let texture = SKTexture(imageNamed: letter)
         super.init(texture: texture, color: .clear, size: texture.size())
     }
@@ -43,8 +45,9 @@ final class SKLetterNode: SKSpriteNode, TouchableNode {
         let rotate = SKAction.rotate(byAngle: .pi, duration: 1)
         let playSound = SKAction.run { print("Error sound played") }
         let group = SKAction.group([move, rotate, playSound])
+        let notify = SKAction.run { self.onFinishAnimation(false) }
         let remove = SKAction.removeFromParent()
-        let sequence = SKAction.sequence([group, remove])
+        let sequence = SKAction.sequence([group, notify, remove])
         run(sequence)
     }
 
@@ -57,11 +60,12 @@ final class SKLetterNode: SKSpriteNode, TouchableNode {
         let blurAction = SKAction.group([scale, fadeOut])
         addChild(blurStar)
         blurStar.run(blurAction)
-        let point = CGPoint(x: UIScreen.width / 2, y: UIScreen.height)
+        let point = CGPoint(x: UIScreen.width / 2, y: UIScreen.height - 100)
         let move = SKAction.move(to: point, duration: 1.0)
         let playSound = SKAction.run { print("Correct sound play") }
         let dismiss = SKAction.fadeOut(withDuration: 0.25)
-        let group = SKAction.sequence([playSound, move, dismiss])
+        let notify = SKAction.run { self.onFinishAnimation(true) }
+        let group = SKAction.sequence([playSound, move, notify, dismiss])
         run(group)
     }
 }

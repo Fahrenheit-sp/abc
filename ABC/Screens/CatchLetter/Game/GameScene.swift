@@ -8,17 +8,27 @@
 
 import SpriteKit
 
+protocol GameSceneDelegate: AnyObject {
+    func gameSceneDidIncreaseScore(_ scene: GameScene)
+    func gameSceneDidDecreaseScore(_ scene: GameScene)
+}
+
 final class GameScene: SKScene {
 
     private var itemsManager: ItemsManager!
     private var cloudsManager: CloudsManager!
     private var lastUpdateTimeInterval: TimeInterval = 0
 
+    weak var gameDelegate: GameSceneDelegate?
+
     required init(letter: String, wrongLetters: [String]) {
         super.init(size: UIScreen.main.bounds.size)
         anchorPoint = .zero
         backgroundColor = .background
-        itemsManager = ItemsManager(with: letter, wrongLetters: wrongLetters, scene: self)
+        itemsManager = ItemsManager(with: letter, wrongLetters: wrongLetters, scene: self) { [weak self] isCorrect in
+            guard let self = self else { return }
+            isCorrect ? self.gameDelegate?.gameSceneDidIncreaseScore(self) : self.gameDelegate?.gameSceneDidDecreaseScore(self)
+        }
         cloudsManager = CloudsManager(with: self)
     }
     

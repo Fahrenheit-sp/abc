@@ -12,6 +12,13 @@ final class StarsView: UIView {
     struct Configuration {
         var numberOfFilled: Int
         var numberOfEmpty: Int
+        let maximum: Int
+
+        init(numberOfFilled: Int, numberOfEmpty: Int) {
+            self.numberOfEmpty = numberOfEmpty
+            self.numberOfFilled = numberOfFilled
+            self.maximum = numberOfEmpty + numberOfFilled
+        }
 
         static let `default` = Self.init(numberOfFilled: 0, numberOfEmpty: 5)
     }
@@ -54,14 +61,14 @@ final class StarsView: UIView {
     }
 
     func increaseFilledCount() {
-        configuration.numberOfFilled += 1
+        configuration.numberOfFilled = min(configuration.maximum, configuration.numberOfFilled + 1)
         configuration.numberOfEmpty = max(0, configuration.numberOfEmpty-1)
         reloadStackView()
     }
 
     func decreaseFilledCount() {
         configuration.numberOfFilled = max(0, configuration.numberOfFilled-1)
-        configuration.numberOfEmpty += 1
+        configuration.numberOfEmpty = min(configuration.maximum, configuration.numberOfEmpty + 1)
         reloadStackView()
     }
 

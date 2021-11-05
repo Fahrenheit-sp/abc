@@ -46,6 +46,7 @@ final class DefaultRouterFabric: RoutersFabric {
             return router
         case .catchLetter:
             let router = CatchLetterRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english)))
+            router.delegate = delegate
             return router
         }
     }

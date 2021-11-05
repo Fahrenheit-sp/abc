@@ -16,7 +16,8 @@ final class CatchLetterRouter: CatchLetterSelectionRoutable {
     private let parameters: Parameters
     private weak var view: UIViewController?
 
-    private var gameRouter: Router?
+    private var gameRouter: CatchLetterGameRouter?
+    weak var delegate: CatchLetterGameRouterDelegate?
 
     init(parameters: Parameters) {
         self.parameters = parameters
@@ -34,6 +35,7 @@ final class CatchLetterRouter: CatchLetterSelectionRoutable {
 
     func didSelectLetter(_ letter: Letter) {
         gameRouter = CatchLetterGameRouter(parameters: .init(alphabet: parameters.alphabet, letter: letter))
+        gameRouter?.delegate = delegate
         let root = view?.navigationController?.viewControllers.first
         let game = gameRouter?.makeController()
         view?.navigationController?.setViewControllers([root, game].compactMap {$0}, animated: true)

@@ -17,6 +17,8 @@ final class CatchLetterGameRouter: CatchLetterGameRoutable {
     private let parameters: Parameters
     private weak var view: UIViewController?
 
+    weak var delegate: CatchLetterGameRouterDelegate?
+
     init(parameters: Parameters) {
         self.parameters = parameters
     }
@@ -29,5 +31,9 @@ final class CatchLetterGameRouter: CatchLetterGameRoutable {
         controller.interactor = interactor
         self.view = controller
         return controller
+    }
+
+    func didFinishGame() {
+        view.map { delegate?.catchLetterGameRouterDidFinishPresenting($0) }
     }
 }
