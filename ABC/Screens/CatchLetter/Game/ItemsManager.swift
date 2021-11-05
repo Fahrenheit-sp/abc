@@ -16,6 +16,8 @@ final class ItemsManager {
     private var wrongItemsGeneratedCount = 0
     private weak var scene: SKScene?
     private var timer: Timer?
+    private let soundPlayer = SoundPlayer()
+    private let letterPlayer = LetterSoundPlayer()
 
     init(with letter: String, wrongLetters: [String], scene: SKScene, letterAnimationFinishedAction: @escaping (Bool) -> Void) {
         self.correctLetter = letter
@@ -45,19 +47,28 @@ final class ItemsManager {
         case 0: return generateCorrectLetter()
         case 1:
             wrongItemsGeneratedCount += 1
-            return Rocket(imageNamed: "rocket")
+            let rocket = Rocket(imageNamed: "rocket")
+            rocket.soundAction = { [weak self] in self?.soundPlayer.playRocketSound() }
+            return rocket
         case 2:
             wrongItemsGeneratedCount += 1
-            return Ufo(imageNamed: "ufo")
+            let ufo = Ufo(imageNamed: "ufo")
+            ufo.soundAction = { [weak self] in self?.soundPlayer.playUfoSound() }
+            return ufo
         default:
             wrongItemsGeneratedCount += 1
-            return wrongLetters.randomElement().map { SKLetterNode(letter: $0, isCorrect: false, onFinishAnimation: letterAnimationFinishedAction) }
+            let wrong =  wrongLetters.randomElement()
+                .map { SKLetterNode(letter: $0, isCorrect: false, onFinishAnimation: letterAnimationFinishedAction) }
+            wrong?.soundAction = { [weak self] in self?.soundPlayer.playErrorSound() }
+            return wrong
         }
     }
 
     private func generateCorrectLetter() -> TouchableNode {
         wrongItemsGeneratedCount = 0
-        return SKLetterNode(letter: correctLetter, isCorrect: true, onFinishAnimation: letterAnimationFinishedAction)
+        let correct = SKLetterNode(letter: correctLetter, isCorrect: true, onFinishAnimation: letterAnimationFinishedAction)
+        correct.soundAction = { [weak self] in self.map { $0.letterPlayer.playLetterSound(named: $0.correctLetter) } }
+        return correct
     }
 
 

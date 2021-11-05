@@ -23,6 +23,7 @@ final class SKLetterNode: SKSpriteNode, TouchableNode {
 
     let isCorrect: Bool
     let onFinishAnimation: (Bool) -> Void
+    var soundAction: (() -> Void)?
 
     init(letter: String, isCorrect: Bool, onFinishAnimation: @escaping (Bool) -> Void) {
         self.isCorrect = isCorrect
@@ -43,7 +44,7 @@ final class SKLetterNode: SKSpriteNode, TouchableNode {
         let x: CGFloat = position.x > UIScreen.width / 2 ? UIScreen.width + size.width : -size.width
         let move = SKAction.moveTo(x: x, duration: 1)
         let rotate = SKAction.rotate(byAngle: .pi, duration: 1)
-        let playSound = SKAction.run { print("Error sound played") }
+        let playSound = SKAction.run { self.soundAction?() }
         let group = SKAction.group([move, rotate, playSound])
         let notify = SKAction.run { self.onFinishAnimation(false) }
         let remove = SKAction.removeFromParent()
@@ -62,7 +63,7 @@ final class SKLetterNode: SKSpriteNode, TouchableNode {
         blurStar.run(blurAction)
         let point = CGPoint(x: UIScreen.width / 2, y: UIScreen.height - 100)
         let move = SKAction.move(to: point, duration: 1.0)
-        let playSound = SKAction.run { print("Correct sound play") }
+        let playSound = SKAction.run { self.soundAction?() }
         let dismiss = SKAction.fadeOut(withDuration: 0.25)
         let notify = SKAction.run { self.onFinishAnimation(true) }
         let group = SKAction.sequence([playSound, move, notify, dismiss])
@@ -71,6 +72,8 @@ final class SKLetterNode: SKSpriteNode, TouchableNode {
 }
 
 final class Rocket: SKSpriteNode, TouchableNode {
+
+    var soundAction: (() -> Void)?
 
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: .init(imageNamed: Asset.Games.rocket.name), color: color, size: size / UIScreen.main.scale)
@@ -83,7 +86,7 @@ final class Rocket: SKSpriteNode, TouchableNode {
     func handleTouch() {
         let point = CGPoint(x: position.x, y: UIScreen.height)
         let move = SKAction.move(to: point, duration: 0.7)
-        let playSound = SKAction.run { print("Play rocket sound") }
+        let playSound = SKAction.run { self.soundAction?() }
         let sequence = SKAction.group([move, playSound])
         run(sequence)
     }
@@ -91,6 +94,8 @@ final class Rocket: SKSpriteNode, TouchableNode {
 }
 
 final class Ufo: SKSpriteNode, TouchableNode {
+
+    var soundAction: (() -> Void)?
 
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: .init(imageNamed: Asset.Games.ufo.name), color: color, size: size / UIScreen.main.scale)
@@ -103,7 +108,7 @@ final class Ufo: SKSpriteNode, TouchableNode {
     func handleTouch() {
         let point = CGPoint(x: position.x, y: UIScreen.height)
         let move = SKAction.move(to: point, duration: 0.7)
-        let playSound = SKAction.run { print("Ufo sound played") }
+        let playSound = SKAction.run { self.soundAction?() }
         let sequence = SKAction.group([move, playSound])
         run(sequence)
     }

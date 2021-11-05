@@ -10,7 +10,7 @@ import AVFoundation
 final class LetterSoundPlayer {
 
     private var player: AVAudioPlayer?
-    private let queue = DispatchQueue(label: "com.fahrenheit.letterPlayer")
+    private let queue = DispatchQueue(label: UUID().uuidString, qos: .userInteractive)
 
     init() {
         try? AVAudioSession.sharedInstance().setCategory(.playback)

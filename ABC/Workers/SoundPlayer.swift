@@ -10,13 +10,15 @@ import AVFoundation
 final class SoundPlayer {
 
     private var player: AVAudioPlayer?
-    private let queue = DispatchQueue(label: "com.fahrenheit.player")
+    private let queue = DispatchQueue(label: UUID().uuidString, qos: .userInteractive)
 
     private static let winUrl = Bundle.main.url(forResource: "win", withExtension: "wav")
     private static let letterUrl = Bundle.main.url(forResource: "letter_placed", withExtension: "mp3")
     private static let cardUrl = Bundle.main.url(forResource: "card", withExtension: "mp3")
     private static let swooshUrl = Bundle.main.url(forResource: "swoosh", withExtension: "wav")
     private static let errorUrl = Bundle.main.url(forResource: "error", withExtension: "mp3")
+    private static let ufoUrl = Bundle.main.url(forResource: "ufo", withExtension: "mp3")
+    private static let rocketUrl = Bundle.main.url(forResource: "rocket", withExtension: "wav")
 
     func playWinSound() {
         queue.async { self.playSound(at: Self.winUrl) }
@@ -36,6 +38,14 @@ final class SoundPlayer {
 
     func playErrorSound() {
         queue.async { self.playSound(at: Self.errorUrl) }
+    }
+
+    func playUfoSound() {
+        queue.async { self.playSound(at: Self.ufoUrl) }
+    }
+
+    func playRocketSound() {
+        queue.async { self.playSound(at: Self.rocketUrl) }
     }
 
     private func playSound(at url: URL?) {

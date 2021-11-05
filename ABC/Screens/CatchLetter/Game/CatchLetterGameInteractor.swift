@@ -17,6 +17,7 @@ final class CatchLetterGameInteractor {
 
     private let parameters: Parameters
     private var score: Int
+    private let soundPlayer = SoundPlayer()
 
     weak var ui: CatchLetterGameUserInterface?
     weak var router: CatchLetterGameRoutable?
@@ -42,11 +43,12 @@ extension CatchLetterGameInteractor: CatchLetterGameInteractable {
         score += 1
         ui?.increaseStarsCount()
         guard score == parameters.goalScore else { return }
+        soundPlayer.playWinSound()
         ui?.onGameFinished()
     }
 
     func didTapWrongLetter() {
-        score -= 1
+        score = max(0, score-1)
         ui?.decreaseStarsCount()
     }
 
