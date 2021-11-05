@@ -17,7 +17,9 @@ struct MainMenuScreenViewModel {
     }
 
     var cellModels: [MainMenuCellViewModel] {
-        items.map { MainMenuCellViewModel(title: $0.title, image: $0.image.image) }
+        items.map { MainMenuCellViewModel(title: $0.title,
+                                          image: $0.image.image,
+                                          newImage: $0.isNew ? Asset.Menu.new.image : nil) }
     }
 }
 

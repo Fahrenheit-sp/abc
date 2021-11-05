@@ -47,4 +47,11 @@ enum MainMenuItem: CaseIterable {
         case .memorize: return Asset.Menu.memorize
         }
     }
+
+    var isNew: Bool {
+        switch self {
+        case .catchLetter, .pictures: return true
+        default: return false
+        }
+    }
 }
