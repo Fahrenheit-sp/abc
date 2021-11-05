@@ -38,7 +38,7 @@ public final class ConfettiView: UIView {
                       by reaching the end of its duration.
     */
     public func emit(with contents: [Content],
-                     for duration: TimeInterval = 2.0,
+                     for duration: TimeInterval = 1.5,
                      completion: ((Bool) -> Void)? = nil) {
         let layer = Layer()
         layer.configure(with: contents)

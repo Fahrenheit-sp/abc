@@ -125,3 +125,9 @@ extension MainMenuRouter: PicturesRouterDelegate {
         navigation?.popViewController(animated: true)
     }
 }
+
+extension MainMenuRouter: CatchLetterGameRouterDelegate {
+    func catchLetterGameRouterDidFinishPresenting(_ view: UIViewController) {
+        navigation?.popViewController(animated: true)
+    }
+}

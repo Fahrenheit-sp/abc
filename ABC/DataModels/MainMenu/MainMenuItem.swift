@@ -11,11 +11,12 @@ enum MainMenuItem: CaseIterable {
     case subscribe
     case alphabet
     case numbers
-    case listen
     case pictures
+    case catchLetter
+    case canvas
     case memorize
     case makeAWord
-    case canvas
+    case listen
 
     static let gameItems = Self.allCases.filter { $0 != .subscribe }
 
@@ -28,6 +29,7 @@ enum MainMenuItem: CaseIterable {
         case .makeAWord: return L10n.Menu.Item.makeAWord
         case .listen: return L10n.Menu.Item.listen
         case .pictures: return L10n.Menu.Item.pictures
+        case .catchLetter: return L10n.Menu.Item.catchLetter
         case .memorize: return L10n.Menu.Item.memorize
         }
     }
@@ -41,6 +43,7 @@ enum MainMenuItem: CaseIterable {
         case .makeAWord: return Asset.Menu.makeAWord
         case .listen: return Asset.Menu.listen
         case .pictures: return Asset.Menu.picture
+        case .catchLetter: return Asset.Menu.catchLetter
         case .memorize: return Asset.Menu.memorize
         }
     }

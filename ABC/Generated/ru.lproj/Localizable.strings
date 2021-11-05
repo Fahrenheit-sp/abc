@@ -9,6 +9,7 @@
 "general.and" = "и";
 "general.ok" = "OK";
 "general.error" = "Что-то не так";
+"general.start" = "Начать";
 
 "error.nothingToRestore" = "Не удалось найти предыдущих покупок";
 
@@ -20,6 +21,7 @@
 "menu.item.memorize" = "Запоминать";
 "menu.item.listen" = "Слушать";
 "menu.item.pictures" = "Картинки";
+"menu.item.catchLetter" = "Поймай букву";
 
 "subscription.title" = "Получите неограниченный доступ";
 "subscription.restore" = "Восстановить";

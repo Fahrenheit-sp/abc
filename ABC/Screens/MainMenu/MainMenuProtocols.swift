@@ -13,6 +13,7 @@ typealias MainMenuNavigatable = AlphabetRouterDelegate
                                     & MakeAWordRouterDelegate
                                     & SubscribeRouterDelegate
                                     & PicturesRouterDelegate
+                                    & CatchLetterGameRouterDelegate
 
 protocol MainMenuRoutable: Router, MainMenuNavigatable {
     func mainMenuDidSelect(item: MainMenuItem)

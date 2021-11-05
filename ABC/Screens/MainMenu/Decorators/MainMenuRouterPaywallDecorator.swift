@@ -108,3 +108,9 @@ extension MainMenuPaywallRouterDecorator: PicturesRouterDelegate {
         wrapped.picturesRouterDidFinishPresenting(controller)
     }
 }
+
+extension MainMenuPaywallRouterDecorator: CatchLetterGameRouterDelegate {
+    func catchLetterGameRouterDidFinishPresenting(_ controller: UIViewController) {
+        wrapped.catchLetterGameRouterDidFinishPresenting(controller)
+    }
+}
