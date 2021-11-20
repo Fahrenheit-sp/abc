@@ -12,9 +12,7 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
     private let wrapped: MainMenuRouter
     private let presenter: InterstitialPresenter
     private var currentItem: MainMenuItem = .alphabet
-    private var itemsToDisplayAdAtStart: [MainMenuItem] = [.listen, .canvas]
-
-    private var controllerPresentingAd: UIViewController?
+    private let itemsToDisplayAdAtStart: [MainMenuItem] = [.alphabet, .numbers, .listen, .canvas, .catchLetter]
 
     private var view: MainMenuUserInterface? {
         wrapped.view
@@ -42,7 +40,8 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
     func mainMenuDidSelect(item: MainMenuItem) {
         currentItem = item
         switch item {
-        case .listen, .canvas: view.map { presenter.presentAd(from: $0) }
+        case _ where itemsToDisplayAdAtStart.contains(item):
+            view.map { presenter.presentAd(from: $0, isStartingAd: true) }
         default: wrapped.mainMenuDidSelect(item: item)
         }
     }
@@ -51,21 +50,24 @@ final class MainMenuInterstitialRouterDecorator: NSObject, MainMenuRoutable {
         wrapped.setFabricDelegate(to: delegate)
     }
 
-    private func procceedAfterPresentingAd() {
-        if itemsToDisplayAdAtStart.contains(currentItem) {
-            wrapped.mainMenuDidSelect(item: currentItem)
-        } else {
-            guard let controller = controllerPresentingAd else { return }
-            switch currentItem {
-            case .alphabet, .numbers:
-                wrapped.alphabetRouterDidFinishPresenting(controller)
-            case .makeAWord:
-                wrapped.makeAWordRouterDidFinishPresenting(controller)
-            case .memorize:
-                wrapped.memorizeRouterDidFinishPresenting(controller)
-            case .canvas, .listen, .subscribe: return
-            }
-            controllerPresentingAd = nil
+    private func proceedAfterPresentingStartingAd() {
+        wrapped.mainMenuDidSelect(item: currentItem)
+    }
+
+    private func proceedFromPresentingFinishAd(from controller: UIViewController?) {
+        guard let controller = controller else { return }
+        switch currentItem {
+        case .alphabet, .numbers:
+            wrapped.alphabetRouterDidFinishPresenting(controller)
+        case .makeAWord:
+            wrapped.makeAWordRouterDidFinishPresenting(controller)
+        case .memorize:
+            wrapped.memorizeRouterDidFinishPresenting(controller)
+        case .pictures:
+            wrapped.picturesRouterDidFinishPresenting(controller)
+        case .catchLetter:
+            wrapped.catchLetterGameRouterDidFinishPresenting(controller)
+        case .canvas, .listen, .subscribe: return
         }
     }
 
@@ -76,46 +78,55 @@ extension MainMenuInterstitialRouterDecorator: InterstitialPresenterDelegate {
         print("Ad loaded")
     }
 
-    func presenterDidFailToPresentAd(_ presenter: InterstitialPresenter) {
-        procceedAfterPresentingAd()
+    func presenterDidFailToPresentAd(_ presenter: InterstitialPresenter, from controller: UIViewController?, isStartingAd: Bool) {
+        isStartingAd ? proceedAfterPresentingStartingAd() : proceedFromPresentingFinishAd(from: controller)
     }
 
-    func presenterDidDisplayAd(_ presenter: InterstitialPresenter) {
+    func presenterDidDisplayAd(_ presenter: InterstitialPresenter, from controller: UIViewController?) {
         print("Ad displayed")
     }
 
-    func presenterWillDismissAd(_ presenter: InterstitialPresenter) {
-        procceedAfterPresentingAd()
+    func presenterWillDismissAd(_ presenter: InterstitialPresenter, from controller: UIViewController?, isStartingAd: Bool) {
+        isStartingAd ? proceedAfterPresentingStartingAd() : proceedFromPresentingFinishAd(from: controller)
     }
 
-    func presenterDidDismissAd(_ presenter: InterstitialPresenter) {
+    func presenterDidDismissAd(_ presenter: InterstitialPresenter, from controller: UIViewController?) {
         print("Ad did dismiss")
     }
 }
 
 extension MainMenuInterstitialRouterDecorator: AlphabetRouterDelegate {
     func alphabetRouterDidFinishPresenting(_ controller: UIViewController) {
-        controllerPresentingAd = controller
-        presenter.presentAd(from: controller)
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }
 
 extension MainMenuInterstitialRouterDecorator: MemorizeRouterDelegate {
     func memorizeRouterDidFinishPresenting(_ controller: UIViewController) {
-        controllerPresentingAd = controller
-        presenter.presentAd(from: controller)
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }
 
 extension MainMenuInterstitialRouterDecorator: MakeAWordRouterDelegate {
     func makeAWordRouterDidFinishPresenting(_ controller: UIViewController) {
-        controllerPresentingAd = controller
-        presenter.presentAd(from: controller)
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }
 
 extension MainMenuInterstitialRouterDecorator: SubscribeRouterDelegate {
     func subscribeRouterDidFinishPresenting(_ controller: UIViewController) {
         wrapped.subscribeRouterDidFinishPresenting(controller)
+    }
+}
+
+extension MainMenuInterstitialRouterDecorator: PicturesRouterDelegate {
+    func picturesRouterDidFinishPresenting(_ controller: UIViewController) {
+        presenter.presentAd(from: controller, isStartingAd: false)
+    }
+}
+
+extension MainMenuInterstitialRouterDecorator: CatchLetterGameRouterDelegate {
+    func catchLetterGameRouterDidFinishPresenting(_ controller: UIViewController) {
+        presenter.presentAd(from: controller, isStartingAd: false)
     }
 }

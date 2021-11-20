@@ -9,6 +9,7 @@
 "general.and" = "und";
 "general.ok" = "OK";
 "general.error" = "Etwas stimmt nicht";
+"general.start" = "Start";
 
 "error.nothingToRestore" = "Wir konnten keine Einkäufe zum Wiederherstellen finden";
 
@@ -19,6 +20,8 @@
 "menu.item.makeAWord" = "Mach ein Wort";
 "menu.item.memorize" = "Sich einprägen";
 "menu.item.listen" = "Hören";
+"menu.item.pictures" = "Bilder";
+"menu.item.catchLetter" = "Fang einen Brief";
 
 "subscription.title" = "Erhalten Sie unbegrenzten Zugang";
 "subscription.restore" = "Wiederherstellen";

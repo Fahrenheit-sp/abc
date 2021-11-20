@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-final class WordsSpeaker: NSObject {
+final class WordsSpeaker {
 
     private let speaker = AVSpeechSynthesizer()
 
@@ -16,5 +16,9 @@ final class WordsSpeaker: NSObject {
         utterance.voice = AVSpeechSynthesisVoice(language: "en")
 
         speaker.speak(utterance)
+    }
+
+    func speak(words: [String]) {
+        speak(word: words.joined(separator: .space))
     }
 }

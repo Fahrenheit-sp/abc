@@ -43,7 +43,7 @@ final class SubscriptionFeatureView: UIView {
         imageView.tintColor = .checkmark
 
         textLabel.numberOfLines = 0
-        textLabel.textColor = .background
+        textLabel.textColor = .darkGray
         textLabel.font = .systemFont(ofSize: UIScreen.isIphoneEightOrLess ? 17 : 19, weight: .medium)
     }
 

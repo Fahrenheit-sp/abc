@@ -23,6 +23,8 @@ internal enum L10n {
     internal static let error = L10n.tr("Localizable", "general.error")
     /// OK
     internal static let ok = L10n.tr("Localizable", "general.ok")
+    /// Start
+    internal static let start = L10n.tr("Localizable", "general.start")
   }
 
   internal enum Menu {
@@ -31,6 +33,8 @@ internal enum L10n {
       internal static let alphabet = L10n.tr("Localizable", "menu.item.alphabet")
       /// Canvas
       internal static let canvas = L10n.tr("Localizable", "menu.item.canvas")
+      /// Catch a Letter
+      internal static let catchLetter = L10n.tr("Localizable", "menu.item.catchLetter")
       /// Listen
       internal static let listen = L10n.tr("Localizable", "menu.item.listen")
       /// Make a word
@@ -39,6 +43,8 @@ internal enum L10n {
       internal static let memorize = L10n.tr("Localizable", "menu.item.memorize")
       /// Numbers
       internal static let numbers = L10n.tr("Localizable", "menu.item.numbers")
+      /// Pictures
+      internal static let pictures = L10n.tr("Localizable", "menu.item.pictures")
       /// Subscribe
       internal static let subscribe = L10n.tr("Localizable", "menu.item.subscribe")
     }

@@ -15,12 +15,14 @@ final class CanvasInteractor: CanvasInteractable {
 
     private let parameters: Parameters
     private let player: SoundPlayer
+    private let wordsPlayer: WordsSpeaker
     weak var ui: CanvasUserInterface?
     weak var router: CanvasRoutable?
 
     init(parameters: Parameters, ui: CanvasUserInterface? = nil, router: CanvasRoutable? = nil) {
         self.parameters = parameters
         self.player = SoundPlayer()
+        self.wordsPlayer = WordsSpeaker()
         self.ui = ui
         self.router = router
     }
@@ -35,6 +37,10 @@ final class CanvasInteractor: CanvasInteractable {
 
     func didClear() {
         player.playSwooshSound()
+    }
+
+    func didTapPlay(words: [String]) {
+        wordsPlayer.speak(words: words)
     }
     
 }

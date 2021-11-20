@@ -11,7 +11,7 @@ protocol MakeAWordRouterDelegate: AnyObject {
     func makeAWordRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
-protocol MakeAWordRoutable: AnyObject, Router {
+protocol MakeAWordRoutable: Router {
     func finish()
 }
 

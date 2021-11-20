@@ -38,7 +38,7 @@ final class MakeAWordInteractor: MakeAWordInteractable {
     func didLoad() {
         ui?.configureCanvas(with: parameters.canvas)
         ui?.configureStarsCount(to: parameters.wordsCount)
-        createNewWord()
+        createNewWord(isFirst: true)
     }
 
     func didPlaceLetter(_ letter: Letter) {
@@ -65,8 +65,14 @@ final class MakeAWordInteractor: MakeAWordInteractable {
         ui?.didFinishWord()
     }
 
-    private func createNewWord() {
-        currentWord = words.remove(at: Int.random(in: 0..<words.count))
+    private func createNewWord(isFirst: Bool = false) {
+        if isFirst {
+            let shortWords = words.filter { $0.letters.count < 7 }
+            currentWord = shortWords.randomElement()
+            words.removeElement(currentWord)
+        } else {
+            currentWord = words.remove(at: Int.random(in: 0..<words.count))
+        }
         currentWord.map { ui?.configureWord(with: $0) }
     }
 }

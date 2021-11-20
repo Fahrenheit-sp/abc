@@ -40,6 +40,14 @@ final class DefaultRouterFabric: RoutersFabric {
             return makeAWordRouter
         case .listen:
             return ListenRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english), mode: .alphabet))
+        case .pictures:
+            let router = PicturesRouter(parameters: .init(picturesStorage: WordsStorage.shared))
+            router.delegate = delegate
+            return router
+        case .catchLetter:
+            let router = CatchLetterRouter(parameters: .init(alphabet: AlphabetsFactory.getAlphabet(.english)))
+            router.delegate = delegate
+            return router
         }
     }
 }

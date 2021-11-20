@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Word {
+struct Word: Hashable, Equatable {
 
     let string: String
     let letters: [Letter]

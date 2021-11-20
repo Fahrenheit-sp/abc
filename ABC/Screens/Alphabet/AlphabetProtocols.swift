@@ -11,7 +11,7 @@ protocol AlphabetRouterDelegate: AnyObject {
     func alphabetRouterDidFinishPresenting(_ controller: UIViewController)
 }
 
-protocol AlphabetRoutable: AnyObject, Router {
+protocol AlphabetRoutable: Router {
     func finish()
 }
 

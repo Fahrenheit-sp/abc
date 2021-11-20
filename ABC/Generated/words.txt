@@ -272,7 +272,7 @@ network
 spider
 bee
 bug
-beatle
+beattle
 battle
 ball
 tennis

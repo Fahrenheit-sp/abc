@@ -10,6 +10,7 @@ import UIKit
 final class CanvasViewController: UIViewController {
 
     private let canvasAlphabetView = CanvasAlphabetView().disableAutoresizing()
+    private let playButton = UIButton().disableAutoresizing()
     private let clearButton = UIButton().disableAutoresizing()
 
     private let viewModel: CanvasViewModel
@@ -35,9 +36,13 @@ final class CanvasViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .background
         view.addSubview(clearButton)
+        view.addSubview(playButton)
         view.addSubview(canvasAlphabetView)
 
         canvasAlphabetView.delegate = self
+
+        playButton.setImage(Asset.Listen.playButton.image, for: .normal)
+        playButton.addTarget(self, action: #selector(didTapPlay), for: .touchUpInside)
 
         clearButton.setImage(Asset.Icons.recycleBin.image, for: .normal)
         clearButton.addTarget(self, action: #selector(didTapClear), for: .touchUpInside)
@@ -50,9 +55,14 @@ final class CanvasViewController: UIViewController {
             canvasAlphabetView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             canvasAlphabetView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.23),
 
+            playButton.widthAnchor.constraint(equalTo: playButton.heightAnchor),
+            playButton.widthAnchor.constraint(equalToConstant: 44),
+            playButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            playButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+
             clearButton.widthAnchor.constraint(equalTo: clearButton.heightAnchor),
             clearButton.widthAnchor.constraint(equalToConstant: 44),
-            clearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            clearButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
@@ -60,6 +70,25 @@ final class CanvasViewController: UIViewController {
     @objc private func didTapClear() {
         interactor?.didClear()
         view.subviews.filter { $0 is DraggableLetterView }.forEach { $0.removeFromSuperview() }
+    }
+
+    @objc private func didTapPlay() {
+        let letterViews = view.subviews.compactMap { $0 as? DraggableLetterView }
+        var sortedLetters: [DraggableLetterView] = letterViews.sorted { $0.center.distance(to: .zero) < $1.center.distance(to: .zero) }
+        var wordViews: [[DraggableLetterView]] = []
+        while sortedLetters.count > 0 {
+            guard let firstLetter = sortedLetters.first else { break }
+            let wordLetterViews = sortedLetters.filter { firstLetter.frame.maxY > $0.frame.midY && firstLetter.frame.minY < $0.frame.midY  }
+            wordLetterViews.forEach { sortedLetters.removeElement($0) }
+            wordViews.append(wordLetterViews)
+        }
+        let sortedViews = wordViews.sorted { $0.first?.frame.origin.y ?? .zero < $1.first?.frame.origin.y ?? .zero }
+        let words = sortedViews.map(getWord(from:))
+        interactor?.didTapPlay(words: words)
+    }
+
+    private func getWord(from views: [DraggableLetterView]) -> String {
+        views.compactMap { $0.letter?.symbol }.map(String.init).joined()
     }
 }
 
@@ -79,7 +108,7 @@ extension CanvasViewController: CanvasAlphabetViewDelegate {
         interactor?.didPlaceLetter()
 
         UIView.animate(withDuration: 0.2) {
-            newLetter.transform = .init(scaleX: 2, y: 2)
+            newLetter.transform = .init(scaleX: 1.5, y: 1.5)
         }
 
         letterView.resetWithScale()

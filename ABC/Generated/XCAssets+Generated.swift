@@ -20,13 +20,20 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal enum Games {
+    internal static let cloud = ImageAsset(name: "Cloud")
+    internal static let ufo = ImageAsset(name: "Ufo")
     internal static let questionMark = ImageAsset(name: "question_mark")
+    internal static let rocket = ImageAsset(name: "rocket")
     internal static let starEmpty = ImageAsset(name: "star_empty")
     internal static let starFilled = ImageAsset(name: "star_filled")
   }
   internal enum Icons {
     internal static let close = ImageAsset(name: "close")
+    internal static let `left` = ImageAsset(name: "left")
     internal static let recycleBin = ImageAsset(name: "recycle_bin")
+    internal static let `right` = ImageAsset(name: "right")
+    internal static let soundOff = ImageAsset(name: "sound-off")
+    internal static let soundOn = ImageAsset(name: "sound-on")
   }
   internal enum Letters {
     internal static let a = ImageAsset(name: "a")
@@ -64,10 +71,13 @@ internal enum Asset {
     internal static let alphabet = ImageAsset(name: "alphabet")
     internal static let background = ImageAsset(name: "background")
     internal static let canvas = ImageAsset(name: "canvas")
+    internal static let catchLetter = ImageAsset(name: "catchLetter")
     internal static let listen = ImageAsset(name: "listen")
     internal static let makeAWord = ImageAsset(name: "make_a_word")
     internal static let memorize = ImageAsset(name: "memorize")
+    internal static let new = ImageAsset(name: "new")
     internal static let numbers = ImageAsset(name: "numbers")
+    internal static let picture = ImageAsset(name: "picture")
     internal static let subscribe = ImageAsset(name: "subscribe")
   }
   internal enum Numbers {
@@ -85,6 +95,57 @@ internal enum Asset {
   internal enum Subscription {
     internal static let check = ImageAsset(name: "check")
     internal static let subscriptionBackground = ImageAsset(name: "subscription_background")
+  }
+  internal enum Words {
+    internal static let ant = ImageAsset(name: "ant")
+    internal static let apple = ImageAsset(name: "apple")
+    internal static let banana = ImageAsset(name: "banana")
+    internal static let book = ImageAsset(name: "book")
+    internal static let cat = ImageAsset(name: "cat")
+    internal static let cherry = ImageAsset(name: "cherry")
+    internal static let dog = ImageAsset(name: "dog")
+    internal static let duck = ImageAsset(name: "duck")
+    internal static let eagle = ImageAsset(name: "eagle")
+    internal static let elephant = ImageAsset(name: "elephant")
+    internal static let fish = ImageAsset(name: "fish")
+    internal static let frog = ImageAsset(name: "frog")
+    internal static let giraffe = ImageAsset(name: "giraffe")
+    internal static let grape = ImageAsset(name: "grape")
+    internal static let hippo = ImageAsset(name: "hippo")
+    internal static let horse = ImageAsset(name: "horse")
+    internal static let iron = ImageAsset(name: "iron")
+    internal static let island = ImageAsset(name: "island")
+    internal static let jeans = ImageAsset(name: "jeans")
+    internal static let juice = ImageAsset(name: "juice")
+    internal static let king = ImageAsset(name: "king")
+    internal static let koala = ImageAsset(name: "koala")
+    internal static let lemon = ImageAsset(name: "lemon")
+    internal static let lion = ImageAsset(name: "lion")
+    internal static let monkey = ImageAsset(name: "monkey")
+    internal static let mouse = ImageAsset(name: "mouse")
+    internal static let napkin = ImageAsset(name: "napkin")
+    internal static let noodle = ImageAsset(name: "noodle")
+    internal static let octopus = ImageAsset(name: "octopus")
+    internal static let orange = ImageAsset(name: "orange")
+    internal static let penguin = ImageAsset(name: "penguin")
+    internal static let pizza = ImageAsset(name: "pizza")
+    internal static let queen = ImageAsset(name: "queen")
+    internal static let rabbit = ImageAsset(name: "rabbit")
+    internal static let rhino = ImageAsset(name: "rhino")
+    internal static let ship = ImageAsset(name: "ship")
+    internal static let snail = ImageAsset(name: "snail")
+    internal static let tiger = ImageAsset(name: "tiger")
+    internal static let tomato = ImageAsset(name: "tomato")
+    internal static let umbrella = ImageAsset(name: "umbrella")
+    internal static let unicorn = ImageAsset(name: "unicorn")
+    internal static let van = ImageAsset(name: "van")
+    internal static let volcano = ImageAsset(name: "volcano")
+    internal static let window = ImageAsset(name: "window")
+    internal static let wolf = ImageAsset(name: "wolf")
+    internal static let xerox = ImageAsset(name: "xerox")
+    internal static let yogurt = ImageAsset(name: "yogurt")
+    internal static let zebra = ImageAsset(name: "zebra")
+    internal static let zipper = ImageAsset(name: "zipper")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

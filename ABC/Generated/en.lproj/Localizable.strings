@@ -9,6 +9,7 @@
 "general.and" = "and";
 "general.ok" = "OK";
 "general.error" = "Something wrong";
+"general.start" = "Start";
 
 "error.nothingToRestore" = "We were not able to find any purchases to restore";
 
@@ -19,6 +20,8 @@
 "menu.item.makeAWord" = "Make a word";
 "menu.item.memorize" = "Memorize";
 "menu.item.listen" = "Listen";
+"menu.item.pictures" = "Pictures";
+"menu.item.catchLetter" = "Catch a Letter";
 
 "subscription.title" = "Get unlimited access";
 "subscription.restore" = "Restore";

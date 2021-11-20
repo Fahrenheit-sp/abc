@@ -8,7 +8,12 @@
 import Foundation
 import class UIKit.UIViewController
 
-typealias MainMenuNavigatable = AlphabetRouterDelegate & MemorizeRouterDelegate & MakeAWordRouterDelegate & SubscribeRouterDelegate
+typealias MainMenuNavigatable = AlphabetRouterDelegate
+                                    & MemorizeRouterDelegate
+                                    & MakeAWordRouterDelegate
+                                    & SubscribeRouterDelegate
+                                    & PicturesRouterDelegate
+                                    & CatchLetterGameRouterDelegate
 
 protocol MainMenuRoutable: Router, MainMenuNavigatable {
     func mainMenuDidSelect(item: MainMenuItem)
@@ -18,6 +23,8 @@ protocol MainMenuRoutable: Router, MainMenuNavigatable {
 
 protocol MainMenuInteractable: AnyObject {
     func didLoad()
+    func didPressEnableSound()
+    func didPressDisableSound()
     func didPressSubscribe()
     func didSelectItem(at indexPath: IndexPath)
 }

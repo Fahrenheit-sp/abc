@@ -18,16 +18,27 @@ final class MainMenuInteractor: MainMenuInteractable {
     }
 
     private let parameters: Parameters
+    private let soundPlayer: SoundPlayer
     weak var ui: MainMenuUserInterface?
     weak var router: MainMenuRoutable?
 
     init(parameters: MainMenuInteractor.Parameters) {
         self.parameters = parameters
+        self.soundPlayer = SoundPlayer()
     }
 
     func didLoad() {
+        soundPlayer.playMainMenuSound()
         ui?.configure(with: MainMenuScreenViewModel(items: parameters.gameItems,
                                                     isSubscribeAvailable: parameters.items.contains(.subscribe)))
+    }
+
+    func didPressEnableSound() {
+        soundPlayer.resume()
+    }
+
+    func didPressDisableSound() {
+        soundPlayer.pause()
     }
 
     func didPressSubscribe() {

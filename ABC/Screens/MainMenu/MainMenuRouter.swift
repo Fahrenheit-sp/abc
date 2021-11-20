@@ -119,3 +119,15 @@ extension MainMenuRouter: SubscribeRouterDelegate {
         controller.dismiss(animated: true)
     }
 }
+
+extension MainMenuRouter: PicturesRouterDelegate {
+    func picturesRouterDidFinishPresenting(_ controller: UIViewController) {
+        navigation?.popViewController(animated: true)
+    }
+}
+
+extension MainMenuRouter: CatchLetterGameRouterDelegate {
+    func catchLetterGameRouterDidFinishPresenting(_ view: UIViewController) {
+        navigation?.popViewController(animated: true)
+    }
+}

@@ -16,4 +16,8 @@ extension CGSize {
     static func *<T: BinaryFloatingPoint>(lhs: Self, rhs: T) -> Self {
         CGSize(width: lhs.width * CGFloat(rhs), height: lhs.height * CGFloat(rhs))
     }
+
+    static func /<T: BinaryFloatingPoint>(lhs: Self, rhs: T) -> Self {
+        CGSize(width: lhs.width / CGFloat(rhs), height: lhs.height / CGFloat(rhs))
+    }
 }

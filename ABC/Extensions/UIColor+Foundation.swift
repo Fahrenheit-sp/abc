@@ -10,7 +10,7 @@ import UIKit
 extension UIColor {
     static let cardGradientStart = UIColor(hex: "00BDD3")
     static let cardGradientEnd = UIColor(hex: "3D5AFE")
-    static let background = UIColor(hex: "0b3f54")
+    static let background = UIColor(hex: "3588DC")
     static let menuItem = UIColor(hex: "ffab40")
     static let checkmark = UIColor(hex: "3c9534")
     
@@ -18,7 +18,7 @@ extension UIColor {
     static let subscribeGradientStart = UIColor(hex: "3cb3d1")
     static let subscriptionPriceText = UIColor(hex: "6e7a86")
     static let subscriptionRed = UIColor(hex: "e87f6a")
-    static let subscriptionGreen = UIColor(hex: "7cc590")
+    static let subscriptionGreen = UIColor(hex: "4CBB17")
     static let subscriptionPrivacy = UIColor(hex: "919ba4")
 
 

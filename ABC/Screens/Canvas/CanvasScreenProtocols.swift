@@ -7,12 +7,13 @@
 
 import Foundation
 
-protocol CanvasRoutable: AnyObject, Router {}
+protocol CanvasRoutable: Router {}
 
 protocol CanvasInteractable: AnyObject {
     func didLoad()
     func didPlaceLetter()
     func didClear()
+    func didTapPlay(words: [String])
 }
 
 protocol CanvasUserInterface: AnyObject {

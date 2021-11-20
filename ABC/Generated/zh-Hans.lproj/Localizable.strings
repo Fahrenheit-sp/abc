@@ -9,6 +9,7 @@
 "general.and" = "和";
 "general.ok" = "OK";
 "general.error" = "有问题";
+"general.start" = "开始";
 
 "error.nothingToRestore" = "我们无法找到任何要恢复的购买";
 
@@ -19,6 +20,8 @@
 "menu.item.makeAWord" = "说一句话";
 "menu.item.memorize" = "记住";
 "menu.item.listen" = "听";
+"menu.item.pictures" = "图片";
+"menu.item.catchLetter" = "收到一封信";
 
 "subscription.title" = "获得无限制访问";
 "subscription.restore" = "恢复";
