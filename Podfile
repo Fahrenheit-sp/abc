@@ -8,8 +8,9 @@ target 'ABC' do
 
   # Pods for ABC
 
-  pod 'Google-Mobile-Ads-SDK'
+  pod 'AppsFlyerFramework'
   pod 'Firebase/Analytics'
+  pod 'Google-Mobile-Ads-SDK'
   pod 'Purchases'
 
   target 'Tests' do

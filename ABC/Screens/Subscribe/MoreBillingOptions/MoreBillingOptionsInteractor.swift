@@ -40,6 +40,7 @@ final class MoreBillingOptionsInteractor {
 
 extension MoreBillingOptionsInteractor: MoreBillingOptionsInteractable {
     func didSelectSubscription(at index: Int) {
+        guard index < parameters.subscriptions.endIndex else { return }
         self.selectedSubscriptionInfo = parameters.subscriptions[index]
         didLoad()
     }

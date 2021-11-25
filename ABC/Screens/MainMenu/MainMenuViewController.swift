@@ -59,6 +59,9 @@ final class MainMenuViewController: UIViewController, MainMenuUserInterface {
         collectionView.registerView(SubscribeHeaderReusableView.self, ofKind: UICollectionView.elementKindSectionHeader)
         collectionView.register(MainMenuCollectionViewCell.self)
         collectionView.backgroundColor = .clear
+        if UIDevice.isiPad {
+            collectionView.clipsToBounds = false
+        }
 
         collectionView.dataSource = self
         collectionView.delegate = self

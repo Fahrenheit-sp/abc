@@ -36,7 +36,9 @@ final class RevenueCatSubscriptionPurchaser {
 extension RevenueCatSubscriptionPurchaser: SubscriptionPurchaseable {
 
     func purchase(_ subscriptionInfo: SubscriptionInfo) {
-        guard let package = packages.first(where: { subscriptionInfo.priceValue == $0.product.price.doubleValue }) else { return }
+        guard let package = packages.first(where: { subscriptionInfo.priceValue == $0.product.price.doubleValue }) else {
+            delegate?.purchaser(self, didFailToPurchaseWith: SubscriptionError.productNotFound)
+            return }
         purchase(package)
     }
 

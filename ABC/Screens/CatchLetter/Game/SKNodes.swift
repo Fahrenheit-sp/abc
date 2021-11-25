@@ -71,39 +71,9 @@ final class SKLetterNode: SKSpriteNode, TouchableNode {
     }
 }
 
-final class Rocket: SKSpriteNode, TouchableNode {
+final class Obstacle: SKSpriteNode, TouchableNode {
 
     var soundAction: (() -> Void)?
-
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: .init(imageNamed: Asset.Games.rocket.name), color: color, size: size / UIScreen.main.scale)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func handleTouch() {
-        let point = CGPoint(x: position.x, y: UIScreen.height)
-        let move = SKAction.move(to: point, duration: 0.7)
-        let playSound = SKAction.run { self.soundAction?() }
-        let sequence = SKAction.group([move, playSound])
-        run(sequence)
-    }
-
-}
-
-final class Ufo: SKSpriteNode, TouchableNode {
-
-    var soundAction: (() -> Void)?
-
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: .init(imageNamed: Asset.Games.ufo.name), color: color, size: size / UIScreen.main.scale)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     func handleTouch() {
         let point = CGPoint(x: position.x, y: UIScreen.height)

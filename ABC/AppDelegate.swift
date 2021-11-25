@@ -1,3 +1,4 @@
+import AppsFlyerLib
 import Firebase
 import GoogleMobileAds
 import Purchases
@@ -11,6 +12,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        AppsFlyerLib.shared().appsFlyerDevKey = Constants.appsFlyerId
+        AppsFlyerLib.shared().appleAppID = Constants.appStoreId
+        AppsFlyerLib.shared().start()
+
         FirebaseApp.configure()
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID]
@@ -30,6 +35,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        AppsFlyerLib.shared().handlePushNotification(userInfo)
+    }
+
+    func open(_ url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        AppsFlyerLib.shared().handleOpen(url, sourceApplication: sourceApplication, withAnnotation: annotation)
+        return true
+    }
+
+    func open(_ url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        AppsFlyerLib.shared().handleOpen(url, options: options)
+        return true
+    }
+
+    func continueActivity(_ activity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+       AppsFlyerLib.shared().continue(activity, restorationHandler: nil)
+       return true
+    }
+
+    // MARK: - Flow methods
+
     private func setupFlow(animated: Bool) {
         let user = UserDataManager().getUser()
         let flow: Flow = user.isSubscribed ? SubscribedFlow() : FreeFlow()
@@ -47,4 +75,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
-
