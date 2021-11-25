@@ -15,6 +15,11 @@ final class RevenueCatProductsFetcher: NSObject {
     private var packages: [Purchases.Package] = []
     private let mainTerm: Purchases.PackageType = .weekly
 
+    private var fallbackSubscriptions: [SubscriptionInfo] {
+        let terms: [Purchases.PackageType] = [.annual, .monthly, .weekly]
+        return terms.map(fallbackSubscriptionInfo(for:))
+    }
+
     weak var delegate: ProductsFetcherDelegate?
 
     private override init() {
@@ -88,7 +93,7 @@ extension RevenueCatProductsFetcher: ProductsFetchable {
     }
 
     func getProductsInfo() -> [SubscriptionInfo] {
-        packages.map { subscriptionInfo(for: $0.packageType) }
+        packages.isEmpty ? fallbackSubscriptions : packages.map { subscriptionInfo(for: $0.packageType) }
     }
 
     func getPurchaser() -> SubscriptionPurchaseable {

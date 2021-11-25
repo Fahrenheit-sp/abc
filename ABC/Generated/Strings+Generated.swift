@@ -14,6 +14,8 @@ internal enum L10n {
   internal enum Error {
     /// We were not able to find any purchases to restore
     internal static let nothingToRestore = L10n.tr("Localizable", "error.nothingToRestore")
+    /// Unable to make purchase. Please check your connection and try again.
+    internal static let productNotFound = L10n.tr("Localizable", "error.productNotFound")
   }
 
   internal enum General {
