@@ -27,59 +27,31 @@ final class MoreBillingOptionsInteractor {
         self.router = router
         self.parameters = parameters
         self.parameters.purchaser.delegate = self
-        self.selectedSubscriptionInfo = getMainSubscriptionInfo()
+        self.selectedSubscriptionInfo = parameters.subscriptions.first { $0.isMain } ?? parameters.subscriptions.first
     }
 
-    private func getMainSubscriptionInfo() -> SubscriptionInfo? {
-        parameters.subscriptions.first { $0.isMain } ?? parameters.subscriptions.first
+    private var description: String {
+        guard let current = selectedSubscriptionInfo else { return .empty }
+        let price = L10n.Subscription.priceWithoutTrial(current.price, current.term)
+        return L10n.Subscription.paymentWithTrialDescription(current.trial.or(.empty), price)
     }
 
-    private func getSecondarySubscriptionInfo() -> SubscriptionInfo? {
-        parameters.subscriptions.first { !$0.isMain } ?? parameters.subscriptions.last
-    }
-
-    private func mainDescription() -> String {
-        let main = getMainSubscriptionInfo()
-        let price = L10n.Subscription.priceWithoutTrial(main?.price ?? "39,99 US$", main?.term ?? L10n.Term.year)
-        return L10n.Subscription.paymentWithTrialDescription(main?.trial ?? "7 days", price)
-    }
-
-    private func secondaryDescription() -> String {
-        let secondary = getSecondarySubscriptionInfo()
-        let price = L10n.Subscription.priceWithoutTrial(secondary?.price ?? "4,99 US$", secondary?.term ?? L10n.Term.month)
-        return L10n.Subscription.paymentWithoutTrialDescription(price)
-    }
 }
 
 extension MoreBillingOptionsInteractor: MoreBillingOptionsInteractable {
+    func didSelectSubscription(at index: Int) {
+        self.selectedSubscriptionInfo = parameters.subscriptions[index]
+        didLoad()
+    }
+
     func didLoad() {
-        let main = getMainSubscriptionInfo()
-        let secondary = getSecondarySubscriptionInfo()
-        ui?.configure(with: .init(mainBillingOption: .init(subscriptionInfo: main, isSelected: true),
-                                  secondaryBillingOption: .init(subscriptionInfo: secondary, isSelected: false),
-                                  description: mainDescription()))
+        let options = parameters.subscriptions.map { BillingOption(subscriptionInfo: $0, isSelected: $0 == selectedSubscriptionInfo) }
+        let model = MoreBillingOptionsViewModel(billingOptions: options, description: description)
+        ui?.configure(with: model)
     }
 
     func didClose() {
         router?.didClose()
-    }
-
-    func didSelectMain() {
-        let main = getMainSubscriptionInfo()
-        let secondary = getSecondarySubscriptionInfo()
-        selectedSubscriptionInfo = main
-        ui?.configure(with: .init(mainBillingOption: .init(subscriptionInfo: main, isSelected: true),
-                                  secondaryBillingOption: .init(subscriptionInfo: secondary, isSelected: false),
-                                  description: mainDescription()))
-    }
-
-    func didSelectSecondary() {
-        let main = getMainSubscriptionInfo()
-        let secondary = getSecondarySubscriptionInfo()
-        selectedSubscriptionInfo = secondary
-        ui?.configure(with: .init(mainBillingOption: .init(subscriptionInfo: main, isSelected: false),
-                                  secondaryBillingOption: .init(subscriptionInfo: secondary, isSelected: true),
-                                  description: secondaryDescription()))
     }
 
     func didPressSubscribe() {

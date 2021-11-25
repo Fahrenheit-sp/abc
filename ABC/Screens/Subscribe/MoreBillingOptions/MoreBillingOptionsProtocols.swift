@@ -21,8 +21,7 @@ protocol MoreBillingOptionsRoutable: Router {
 protocol MoreBillingOptionsInteractable: AnyObject {
     func didLoad()
     func didClose()
-    func didSelectMain()
-    func didSelectSecondary()
+    func didSelectSubscription(at index: Int)
     func didPressSubscribe()
 }
 
