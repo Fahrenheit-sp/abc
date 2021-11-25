@@ -11,10 +11,7 @@ struct BillingOption {
     let subscriptionInfo: SubscriptionInfo
     let isSelected: Bool
 
-    init?(subscriptionInfo: SubscriptionInfo?, isSelected: Bool) {
-        guard let subscriptionInfo = subscriptionInfo else {
-            return nil
-        }
+    init(subscriptionInfo: SubscriptionInfo, isSelected: Bool) {
         self.subscriptionInfo = subscriptionInfo
         self.isSelected = isSelected
     }
