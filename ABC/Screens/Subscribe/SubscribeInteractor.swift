@@ -50,7 +50,7 @@ final class SubscribeInteractor: SubscribeInteractable {
     }
 
     func didTapBuyMain() {
-        purchaser?.buyYearSubscription()
+        fetcher.getProductsInfo().first { $0.isMain }.map { purchaser?.purchase($0) }
     }
 
     func didTapMoreOptions() {

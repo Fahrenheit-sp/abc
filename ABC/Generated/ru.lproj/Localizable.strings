@@ -12,6 +12,7 @@
 "general.start" = "Начать";
 
 "error.nothingToRestore" = "Не удалось найти предыдущих покупок";
+"error.productNotFound" = "Невозможно совершить покупку. Пожалуйста, проверьте соединение и попробуйте снова.";
 
 "menu.item.subscribe" = "Подписаться";
 "menu.item.alphabet" = "Алфавит";

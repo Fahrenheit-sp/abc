@@ -14,6 +14,7 @@ final class MoreBillingOptionsViewController: UIViewController {
     private let closeButton = UIButton().disableAutoresizing()
     private let annualView = BillingOptionView().disableAutoresizing()
     private let monthlyView = BillingOptionView().disableAutoresizing()
+    private let weeklyView = BillingOptionView().disableAutoresizing()
 
     private let descriptionLabel = UILabel().disableAutoresizing()
     private let subscribeButton = UIButton().disableAutoresizing()
@@ -42,6 +43,7 @@ final class MoreBillingOptionsViewController: UIViewController {
         view.addSubview(closeButton)
         view.addSubview(annualView)
         view.addSubview(monthlyView)
+        view.addSubview(weeklyView)
         view.addSubview(descriptionLabel)
         view.addSubview(subscribeButton)
         view.addSubview(termsView)
@@ -60,6 +62,10 @@ final class MoreBillingOptionsViewController: UIViewController {
             monthlyView.topAnchor.constraint(equalTo: annualView.bottomAnchor, constant: 16),
             monthlyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             monthlyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+
+            weeklyView.topAnchor.constraint(equalTo: monthlyView.bottomAnchor, constant: 16),
+            weeklyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            weeklyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -104,6 +110,7 @@ final class MoreBillingOptionsViewController: UIViewController {
     private func setupInteraction() {
         annualView.delegate = self
         monthlyView.delegate = self
+        weeklyView.delegate = self
 
         closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
         subscribeButton.addTarget(self, action: #selector(subscribeTapped), for: .touchUpInside)
@@ -129,8 +136,10 @@ final class MoreBillingOptionsViewController: UIViewController {
 
 extension MoreBillingOptionsViewController: MoreBillingOptionsUserInterface {
     func configure(with model: MoreBillingOptionsViewModel) {
-        model.mainBillingOption.map { annualView.configure(with: $0) }
-        model.secondaryBillingOption.map { monthlyView.configure(with: $0) }
+        [annualView, monthlyView, weeklyView].enumerated().forEach { index, view in
+            guard index < model.billingOptions.count else { return }
+            view.configure(with: model.billingOptions[index])
+        }
         descriptionLabel.text = model.description
     }
 
@@ -147,7 +156,7 @@ extension MoreBillingOptionsViewController: MoreBillingOptionsUserInterface {
 
 extension MoreBillingOptionsViewController: BillingOptionViewDelegate {
     func billingOptionViewDidBecomeSelected(_ billingOptionView: BillingOptionView) {
-        let isMain = billingOptionView == annualView
-        isMain ? interactor?.didSelectMain() : interactor?.didSelectSecondary()
+        guard let index = [annualView, monthlyView, weeklyView].firstIndex(of: billingOptionView) else { return }
+        interactor?.didSelectSubscription(at: index)
     }
 }

@@ -12,6 +12,7 @@
 "general.start" = "开始";
 
 "error.nothingToRestore" = "我们无法找到任何要恢复的购买";
+"error.productNotFound" = "无法进行购买。 请检查您的连接并重试。";
 
 "menu.item.subscribe" = "订阅";
 "menu.item.alphabet" = "字母";

@@ -71,8 +71,8 @@ final class BillingOptionView: UIView {
 
         let content = contentView.createConstraintsForEmbedding(in: self)
         let trial = [
-            trialView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            trialView.centerYAnchor.constraint(equalTo: contentView.topAnchor)
+            trialView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            trialView.centerYAnchor.constraint(equalTo: contentView.topAnchor, constant: 8)
         ]
         let trialLabelConstraints = [
             trialLabel.centerYAnchor.constraint(equalTo: trialView.centerYAnchor),

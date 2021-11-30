@@ -47,12 +47,12 @@ final class ItemsManager {
         case 0: return generateCorrectLetter()
         case 1:
             wrongItemsGeneratedCount += 1
-            let rocket = Rocket(imageNamed: "rocket")
+            let rocket = Obstacle(imageNamed: Asset.Games.rocket.name)
             rocket.soundAction = { [weak self] in self?.soundPlayer.playRocketSound() }
             return rocket
         case 2:
             wrongItemsGeneratedCount += 1
-            let ufo = Ufo(imageNamed: "ufo")
+            let ufo = Obstacle(imageNamed: Asset.Games.ufo.name)
             ufo.soundAction = { [weak self] in self?.soundPlayer.playUfoSound() }
             return ufo
         default:

@@ -8,6 +8,9 @@
 import Foundation
 
 enum Constants {
+    static let appStoreId = "1584999183"
+    static let appsFlyerId = "tf8rCYr4x22cjRe4mv8iWj"
+
     static let googleAppId = "ca-app-pub-9164174062846184~5787139688"
     static let googleInterstitialId = "ca-app-pub-9164174062846184/6712853325"
 

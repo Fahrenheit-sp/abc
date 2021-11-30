@@ -9,7 +9,6 @@ import Foundation
 
 struct MoreBillingOptionsViewModel {
 
-    let mainBillingOption: BillingOption?
-    let secondaryBillingOption: BillingOption?
+    let billingOptions: [BillingOption]
     let description: String
 }

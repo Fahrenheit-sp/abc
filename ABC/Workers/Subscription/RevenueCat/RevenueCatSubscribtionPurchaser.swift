@@ -35,23 +35,10 @@ final class RevenueCatSubscriptionPurchaser {
 
 extension RevenueCatSubscriptionPurchaser: SubscriptionPurchaseable {
 
-    func buyYearSubscription() {
-        guard let package = packages.first(where: { $0.packageType == .annual }) else { return }
-        purchase(package)
-    }
-
-    func buyMonthSubscription() {
-        guard let package = packages.first(where: { $0.packageType == .monthly }) else { return }
-        purchase(package)
-    }
-
-    func buyWeekSubscription() {
-        guard let package = packages.first(where: { $0.packageType == .weekly }) else { return }
-        purchase(package)
-    }
-
     func purchase(_ subscriptionInfo: SubscriptionInfo) {
-        guard let package = packages.first(where: { subscriptionInfo.price == $0.localizedPriceString }) else { return }
+        guard let package = packages.first(where: { subscriptionInfo.priceValue == $0.product.price.doubleValue }) else {
+            delegate?.purchaser(self, didFailToPurchaseWith: SubscriptionError.productNotFound)
+            return }
         purchase(package)
     }
 

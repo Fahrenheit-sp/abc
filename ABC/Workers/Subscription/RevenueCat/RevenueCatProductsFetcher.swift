@@ -13,6 +13,12 @@ final class RevenueCatProductsFetcher: NSObject {
 
     static let shared = RevenueCatProductsFetcher()
     private var packages: [Purchases.Package] = []
+    private let mainTerm: Purchases.PackageType = .weekly
+
+    private var fallbackSubscriptions: [SubscriptionInfo] {
+        let terms: [Purchases.PackageType] = [.annual, .monthly, .weekly]
+        return terms.map(fallbackSubscriptionInfo(for:))
+    }
 
     weak var delegate: ProductsFetcherDelegate?
 
@@ -25,16 +31,41 @@ final class RevenueCatProductsFetcher: NSObject {
         guard let package = packages.first(where: { $0.packageType == term }) else { return fallbackSubscriptionInfo(for: term) }
         let trial = package.product.introductoryPrice?.subscriptionPeriod.localizedPeriod()
         let description = subscriptionDescription(for: term)
-        let isMain = term == .annual
-        return .init(trial: trial, price: package.localizedPriceString, term: package.term, description: description, isMain: isMain)
+        return .init(trial: trial,
+                     price: package.localizedPriceString,
+                     term: package.term,
+                     description: description,
+                     priceValue: package.product.price.doubleValue,
+                     isMain: term == mainTerm)
     }
 
     private func fallbackSubscriptionInfo(for term: Purchases.PackageType) -> SubscriptionInfo {
         let description = subscriptionDescription(for: term)
         switch term {
-        case .annual: return .init(trial: "7 days", price: "29,99 US$", term: L10n.Term.year, description: description, isMain: true)
-        case .monthly: return .init(trial: nil, price: "4,99 US$", term: L10n.Term.month, description: description, isMain: false)
-        default: return .init(trial: "7 days", price: "29,99 US$", term: L10n.Term.year, description: description, isMain: false)
+        case .annual: return .init(trial: "7 days",
+                                   price: "29,99 US$",
+                                   term: L10n.Term.year,
+                                   description: description,
+                                   priceValue: 29.99,
+                                   isMain: term == mainTerm)
+        case .monthly: return .init(trial: "3 days",
+                                    price: "4,99 US$",
+                                    term: L10n.Term.month,
+                                    description: description,
+                                    priceValue: 4.99,
+                                    isMain: term == mainTerm)
+        case .weekly: return .init(trial: "7 days",
+                                   price: "2,99 US$",
+                                   term: L10n.Term.week,
+                                   description: description,
+                                   priceValue: 2.99,
+                                   isMain: term == mainTerm)
+        default: return .init(trial: "7 days",
+                              price: "2,99 US$",
+                              term: L10n.Term.week,
+                              description: description,
+                              priceValue: 2.99,
+                              isMain: true)
         }
     }
 
@@ -42,6 +73,7 @@ final class RevenueCatProductsFetcher: NSObject {
         switch term {
         case .annual: return L10n.Subscription.perTerm(L10n.Term.year)
         case .monthly: return L10n.Subscription.perTerm(L10n.Term.month)
+        case .weekly: return L10n.Subscription.perTerm(L10n.Term.week)
         default: return L10n.Subscription.perTerm(L10n.Term.year)
         }
     }
@@ -61,7 +93,7 @@ extension RevenueCatProductsFetcher: ProductsFetchable {
     }
 
     func getProductsInfo() -> [SubscriptionInfo] {
-        packages.map { subscriptionInfo(for: $0.packageType) }
+        packages.isEmpty ? fallbackSubscriptions : packages.map { subscriptionInfo(for: $0.packageType) }
     }
 
     func getPurchaser() -> SubscriptionPurchaseable {
@@ -83,8 +115,8 @@ private extension Purchases.Package {
         switch packageType {
         case .annual: return L10n.Term.year
         case .monthly: return L10n.Term.month
-        case .weekly: return L10n.Term.year
-        default: return L10n.Term.year
+        case .weekly: return L10n.Term.week
+        default: return L10n.Term.week
         }
     }
 }

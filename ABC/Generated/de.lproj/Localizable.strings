@@ -12,6 +12,7 @@
 "general.start" = "Start";
 
 "error.nothingToRestore" = "Wir konnten keine Einkäufe zum Wiederherstellen finden";
+"error.productNotFound" = "Kauf nicht möglich. Bitte überprüfe deine Verbindung und versuche es erneut.";
 
 "menu.item.subscribe" = "Abonnieren";
 "menu.item.alphabet" = "Alphabet";

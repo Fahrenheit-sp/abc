@@ -12,6 +12,7 @@
 "general.start" = "Start";
 
 "error.nothingToRestore" = "We were not able to find any purchases to restore";
+"error.productNotFound" = "Unable to make purchase. Please check your connection and try again.";
 
 "menu.item.subscribe" = "Subscribe";
 "menu.item.alphabet" = "Alphabet";

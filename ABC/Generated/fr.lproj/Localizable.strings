@@ -12,6 +12,7 @@
 "general.start" = "Commencer";
 
 "error.nothingToRestore" = "Nous n'avons trouvé aucun achat à restaurer";
+"error.productNotFound" = "Impossible de faire l'achat. Veuillez vérifier votre connexion et réessayer.";
 
 "menu.item.subscribe" = "S'abonner";
 "menu.item.alphabet" = "Alphabet";
