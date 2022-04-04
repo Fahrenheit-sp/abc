@@ -41,7 +41,8 @@ struct UserDataManager {
                             lastListenPlayedDate: nil,
                             lastMemorizePlayedDate: nil,
                             lastMakeAWordPlayedDate: nil,
-                            lastPicturesPlayedDate: nil)
+                            lastPicturesPlayedDate: nil,
+                            isReviewSeen: false)
         save(user: data)
         return data
     }
