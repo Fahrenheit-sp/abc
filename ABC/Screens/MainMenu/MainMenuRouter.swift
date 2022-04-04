@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import StoreKit
 
 final class MainMenuRouter: NSObject, MainMenuRoutable {
 
     struct Parameters {
         let items: [MainMenuItem]
+        let manager: UserDataManager = .init()
     }
 
     private let parameters: Parameters
@@ -87,6 +89,14 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
         
         currentRouter = router
     }
+    
+    func requestReviewIfNecessary() {
+        var user = self.parameters.manager.getUser()
+        guard !user.isReviewSeen else { return }
+        SKStoreReviewController.requestReview()
+        user.isReviewSeen = true
+        self.parameters.manager.save(user: user)
+    }
 }
 
 extension MainMenuRouter: UINavigationControllerDelegate {
@@ -99,35 +109,41 @@ extension MainMenuRouter: UINavigationControllerDelegate {
 extension MainMenuRouter: AlphabetRouterDelegate {
     func alphabetRouterDidFinishPresenting(_ controller: UIViewController) {
         navigation?.popViewController(animated: true)
+        requestReviewIfNecessary()
     }
 }
 
 extension MainMenuRouter: MakeAWordRouterDelegate {
     func makeAWordRouterDidFinishPresenting(_ controller: UIViewController) {
         navigation?.popViewController(animated: true)
+        requestReviewIfNecessary()
     }
 }
 
 extension MainMenuRouter: MemorizeRouterDelegate {
     func memorizeRouterDidFinishPresenting(_ controller: UIViewController) {
         navigation?.popViewController(animated: true)
+        requestReviewIfNecessary()
     }
 }
 
 extension MainMenuRouter: SubscribeRouterDelegate {
     func subscribeRouterDidFinishPresenting(_ controller: UIViewController) {
         controller.dismiss(animated: true)
+        requestReviewIfNecessary()
     }
 }
 
 extension MainMenuRouter: PicturesRouterDelegate {
     func picturesRouterDidFinishPresenting(_ controller: UIViewController) {
         navigation?.popViewController(animated: true)
+        requestReviewIfNecessary()
     }
 }
 
 extension MainMenuRouter: CatchLetterGameRouterDelegate {
     func catchLetterGameRouterDidFinishPresenting(_ view: UIViewController) {
         navigation?.popViewController(animated: true)
+        requestReviewIfNecessary()
     }
 }
