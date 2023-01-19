@@ -33,10 +33,14 @@
 			</array>
 		</dict>
 	</array>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<true/>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
 	<key>FacebookAppID</key>
 	<string>366860538437294</string>
 	<key>FacebookClientToken</key>
-	<string>085555c7622d8eb6c590852f0155ee04</string>
+	<string>5205c3b2a0834aa68848f540d0ccce3e</string>
 	<key>FacebookDisplayName</key>
 	<string>Alphabet and Numbers</string>
 	<key>LSRequiresIPhoneOS</key>
