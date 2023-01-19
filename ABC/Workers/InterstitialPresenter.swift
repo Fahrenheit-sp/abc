@@ -53,7 +53,7 @@ final class InterstitialPresenter: NSObject {
 }
 
 extension InterstitialPresenter: GADFullScreenContentDelegate {
-    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         delegate?.presenterDidDisplayAd(self, from: controller)
     }
 

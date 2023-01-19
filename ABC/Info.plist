@@ -12,6 +12,8 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Funny English</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
@@ -22,6 +24,21 @@
 	<string>ca-app-pub-9164174062846184~5787139688</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb366860538437294</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>366860538437294</string>
+	<key>FacebookClientToken</key>
+	<string>085555c7622d8eb6c590852f0155ee04</string>
+	<key>FacebookDisplayName</key>
+	<string>Alphabet and Numbers</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

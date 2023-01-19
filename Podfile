@@ -12,6 +12,7 @@ target 'ABC' do
   pod 'Firebase/Analytics'
   pod 'Google-Mobile-Ads-SDK'
   pod 'Purchases'
+  pod 'FBSDKCoreKit'
 
   target 'Tests' do
     inherit! :search_paths
