@@ -13,7 +13,7 @@ final class RevenueCatProductsFetcher: NSObject {
 
     static let shared = RevenueCatProductsFetcher()
     private var packages: [Purchases.Package] = []
-    private let mainTerm: Purchases.PackageType = .weekly
+    private let mainTerm: Purchases.PackageType = .monthly
 
     private var fallbackSubscriptions: [SubscriptionInfo] {
         let terms: [Purchases.PackageType] = [.annual, .monthly, .weekly]
