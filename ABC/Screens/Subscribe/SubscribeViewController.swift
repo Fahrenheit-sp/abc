@@ -26,7 +26,7 @@ final class SubscribeViewController: UIViewController {
     private let subscribeButton = UIButton().disableAutoresizing()
     private let moreOptionsButton = UIButton().disableAutoresizing()
 
-    private let spinner = UIActivityIndicatorView(style: .whiteLarge).disableAutoresizing()
+    private let spinner = UIActivityIndicatorView(style: .large).disableAutoresizing()
 
     var interactor: SubscribeInteractable?
 

@@ -2,7 +2,7 @@ import AppsFlyerLib
 import Firebase
 import FBSDKCoreKit
 import GoogleMobileAds
-import Purchases
+import RevenueCat
 import UIKit
 
 @main
@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         AppsFlyerLib.shared().appsFlyerDevKey = Constants.appsFlyerId
         AppsFlyerLib.shared().appleAppID = Constants.appStoreId
-        AppsFlyerLib.shared().start()
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -24,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Purchases.configure(withAPIKey: Constants.revenueCatId)
         
-        RevenueCatProductsFetcher.shared.fetchProducts()
+        RevenueCatSubscribtionPurchaser.shared.fetchProducts()
+        RevenueCatSubscribtionPurchaser.shared.validatePurchase()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = LoadingViewController()
@@ -35,6 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(didUpdateUser), name: .userUpdated, object: nil)
         
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        AppsFlyerLib.shared().start()
+        setupFlow(animated: true)
     }
     
     func application(_ application: UIApplication,

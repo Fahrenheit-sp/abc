@@ -10,11 +10,11 @@ import class UIKit.UIViewController
 final class SubscribeRouter: SubscribeRoutable {
 
     struct Parameters {
-        let fetcher: ProductsFetchable
+        let purchaser: RevenueCatSubscribtionPurchaser
     }
 
     private let parameters: Parameters
-    private weak var view: UIViewController?
+    private weak var view: SubscribeViewController?
     private var moreOptionsRouter: Router?
 
     weak var delegate: SubscribeRouterDelegate?
@@ -25,7 +25,7 @@ final class SubscribeRouter: SubscribeRoutable {
 
     func makeController() -> UIViewController {
         let controller = SubscribeViewController()
-        controller.interactor = SubscribeInteractor(ui: controller, router: self, fetcher: parameters.fetcher)
+        controller.interactor = SubscribeInteractor(ui: controller, router: self, purchaser: parameters.purchaser)
 
         view = controller
         return controller
@@ -36,8 +36,7 @@ final class SubscribeRouter: SubscribeRoutable {
     }
 
     func didTapMoreOptions() {
-        let router = MoreBillingOptionsRouter(parameters: .init(fetcher: parameters.fetcher,
-                                                                purchaser: parameters.fetcher.getPurchaser()))
+        let router = MoreBillingOptionsRouter(parameters: .init(purchaser: parameters.purchaser))
         router.delegate = self
         moreOptionsRouter = router
 
@@ -47,6 +46,8 @@ final class SubscribeRouter: SubscribeRoutable {
 
 extension SubscribeRouter: MoreBillingOptionsDelegate {
     func moreOptionsRouterDidFinishPresenting(_ controller: UIViewController) {
-        controller.dismiss(animated: true, completion: nil)
+        controller.dismiss(animated: true) { [weak self] in
+            self?.parameters.purchaser.delegate = self?.view?.interactor
+        }
     }
 }

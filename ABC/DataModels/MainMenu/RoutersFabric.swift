@@ -19,7 +19,7 @@ final class DefaultRouterFabric: RoutersFabric {
     func makeRouter(for item: MainMenuItem) -> Router {
         switch item {
         case .subscribe:
-            let router = SubscribeRouter(parameters: .init(fetcher: RevenueCatProductsFetcher.shared))
+            let router = SubscribeRouter(parameters: .init(purchaser: RevenueCatSubscribtionPurchaser.shared))
             router.delegate = delegate
             return router
         case .alphabet, .numbers:

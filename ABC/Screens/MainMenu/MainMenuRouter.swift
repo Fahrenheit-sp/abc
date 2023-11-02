@@ -12,7 +12,7 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
 
     struct Parameters {
         let items: [MainMenuItem]
-        let manager: UserDataManager = .init()
+        let manager: UserDataManager
     }
 
     private let parameters: Parameters

@@ -17,7 +17,7 @@ protocol SubscribeRoutable: Router {
     func didTapMoreOptions()
 }
 
-protocol SubscribeInteractable: AnyObject {
+protocol SubscribeInteractable: SubscriptionPurchaserDelegate {
     func didLoad()
     func didClose()
     func didRestore()

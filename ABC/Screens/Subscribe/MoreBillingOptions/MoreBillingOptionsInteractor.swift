@@ -10,8 +10,7 @@ import Foundation
 final class MoreBillingOptionsInteractor {
 
     struct Parameters {
-        let purchaser: SubscriptionPurchaseable
-        let subscriptions: [SubscriptionInfo]
+        let purchaser: RevenueCatSubscribtionPurchaser
         let userDataManager: UserDataManager = .init()
     }
 
@@ -27,26 +26,26 @@ final class MoreBillingOptionsInteractor {
         self.router = router
         self.parameters = parameters
         self.parameters.purchaser.delegate = self
-        self.selectedSubscriptionInfo = parameters.subscriptions.first { $0.isMain } ?? parameters.subscriptions.first
+        self.selectedSubscriptionInfo = parameters.purchaser.subscriptions.first
     }
 
     private var description: String {
         guard let current = selectedSubscriptionInfo else { return .empty }
         let price = L10n.Subscription.priceWithoutTrial(current.price, current.term)
-        return L10n.Subscription.paymentWithTrialDescription(current.trial.or(.empty), price)
+        return L10n.Subscription.paymentWithTrialDescription(current.trialDays.or(.empty), price)
     }
 
 }
 
 extension MoreBillingOptionsInteractor: MoreBillingOptionsInteractable {
     func didSelectSubscription(at index: Int) {
-        guard index < parameters.subscriptions.endIndex else { return }
-        self.selectedSubscriptionInfo = parameters.subscriptions[index]
+        guard index < parameters.purchaser.subscriptions.endIndex else { return }
+        self.selectedSubscriptionInfo = parameters.purchaser.subscriptions[index]
         didLoad()
     }
 
     func didLoad() {
-        let options = parameters.subscriptions.map { BillingOption(subscriptionInfo: $0, isSelected: $0 == selectedSubscriptionInfo) }
+        let options = parameters.purchaser.subscriptions.map { BillingOption(subscriptionInfo: $0, isSelected: $0 == selectedSubscriptionInfo) }
         let model = MoreBillingOptionsViewModel(billingOptions: options, description: description)
         ui?.configure(with: model)
     }
@@ -56,27 +55,27 @@ extension MoreBillingOptionsInteractor: MoreBillingOptionsInteractable {
     }
 
     func didPressSubscribe() {
-        selectedSubscriptionInfo.map { parameters.purchaser.purchase($0) }
+        selectedSubscriptionInfo.map { parameters.purchaser.makePurchase(term: $0.term) }
     }
 
 }
 
 extension MoreBillingOptionsInteractor: SubscriptionPurchaserDelegate {
-    func purchaser(_ purchaser: SubscriptionPurchaseable, didFailToPurchaseWith error: Error) {
+    func purchaser(didFailToPurchaseWith error: Error) {
         ui?.didFailPurchase(with: error.localizedDescription)
     }
 
-    func purchaser(_ purchaser: SubscriptionPurchaseable, didSubscribeSuccesfullyUntil date: Date?) {
+    func purchaser(didSubscribeSuccesfullyUntil date: Date?) {
         let newUser = parameters.userDataManager.getUser().withUpdatedExpirationDate(to: date)
         parameters.userDataManager.save(user: newUser)
     }
 
-    func purchaser(_ purchaser: SubscriptionPurchaseable, didRestoreSuccesfullyUntil date: Date?) {
+    func purchaser(didRestoreSuccesfullyUntil date: Date?) {
         let newUser = parameters.userDataManager.getUser().withUpdatedExpirationDate(to: date)
         parameters.userDataManager.save(user: newUser)
     }
 
-    func purchaserDidCancelPurchase(_ purchaser: SubscriptionPurchaseable) {
+    func purchaserDidCancelPurchase() {
         ui?.didCancelPurchase()
     }
 }
