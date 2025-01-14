@@ -1,7 +1,6 @@
 import AppsFlyerLib
 import Firebase
 import FBSDKCoreKit
-import GoogleMobileAds
 import RevenueCat
 import UIKit
 
@@ -19,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         FirebaseApp.configure()
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         Purchases.configure(withAPIKey: Constants.revenueCatId)
         
@@ -76,8 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupFlow(animated: Bool) {
         let user = UserDataManager().getUser()
-        let flow: Flow = user.isSubscribed ? SubscribedFlow() : FreeFlow()
-        changeFlow(to: flow, animated: animated)
+        changeFlow(to: SubscribedFlow(), animated: animated)
     }
     
     private func changeFlow(to flow: Flow, animated: Bool = true) {
