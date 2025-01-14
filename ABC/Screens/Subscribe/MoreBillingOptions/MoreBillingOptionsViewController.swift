@@ -20,7 +20,7 @@ final class MoreBillingOptionsViewController: UIViewController {
     private let subscribeButton = UIButton().disableAutoresizing()
     private let termsView = TermsAndPrivacyView().disableAutoresizing()
 
-    private let spinner = UIActivityIndicatorView(style: .whiteLarge).disableAutoresizing()
+    private let spinner = UIActivityIndicatorView(style: .large).disableAutoresizing()
 
     override func loadView() {
         let gradient = GradientBackgroundView()

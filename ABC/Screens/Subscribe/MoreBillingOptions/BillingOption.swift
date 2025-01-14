@@ -17,7 +17,7 @@ struct BillingOption {
     }
 
     var title: String {
-        subscriptionInfo.term.uppercased()
+        subscriptionInfo.term.period
     }
 
     var price: String {
@@ -29,6 +29,17 @@ struct BillingOption {
     }
 
     var trialText: String? {
-        subscriptionInfo.trial.map { L10n.Subscription.trialTerm($0) }
+        subscriptionInfo.trialDays.map { L10n.Subscription.trialTerm($0) }
+    }
+}
+
+
+extension SubscriptionTerm {
+    var period: String {
+        switch self {
+        case .month: return L10n.Term.month
+        case .week: return L10n.Term.week
+        case .year: return L10n.Term.year
+        }
     }
 }

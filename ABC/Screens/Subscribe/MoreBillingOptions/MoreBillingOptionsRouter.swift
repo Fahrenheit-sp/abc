@@ -11,8 +11,7 @@ import class UIKit.UIViewController
 final class MoreBillingOptionsRouter: MoreBillingOptionsRoutable {
 
     struct Parameters {
-        let fetcher: ProductsFetchable
-        let purchaser: SubscriptionPurchaseable
+        let purchaser: RevenueCatSubscribtionPurchaser
     }
 
     private let parameters: Parameters
@@ -28,8 +27,7 @@ final class MoreBillingOptionsRouter: MoreBillingOptionsRoutable {
         let controller = MoreBillingOptionsViewController()
         controller.interactor = MoreBillingOptionsInteractor(ui: controller,
                                                              router: self,
-                                                             parameters: .init(purchaser: parameters.purchaser,
-                                                                               subscriptions: parameters.fetcher.getProductsInfo()))
+                                                             parameters: .init(purchaser: parameters.purchaser))
 
         view = controller
         return controller

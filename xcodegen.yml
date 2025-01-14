@@ -2,7 +2,7 @@ name: ABC
 options:
   bundleIdPrefix: com.fahrenheit
   deploymentTarget:
-    iOS: "11.2"
+    iOS: "12.0"
 targets:
   ABC:
     type: application

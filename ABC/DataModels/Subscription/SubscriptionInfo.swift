@@ -8,10 +8,12 @@
 import Foundation
 
 struct SubscriptionInfo: Hashable, Equatable {
-    let trial: String?
+    let trialDays: String?
     let price: String
-    let term: String
+    let term: SubscriptionTerm
     let description: String
-    let priceValue: Double
-    let isMain: Bool
+    let priceValue: Decimal
 }
+
+
+

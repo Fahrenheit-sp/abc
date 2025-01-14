@@ -19,7 +19,7 @@ final class WordsStorage {
 
     private let wordsFilename = "words"
     private let picturesFilename = "pictures"
-    private let fileExtension = ".txt"
+    private let fileExtension = "txt"
 
     private var words: [Word] = []
     private var pictures: [Picture] = []
@@ -46,7 +46,7 @@ extension WordsStorage: WordsStorable {
 extension WordsStorage: PicturesStorable {
     func getPictures() -> [Picture] {
         guard pictures.isEmpty else { return pictures }
-        guard let path = Bundle.main.url(forResource: picturesFilename, withExtension: .empty) else { return pictures }
+        guard let path = Bundle.main.url(forResource: picturesFilename, withExtension: fileExtension) else { return pictures }
         do {
             let string = try String(contentsOf: path)
             pictures = string.components(separatedBy: String.newline).filter {!$0.isEmpty}.map { Picture(title: $0) }

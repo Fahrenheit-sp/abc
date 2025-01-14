@@ -12,7 +12,7 @@ struct SubscribedFlow: Flow {
     let router: Router
 
     init() {
-        self.router = MainMenuRouter(parameters: .init(items: MainMenuItem.gameItems), routersFabric: DefaultRouterFabric())
+        self.router = MainMenuRouter(parameters: .init(items: MainMenuItem.gameItems, manager: .init()), routersFabric: DefaultRouterFabric())
     }
     func start(from window: UIWindow?, animated: Bool) {
         setupRootViewController(router.makeController(), in: window, animated: animated)
