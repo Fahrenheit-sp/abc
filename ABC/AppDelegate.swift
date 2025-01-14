@@ -1,6 +1,5 @@
 import AppsFlyerLib
 import Firebase
-import FBSDKCoreKit
 import RevenueCat
 import UIKit
 
@@ -14,8 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         AppsFlyerLib.shared().appsFlyerDevKey = Constants.appsFlyerId
         AppsFlyerLib.shared().appleAppID = Constants.appStoreId
-        
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         FirebaseApp.configure()
         
@@ -61,19 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        ApplicationDelegate.shared.application(
-            app,
-            open: url,
-            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
-        )
-    }
-    
     // MARK: - Flow methods
     
     private func setupFlow(animated: Bool) {
-        let user = UserDataManager().getUser()
         changeFlow(to: SubscribedFlow(), animated: animated)
     }
     
