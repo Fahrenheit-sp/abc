@@ -61,7 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Flow methods
     
     private func setupFlow(animated: Bool) {
-        changeFlow(to: SubscribedFlow(), animated: animated)
+        let user = UserDataManager().getUser()
+        let flow: Flow = user.isSubscribed ? SubscribedFlow() : FreeFlow()
+        changeFlow(to: flow, animated: animated)
+
     }
     
     private func changeFlow(to flow: Flow, animated: Bool = true) {
