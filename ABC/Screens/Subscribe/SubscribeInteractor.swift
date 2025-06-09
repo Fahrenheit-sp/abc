@@ -31,8 +31,8 @@ final class SubscribeInteractor: SubscribeInteractable {
         let features = [L10n.Subscription.freeUpdates, L10n.Subscription.noAds, L10n.Subscription.fullAccess]
         guard let info = purchaser.defaultSubscription else { return }
         let price = info.trialDays == nil
-            ? L10n.Subscription.priceWithoutTrial(info.price, info.term)
-            : L10n.Subscription.priceWithTrial(info.trialDays!, info.price, info.term)
+        ? L10n.Subscription.priceWithoutTrial(info.price, info.localizedTerm)
+        : L10n.Subscription.priceWithTrial(info.trialDays!, info.price, info.localizedTerm)
         ui?.configure(with: .init(priceString: price, features: features))
     }
 

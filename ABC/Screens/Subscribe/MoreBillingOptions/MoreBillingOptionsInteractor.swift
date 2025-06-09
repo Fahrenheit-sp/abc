@@ -31,7 +31,7 @@ final class MoreBillingOptionsInteractor {
 
     private var description: String {
         guard let current = selectedSubscriptionInfo else { return .empty }
-        let price = L10n.Subscription.priceWithoutTrial(current.price, current.term)
+        let price = L10n.Subscription.priceWithoutTrial(current.price, current.localizedTerm)
         return L10n.Subscription.paymentWithTrialDescription(current.trialDays.or(.empty), price)
     }
 

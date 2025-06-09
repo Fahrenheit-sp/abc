@@ -15,10 +15,10 @@ enum PurchaseError: String, Error {
     case restoreFailed = "error.failedToRestore"
 }
 
-enum SubscriptionTerm {
-    case week
-    case month
-    case year
+enum SubscriptionTerm: String {
+    case week = "term.week"
+    case month = "term.month"
+    case year = "term.year"
 }
 
 protocol SubscriptionPurchaserDelegate: AnyObject {

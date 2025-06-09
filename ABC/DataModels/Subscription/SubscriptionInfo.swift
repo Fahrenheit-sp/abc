@@ -13,6 +13,17 @@ struct SubscriptionInfo: Hashable, Equatable {
     let term: SubscriptionTerm
     let description: String
     let priceValue: Decimal
+
+    var localizedTerm: String {
+        switch term {
+        case .week:
+            L10n.Term.week
+        case .month:
+            L10n.Term.month
+        case .year:
+            L10n.Term.year
+        }
+    }
 }
 
 

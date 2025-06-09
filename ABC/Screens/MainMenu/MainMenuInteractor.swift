@@ -28,17 +28,17 @@ final class MainMenuInteractor: MainMenuInteractable {
     }
 
     func didLoad() {
-        soundPlayer.playMainMenuSound()
+//        soundPlayer.playMainMenuSound()
         ui?.configure(with: MainMenuScreenViewModel(items: parameters.gameItems,
                                                     isSubscribeAvailable: parameters.items.contains(.subscribe)))
     }
 
     func didPressEnableSound() {
-        soundPlayer.resume()
+//        soundPlayer.resume()
     }
 
     func didPressDisableSound() {
-        soundPlayer.pause()
+//        soundPlayer.pause()
     }
 
     func didPressSubscribe() {
