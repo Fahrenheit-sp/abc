@@ -82,8 +82,11 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
         controller.title = item.title
         controller.navigationItem.backButtonTitle = .empty
         switch item {
-        case .subscribe: navigation?.present(controller, animated: true)
-        default: navigation?.pushViewController(controller, animated: true)
+        case .subscribe:
+                controller.modalPresentationStyle = .fullScreen
+                navigation?.present(controller, animated: true)
+        default:
+                navigation?.pushViewController(controller, animated: true)
         }
 
         
@@ -93,7 +96,9 @@ final class MainMenuRouter: NSObject, MainMenuRoutable {
     func requestReviewIfNecessary() {
         var user = self.parameters.manager.getUser()
         guard !user.isReviewSeen else { return }
-        SKStoreReviewController.requestReview()
+        if let scene = UIApplication.shared.keyScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
         user.isReviewSeen = true
         self.parameters.manager.save(user: user)
     }

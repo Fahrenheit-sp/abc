@@ -1,0 +1,150 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "1D52F851",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1584999183",
+    "_askToBuyEnabled" : false,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_developerTeamID" : "95WBG7ZSM7",
+    "_disableDialogs" : false,
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 780350914.47537601,
+    "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : false,
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ],
+    "_timeRate" : 0
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "20878623",
+      "localizations" : [
+
+      ],
+      "name" : "Subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "2.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "1585001393",
+          "introductoryOffer" : {
+            "internalID" : "6A76B727",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "Unlimited access and no ads for one month",
+              "displayName" : "Month subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.fahrenheit.abc.subscription.month",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Month subscription",
+          "subscriptionGroupID" : "20878623",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "2.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "1597336981",
+          "introductoryOffer" : {
+            "internalID" : "BC02E797",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "Full access to all features for one week.",
+              "displayName" : "Week subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.fahrenheit.abc.subscription.week",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "Week subscription",
+          "subscriptionGroupID" : "20878623",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "19.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "1585000227",
+          "introductoryOffer" : {
+            "internalID" : "5C8F74E2",
+            "numberOfPeriods" : 1,
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "Unlimited access and no ads for one year",
+              "displayName" : "One year subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.fahrenheit.abc.subscription.year",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Year subscription",
+          "subscriptionGroupID" : "20878623",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

@@ -11,7 +11,7 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
 
     private let wrapped: MainMenuRoutable
     private let userManager: UserDataManager
-    private let itemsToDisplayPaywall: [MainMenuItem] = [.listen, .memorize, .makeAWord, .pictures]
+    private let itemsToDisplayPaywall: [MainMenuItem] = [.listen, .memorize, .makeAWord, .pictures, .catchLetter]
 
     init(adaptee: MainMenuRoutable) {
         self.wrapped = adaptee
@@ -43,7 +43,7 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
         let now = Date()
         switch item {
         case .listen:
-            guard let lastPlayed = user.lastListenPlayedDate, !now.isOneDayPassed(since: lastPlayed) else {
+            guard user.lastListenPlayedDate != nil else {
                 user.lastListenPlayedDate = now
                 userManager.save(user: user)
                 wrapped.mainMenuDidSelect(item: item)
@@ -51,7 +51,7 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
             }
             wrapped.mainMenuDidSelect(item: .subscribe)
         case .memorize:
-            guard let lastPlayed = user.lastMemorizePlayedDate, !now.isOneDayPassed(since: lastPlayed) else {
+            guard user.lastMemorizePlayedDate != nil else {
                 user.lastMemorizePlayedDate = now
                 userManager.save(user: user)
                 wrapped.mainMenuDidSelect(item: item)
@@ -59,7 +59,7 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
             }
             wrapped.mainMenuDidSelect(item: .subscribe)
         case .makeAWord:
-            guard let lastPlayed = user.lastMakeAWordPlayedDate, !now.isOneDayPassed(since: lastPlayed) else {
+            guard user.lastMakeAWordPlayedDate != nil else {
                 user.lastMakeAWordPlayedDate = now
                 userManager.save(user: user)
                 wrapped.mainMenuDidSelect(item: item)
@@ -67,13 +67,21 @@ final class MainMenuPaywallRouterDecorator: NSObject, MainMenuRoutable {
             }
             wrapped.mainMenuDidSelect(item: .subscribe)
         case .pictures:
-            guard let lastPlayed = user.lastPicturesPlayedDate, !now.isOneDayPassed(since: lastPlayed) else {
+            guard user.lastPicturesPlayedDate != nil  else {
                 user.lastPicturesPlayedDate = now
                 userManager.save(user: user)
                 wrapped.mainMenuDidSelect(item: item)
                 return
             }
             wrapped.mainMenuDidSelect(item: .subscribe)
+            case .catchLetter:
+                if user.isPlayedCatchALetter {
+                    wrapped.mainMenuDidSelect(item: .subscribe)
+                } else {
+                    user.isPlayedCatchALetter = true
+                    userManager.save(user: user)
+                    wrapped.mainMenuDidSelect(item: item)
+                }
         default: return
         }
     }

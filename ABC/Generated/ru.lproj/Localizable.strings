@@ -10,6 +10,7 @@
 "general.ok" = "OK";
 "general.error" = "Что-то не так";
 "general.start" = "Начать";
+"general.continue" = "Продолжить";
 
 "error.nothingToRestore" = "Не удалось найти предыдущих покупок";
 "error.productNotFound" = "Невозможно совершить покупку. Пожалуйста, проверьте соединение и попробуйте снова.";

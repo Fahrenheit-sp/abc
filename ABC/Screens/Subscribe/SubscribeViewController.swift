@@ -38,6 +38,13 @@ final class SubscribeViewController: UIViewController {
         interactor?.didLoad()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.5, delay: 2) { [weak self] in
+            self?.closeButton.alpha = 1
+        }
+    }
+
     private func setupLayout() {
         view.addSubview(imageView)
         view.addSubview(restoreButton)
@@ -111,9 +118,11 @@ final class SubscribeViewController: UIViewController {
         restoreButton.setAttributedTitle(restore, for: .normal)
         restoreButton.addTarget(self, action: #selector(restoreTapped), for: .touchUpInside)
 
+        closeButton.contentMode = .scaleAspectFit
         closeButton.setImage(Asset.Icons.close.image, for: .normal)
+        closeButton.tintColor = .darkGray.withAlphaComponent(0.4)
+        closeButton.alpha = 0
         closeButton.imageEdgeInsets = .init(top: 12, left: 12, bottom: 12, right: 12)
-        closeButton.tintColor = .darkGray
         closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
 
         gradient.configureGradient(using: .init(colors: [.subscribeGradientStart, .white],
@@ -136,7 +145,7 @@ final class SubscribeViewController: UIViewController {
         subscribeButton.roundCornersToRound()
         subscribeButton.backgroundColor = .subscriptionGreen
 
-        let tryFree = NSAttributedString(string: L10n.Subscription.tryFreeAndSubscribe,
+        let tryFree = NSAttributedString(string: L10n.General.continue,
                                          attributes: [.foregroundColor: UIColor.white,
                                                       .font: UIFont.systemFont(ofSize: UIDevice.isiPhone ? 15 : 17, weight: .semibold)])
         subscribeButton.setAttributedTitle(tryFree, for: .normal)

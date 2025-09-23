@@ -10,6 +10,7 @@
 "general.ok" = "OK";
 "general.error" = "Etwas stimmt nicht";
 "general.start" = "Start";
+"general.continue" = "Weitermachen";
 
 "error.nothingToRestore" = "Wir konnten keine Einkäufe zum Wiederherstellen finden";
 "error.productNotFound" = "Kauf nicht möglich. Bitte überprüfe deine Verbindung und versuche es erneut.";

@@ -13,6 +13,7 @@ struct UserData: Codable {
     var lastMemorizePlayedDate: Date?
     var lastMakeAWordPlayedDate: Date?
     var lastPicturesPlayedDate: Date?
+    var isPlayedCatchALetter: Bool = false
     var isReviewSeen: Bool = false
 
     func withUpdatedExpirationDate(to date: Date?) -> UserData {

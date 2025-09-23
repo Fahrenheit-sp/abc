@@ -22,6 +22,8 @@ internal enum L10n {
     /// 
     ///   Created by Игорь Майсюк on 17.08.21.
     internal static let and = L10n.tr("Localizable", "general.and", fallback: "and")
+    /// Continue
+    internal static let `continue` = L10n.tr("Localizable", "general.continue", fallback: "Continue")
     /// Something wrong
     internal static let error = L10n.tr("Localizable", "general.error", fallback: "Something wrong")
     /// OK
