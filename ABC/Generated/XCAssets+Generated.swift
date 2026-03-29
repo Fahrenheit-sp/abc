@@ -95,6 +95,9 @@ internal enum Asset {
     internal static let _8 = ImageAsset(name: "8")
     internal static let _9 = ImageAsset(name: "9")
   }
+  internal enum Splash {
+    internal static let splash = ImageAsset(name: "Splash")
+  }
   internal enum Subscription {
     internal static let check = ImageAsset(name: "check")
     internal static let subscriptionBackground = ImageAsset(name: "subscription_background")
