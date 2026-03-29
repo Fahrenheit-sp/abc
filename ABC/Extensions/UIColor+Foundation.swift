@@ -5,9 +5,16 @@
 //  Created by Игорь Майсюк on 25.08.21.
 //
 
-import UIKit
+import SwiftUI
 
 extension UIColor {
+    // 2.0
+    static let bluePrimary = UIColor(hex: "0EAFFD")
+    static let blueSecondary = UIColor(hex: "049EFE")
+    static let orangePrimary = UIColor(hex: "FF9C00")
+    static let orangeSecondary = UIColor(hex: "F09300")
+
+    // Legacy
     static let cardGradientStart = UIColor(hex: "00BDD3")
     static let cardGradientEnd = UIColor(hex: "3D5AFE")
     static let background = UIColor(hex: "3588DC")
@@ -41,4 +48,11 @@ extension UIColor {
         self.init(red: 0, green: 0, blue: 0, alpha: alpha)
         return
     }
+}
+
+extension Color {
+    static let bluePrimary = Color(.bluePrimary)
+    static let blueSecondary = Color(.blueSecondary)
+    static let orangePrimary = Color(.orangePrimary)
+    static let orangeSecondary = Color(.orangeSecondary)
 }

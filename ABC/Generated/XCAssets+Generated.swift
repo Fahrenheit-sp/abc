@@ -95,6 +95,14 @@ internal enum Asset {
     internal static let _8 = ImageAsset(name: "8")
     internal static let _9 = ImageAsset(name: "9")
   }
+  internal enum Onboarding {
+    internal static let onboardingBg = ImageAsset(name: "onboarding_bg")
+    internal static let onboardingCat1 = ImageAsset(name: "onboarding_cat_1")
+    internal static let onboardingCat2 = ImageAsset(name: "onboarding_cat_2")
+    internal static let onboardingCat3 = ImageAsset(name: "onboarding_cat_3")
+    internal static let onboardingNameInputDefault = ImageAsset(name: "onboarding_name_input_default")
+    internal static let onboardingTile = ImageAsset(name: "onboarding_tile")
+  }
   internal enum Splash {
     internal static let splash = ImageAsset(name: "Splash")
   }
