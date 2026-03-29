@@ -26,6 +26,8 @@ internal enum L10n {
     internal static let `continue` = L10n.tr("Localizable", "general.continue", fallback: "Continue")
     /// Something wrong
     internal static let error = L10n.tr("Localizable", "general.error", fallback: "Something wrong")
+    /// Name
+    internal static let name = L10n.tr("Localizable", "general.name", fallback: "Name")
     /// Next
     internal static let next = L10n.tr("Localizable", "general.next", fallback: "Next")
     /// OK
@@ -62,6 +64,10 @@ internal enum L10n {
       /// Let's go on a
       /// fun adventure!
       internal static let title = L10n.tr("Localizable", "onboarding.first.title", fallback: "Let's go on a\nfun adventure!")
+    }
+    internal enum Name {
+      /// What is your name?
+      internal static let title = L10n.tr("Localizable", "onboarding.name.title", fallback: "What is your name?")
     }
     internal enum Second {
       /// Collect colorful stickers, unlock unique and funny avatars, and enjoy exciting daily prizes and surprises!

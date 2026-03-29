@@ -22,6 +22,9 @@ struct MainButton: View {
 }
 
 struct MainButtonStyle: ButtonStyle {
+
+    @Environment(\.isEnabled) private var isEnabled
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.button)
@@ -43,6 +46,7 @@ struct MainButtonStyle: ButtonStyle {
                 }
                 .overlay(RoundedRectangle(cornerRadius: 15).stroke(.white.shadow(.drop(color: .black.opacity(0.15), radius: 2, x: 0, y: 2)), lineWidth: 2))
             }
+            .opacity(isEnabled ? 1 : 0.5)
     }
 }
 

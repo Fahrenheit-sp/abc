@@ -18,22 +18,46 @@ struct OnboardingView: View {
     let finishAction: () -> Void
 
     @State private var step: Step = .first
+    @AppStorage("name") private var name: String = ""
 
     var body: some View {
         ZStack {
+            if step != .name {
+                VStack {
+                    Spacer()
+
+                    initialStepsContent
+                }
+                .ignoresSafeArea(edges: .bottom)
+                .frame(maxHeight: .infinity, alignment: .bottom)
+            } else {
+                VStack {
+                    Spacer()
+
+                    Text(L10n.Onboarding.Name.title)
+                        .font(.header3)
+                        .foregroundStyle(.black)
+
+                    MainTextField(text: $name, placeholder: L10n.General.name)
+
+                    Spacer()
+
+                    MainButton(title: L10n.General.start.uppercased()) {
+                        withAnimation {
+                            finishAction()
+                        }
+                    }
+                    .disabled(name.isEmpty)
+                }
+                .padding()
+            }
+        }
+        .background {
             Image(step == .name ? .onboardingNameInputDefault : .onboardingBg)
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-
-            if step != .name {
-                initialStepsContent
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-            } else {
-                MainButton(title: L10n.General.next) {
-                    step = .first
-                }
-            }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
