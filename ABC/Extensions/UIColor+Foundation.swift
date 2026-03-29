@@ -13,6 +13,7 @@ extension UIColor {
     static let blueSecondary = UIColor(hex: "049EFE")
     static let orangePrimary = UIColor(hex: "FF9C00")
     static let orangeSecondary = UIColor(hex: "F09300")
+    static let grayIngame = UIColor(hex: "D9D9D9")
 
     // Legacy
     static let cardGradientStart = UIColor(hex: "00BDD3")
@@ -55,4 +56,6 @@ extension Color {
     static let blueSecondary = Color(.blueSecondary)
     static let orangePrimary = Color(.orangePrimary)
     static let orangeSecondary = Color(.orangeSecondary)
+
+    static let grayIngame = Color(.grayIngame)
 }

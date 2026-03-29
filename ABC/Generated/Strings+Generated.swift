@@ -26,6 +26,8 @@ internal enum L10n {
     internal static let `continue` = L10n.tr("Localizable", "general.continue", fallback: "Continue")
     /// Something wrong
     internal static let error = L10n.tr("Localizable", "general.error", fallback: "Something wrong")
+    /// Next
+    internal static let next = L10n.tr("Localizable", "general.next", fallback: "Next")
     /// OK
     internal static let ok = L10n.tr("Localizable", "general.ok", fallback: "OK")
     /// Start
@@ -51,6 +53,27 @@ internal enum L10n {
       internal static let pictures = L10n.tr("Localizable", "menu.item.pictures", fallback: "Pictures")
       /// Subscribe
       internal static let subscribe = L10n.tr("Localizable", "menu.item.subscribe", fallback: "Subscribe")
+    }
+  }
+  internal enum Onboarding {
+    internal enum First {
+      /// Ready to play? Let's explore letters, numbers, and unlock your amazing knowledge superpowers!
+      internal static let subtitle = L10n.tr("Localizable", "onboarding.first.subtitle", fallback: "Ready to play? Let's explore letters, numbers, and unlock your amazing knowledge superpowers!")
+      /// Let's go on a
+      /// fun adventure!
+      internal static let title = L10n.tr("Localizable", "onboarding.first.title", fallback: "Let's go on a\nfun adventure!")
+    }
+    internal enum Second {
+      /// Collect colorful stickers, unlock unique and funny avatars, and enjoy exciting daily prizes and surprises!
+      internal static let subtitle = L10n.tr("Localizable", "onboarding.second.subtitle", fallback: "Collect colorful stickers, unlock unique and funny avatars, and enjoy exciting daily prizes and surprises!")
+      /// Awesome Rewards Await you!
+      internal static let title = L10n.tr("Localizable", "onboarding.second.title", fallback: "Awesome Rewards Await you!")
+    }
+    internal enum Third {
+      /// Catch letters in games, memorize bright pictures with ease, build words and enjoy new discoveries every single day!
+      internal static let subtitle = L10n.tr("Localizable", "onboarding.third.subtitle", fallback: "Catch letters in games, memorize bright pictures with ease, build words and enjoy new discoveries every single day!")
+      /// What shall we play first?
+      internal static let title = L10n.tr("Localizable", "onboarding.third.title", fallback: "What shall we play first?")
     }
   }
   internal enum Subscription {

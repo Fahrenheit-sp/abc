@@ -11,6 +11,7 @@
 "general.error" = "Something wrong";
 "general.start" = "Start";
 "general.continue" = "Continue";
+"general.next" = "Next";
 
 "error.nothingToRestore" = "We were not able to find any purchases to restore";
 "error.productNotFound" = "Unable to make purchase. Please check your connection and try again.";
@@ -24,6 +25,15 @@
 "menu.item.listen" = "Listen";
 "menu.item.pictures" = "Pictures";
 "menu.item.catchLetter" = "Catch a Letter";
+
+"onboarding.first.title" = "Let's go on a\nfun adventure!";
+"onboarding.first.subtitle" = "Ready to play? Let's explore letters, numbers, and unlock your amazing knowledge superpowers!";
+
+"onboarding.second.title" = "Awesome Rewards Await you!";
+"onboarding.second.subtitle" = "Collect colorful stickers, unlock unique and funny avatars, and enjoy exciting daily prizes and surprises!";
+
+"onboarding.third.title" = "What shall we play first?";
+"onboarding.third.subtitle" = "Catch letters in games, memorize bright pictures with ease, build words and enjoy new discoveries every single day!";
 
 "subscription.title" = "Get unlimited access";
 "subscription.restore" = "Restore";

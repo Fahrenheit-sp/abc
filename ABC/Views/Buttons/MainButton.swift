@@ -41,7 +41,7 @@ struct MainButtonStyle: ButtonStyle {
                         .opacity(configuration.isPressed ? 0.3 : 1)
                         .padding(.vertical, 2)
                 }
-                .overlay(RoundedRectangle(cornerRadius: 15).stroke(.white, lineWidth: 2))
+                .overlay(RoundedRectangle(cornerRadius: 15).stroke(.white.shadow(.drop(color: .black.opacity(0.15), radius: 2, x: 0, y: 2)), lineWidth: 2))
             }
     }
 }
