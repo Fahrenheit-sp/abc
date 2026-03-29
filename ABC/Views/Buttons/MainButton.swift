@@ -25,7 +25,9 @@ struct MainButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.button)
-            .foregroundStyle(configuration.isPressed ? .white.opacity(0.7) : .white)
+            .foregroundStyle(configuration.isPressed
+                             ? Color.white.opacity(0.7).shadow(.drop(color: .black.opacity(0.15), radius: 1, x: 0, y: 1))
+                             : Color.white.shadow(.drop(color: .black.opacity(0.25), radius: 1, x: 0, y: 1)))
             .padding()
             .frame(maxWidth: .infinity)
             .background {
