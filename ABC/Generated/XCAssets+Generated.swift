@@ -83,6 +83,27 @@ internal enum Asset {
     internal static let picture = ImageAsset(name: "picture")
     internal static let subscribe = ImageAsset(name: "subscribe")
   }
+  internal enum New {
+    internal enum Avatars {
+      internal static let avatarMain = ImageAsset(name: "avatar_main")
+    }
+    internal enum Buttons {
+      internal static let settingsBtn = ImageAsset(name: "settings_btn")
+      internal static let subscriptionImg = ImageAsset(name: "subscription_img")
+    }
+    internal enum Home {
+      internal static let gameBtnAlphabet = ImageAsset(name: "game_btn_alphabet")
+      internal static let gameBtnCanvas = ImageAsset(name: "game_btn_canvas")
+      internal static let gameBtnCatch = ImageAsset(name: "game_btn_catch")
+      internal static let gameBtnListen = ImageAsset(name: "game_btn_listen")
+      internal static let gameBtnMemorize = ImageAsset(name: "game_btn_memorize")
+      internal static let gameBtnNumbers = ImageAsset(name: "game_btn_numbers")
+      internal static let gameBtnPictures = ImageAsset(name: "game_btn_pictures")
+      internal static let gameBtnWord = ImageAsset(name: "game_btn_word")
+      internal static let helloCloud = ImageAsset(name: "hello_cloud")
+      internal static let homeBg = ImageAsset(name: "home_bg")
+    }
+  }
   internal enum Numbers {
     internal static let _0 = ImageAsset(name: "0")
     internal static let _1 = ImageAsset(name: "1")

@@ -9,4 +9,20 @@ import SwiftUI
 
 final class Settings: ObservableObject {
     @AppStorage("isOnboardingSeen") var isOnboardingSeen = false
+    @AppStorage("avatar") var avatar = "avatar_main"
+    @AppStorage("name") var name = ""
+
+    var isPremium: Bool {
+        #warning("Handle premium")
+        false
+    }
+}
+
+extension Settings {
+    static var preview: Settings = {
+        let settings = Settings()
+        settings.name = "John Doe"
+        settings.isOnboardingSeen = true
+        return settings
+    }()
 }

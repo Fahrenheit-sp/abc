@@ -18,7 +18,7 @@ struct OnboardingView: View {
     let finishAction: () -> Void
 
     @State private var step: Step = .first
-    @AppStorage("name") private var name: String = ""
+    @EnvironmentObject private var settings: Settings
 
     var body: some View {
         ZStack {
@@ -38,7 +38,7 @@ struct OnboardingView: View {
                         .font(.header3)
                         .foregroundStyle(.black)
 
-                    MainTextField(text: $name, placeholder: L10n.General.name)
+                    MainTextField(text: $settings.name, placeholder: L10n.General.name)
 
                     Spacer()
 
@@ -47,17 +47,14 @@ struct OnboardingView: View {
                             finishAction()
                         }
                     }
-                    .disabled(name.isEmpty)
+                    .disabled(settings.name.isEmpty)
                 }
                 .padding()
             }
         }
         .background {
             Image(step == .name ? .onboardingNameInputDefault : .onboardingBg)
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .asBackground
         }
     }
 
@@ -140,4 +137,5 @@ struct OnboardingView: View {
 
 #Preview {
     OnboardingView { }
+        .environmentObject(Settings())
 }

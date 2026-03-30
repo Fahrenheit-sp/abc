@@ -32,8 +32,16 @@ internal enum L10n {
     internal static let next = L10n.tr("Localizable", "general.next", fallback: "Next")
     /// OK
     internal static let ok = L10n.tr("Localizable", "general.ok", fallback: "OK")
+    /// Play
+    internal static let play = L10n.tr("Localizable", "general.play", fallback: "Play")
     /// Start
     internal static let start = L10n.tr("Localizable", "general.start", fallback: "Start")
+  }
+  internal enum Home {
+    /// Welcome back, %@!
+    internal static func welcome(_ p1: Any) -> String {
+      return L10n.tr("Localizable", "home.welcome", String(describing: p1), fallback: "Welcome back, %@!")
+    }
   }
   internal enum Menu {
     internal enum Item {
@@ -115,10 +123,12 @@ internal enum L10n {
     internal static let privacyPolicy = L10n.tr("Localizable", "subscription.privacyPolicy", fallback: "Privacy Policy")
     /// Restore
     internal static let restore = L10n.tr("Localizable", "subscription.restore", fallback: "Restore")
+    /// Unlimited access to all games
+    internal static let subtitle = L10n.tr("Localizable", "subscription.subtitle", fallback: "Unlimited access to all games")
     /// Terms of Use
     internal static let termsOfUse = L10n.tr("Localizable", "subscription.termsOfUse", fallback: "Terms of Use")
-    /// Get unlimited access
-    internal static let title = L10n.tr("Localizable", "subscription.title", fallback: "Get unlimited access")
+    /// Get subscription!
+    internal static let title = L10n.tr("Localizable", "subscription.title", fallback: "Get subscription!")
     /// %@ free trial
     internal static func trialTerm(_ p1: Any) -> String {
       return L10n.tr("Localizable", "subscription.trialTerm", String(describing: p1), fallback: "%@ free trial")

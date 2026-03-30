@@ -11,6 +11,7 @@
 "general.error" = "Something wrong";
 "general.start" = "Start";
 "general.continue" = "Continue";
+"general.play" = "Play";
 "general.name" = "Name";
 "general.next" = "Next";
 
@@ -27,6 +28,8 @@
 "menu.item.pictures" = "Pictures";
 "menu.item.catchLetter" = "Catch a Letter";
 
+"home.welcome" = "Welcome back, %@!";
+
 "onboarding.first.title" = "Let's go on a\nfun adventure!";
 "onboarding.first.subtitle" = "Ready to play? Let's explore letters, numbers, and unlock your amazing knowledge superpowers!";
 
@@ -38,7 +41,8 @@
 
 "onboarding.name.title" = "What is your name?";
 
-"subscription.title" = "Get unlimited access";
+"subscription.title" = "Get subscription!";
+"subscription.subtitle" = "Unlimited access to all games";
 "subscription.restore" = "Restore";
 "subscription.freeUpdates" = "Free upcoming updates and features";
 "subscription.noAds" = "No annoying ads";

@@ -9,6 +9,6 @@ import UIKit
 
 struct MainMenuCellViewModel {
     let title: String
-    let image: UIImage?
+    let image: ImageResource
     let newImage: UIImage?
 }

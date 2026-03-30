@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum MainMenuItem: CaseIterable {
     case subscribe
@@ -34,24 +35,17 @@ enum MainMenuItem: CaseIterable {
         }
     }
 
-    var image: ImageAsset {
+    var image: ImageResource {
         switch self {
-        case .subscribe: return Asset.Menu.subscribe
-        case .alphabet: return Asset.Menu.alphabet
-        case .numbers: return Asset.Menu.numbers
-        case .canvas: return Asset.Menu.canvas
-        case .makeAWord: return Asset.Menu.makeAWord
-        case .listen: return Asset.Menu.listen
-        case .pictures: return Asset.Menu.picture
-        case .catchLetter: return Asset.Menu.catchLetter
-        case .memorize: return Asset.Menu.memorize
-        }
-    }
-
-    var isNew: Bool {
-        switch self {
-        case .catchLetter, .pictures: return true
-        default: return false
+            case .subscribe: return .subscriptionImg
+            case .alphabet: return .gameBtnAlphabet
+            case .numbers: return .gameBtnNumbers
+            case .canvas: return .gameBtnCanvas
+            case .makeAWord: return .gameBtnWord
+            case .listen: return .gameBtnListen
+            case .pictures: return .gameBtnPictures
+            case .catchLetter: return .gameBtnCatch
+            case .memorize: return .gameBtnMemorize
         }
     }
 }

@@ -71,7 +71,7 @@ final class MainMenuCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with model: MainMenuCellViewModel) {
-        imageView.image = model.image
+        imageView.image = UIImage(resource: model.image)
         titleLabel.text = model.title
         newImageView.image = model.newImage
     }

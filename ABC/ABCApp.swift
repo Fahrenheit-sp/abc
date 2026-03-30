@@ -17,10 +17,12 @@ struct ABCApp: App {
             ZStack {
                 if !settings.isOnboardingSeen {
                     OnboardingView {
-                        settings.isOnboardingSeen = true
+                        withAnimation {
+                            settings.isOnboardingSeen = true
+                        }
                     }
                 } else {
-                    Color.yellow
+                    HomeView()
                 }
             }
             .preferredColorScheme(.light)
