@@ -10,6 +10,7 @@ import SwiftUI
 extension Font {
     static let button = Font.system(size: 19, weight: .black, design: .rounded)
     static let header1 = Font.system(size: 32, weight: .black, design: .rounded)
+    static let header2 = Font.system(size: 28, weight: .black, design: .rounded)
     static let header3 = Font.system(size: 24, weight: .black, design: .rounded)
     static let header4 = Font.system(size: 20, weight: .semibold, design: .rounded)
     static let main = Font.system(size: 18, weight: .regular, design: .rounded)

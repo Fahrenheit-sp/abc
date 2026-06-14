@@ -9,6 +9,14 @@ import SwiftUI
 
 extension View {
 
+    @ViewBuilder
+    func `if`<Result: View>(_ condition: Bool, modifier: (Self) -> Result) -> some View {
+        if condition {
+            modifier(self)
+        } else {
+            self
+        }
+    }
 }
 
 extension Image {

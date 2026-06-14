@@ -11,6 +11,8 @@ final class Settings: ObservableObject {
     @AppStorage("isOnboardingSeen") var isOnboardingSeen = false
     @AppStorage("avatar") var avatar = "avatar_main"
     @AppStorage("name") var name = ""
+    @AppStorage("musicEnabled") var musicEnabled = false
+    @AppStorage("soundsEnabled") var soundsEnabled = false
 
     var isPremium: Bool {
         #warning("Handle premium")

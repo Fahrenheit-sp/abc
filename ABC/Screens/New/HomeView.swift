@@ -10,16 +10,15 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject private var settings: Settings
     @State private var selectedGame: MainMenuItem?
+    @State private var settingsShown = false
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack {
                 avatar
 
-                if !settings.isPremium {
-                    GetSubscriptionView()
-                        .padding(.top, -16)
-                }
+                GetSubscriptionView()
+                    .padding(.top, -16)
 
                 ForEach(MainMenuItem.gameItems, id: \.hashValue) { item in
                     view(for: item) {
@@ -31,7 +30,7 @@ struct HomeView: View {
         .padding(.horizontal)
         .overlay(alignment: .topTrailing) {
             Button {
-                print("Show settings")
+                settingsShown = true
             } label: {
                 Image(.settingsBtn)
                     .resizable()
@@ -39,6 +38,13 @@ struct HomeView: View {
                     .frame(width: 42)
             }
             .padding()
+        }
+        .overlay {
+            ZStack {
+                if settingsShown {
+                    SettingsView(isPresented: $settingsShown)
+                }
+            }
         }
         .background {
             Image(.homeBg).asBackground

@@ -15,6 +15,7 @@ extension UIColor {
     static let orangeSecondary = UIColor(hex: "F09300")
     static let grayLight = UIColor(hex: "F6F6F6")
     static let grayMedium = UIColor(hex: "EFEFEF")
+    static let grayShadow = UIColor(hex: "D7D7D7")
     static let grayIngame = UIColor(hex: "D9D9D9")
     static let input = UIColor(hex: "8B8B8B")
 
@@ -62,6 +63,7 @@ extension Color {
 
     static let grayIngame = Color(.grayIngame)
     static let grayLight = Color(.grayLight)
+    static let grayShadow = Color(.grayShadow)
     static let grayMedium = Color(.grayMedium)
     static let input = Color(.input)
 }
