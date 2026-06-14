@@ -75,7 +75,7 @@ struct HomeView: View {
                         .offset(y: 6)
                 }
 
-            Image(.avatarMain)
+            Image(.avatar0)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150)

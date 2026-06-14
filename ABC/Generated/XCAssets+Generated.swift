@@ -85,9 +85,28 @@ internal enum Asset {
   }
   internal enum New {
     internal enum Avatars {
-      internal static let avatarMain = ImageAsset(name: "avatar_main")
+      internal static let avatar0 = ImageAsset(name: "avatar_0")
+      internal static let avatar1 = ImageAsset(name: "avatar_1")
+      internal static let avatar10 = ImageAsset(name: "avatar_10")
+      internal static let avatar11 = ImageAsset(name: "avatar_11")
+      internal static let avatar12 = ImageAsset(name: "avatar_12")
+      internal static let avatar13 = ImageAsset(name: "avatar_13")
+      internal static let avatar14 = ImageAsset(name: "avatar_14")
+      internal static let avatar15 = ImageAsset(name: "avatar_15")
+      internal static let avatar16 = ImageAsset(name: "avatar_16")
+      internal static let avatar17 = ImageAsset(name: "avatar_17")
+      internal static let avatar18 = ImageAsset(name: "avatar_18")
+      internal static let avatar2 = ImageAsset(name: "avatar_2")
+      internal static let avatar3 = ImageAsset(name: "avatar_3")
+      internal static let avatar4 = ImageAsset(name: "avatar_4")
+      internal static let avatar5 = ImageAsset(name: "avatar_5")
+      internal static let avatar6 = ImageAsset(name: "avatar_6")
+      internal static let avatar7 = ImageAsset(name: "avatar_7")
+      internal static let avatar8 = ImageAsset(name: "avatar_8")
+      internal static let avatar9 = ImageAsset(name: "avatar_9")
     }
     internal enum Backgrounds {
+      internal static let avatarsBg = ImageAsset(name: "avatars_bg")
       internal static let homeBg = ImageAsset(name: "home_bg")
       internal static let profileBg = ImageAsset(name: "profile_bg")
       internal static let profileButtonBg = ImageAsset(name: "profile_button_bg")

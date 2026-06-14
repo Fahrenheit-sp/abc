@@ -16,6 +16,7 @@
 "general.next" = "Дальше";
 "general.settings" = "Настройки";
 "general.profile" = "Профиль";
+"general.avatars" = "Аватары";
 
 "error.nothingToRestore" = "Не удалось найти предыдущих покупок";
 "error.productNotFound" = "Невозможно совершить покупку. Пожалуйста, проверьте соединение и попробуйте снова.";
