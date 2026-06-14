@@ -9,6 +9,7 @@ import SwiftUI
 
 enum HomeRoute: Route {
     case profile
+    case avatars([Avatar], Bool)
 }
 
 final class HomeCoordinator: Coordinator {

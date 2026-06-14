@@ -30,6 +30,10 @@ final class Settings: ObservableObject {
         }
     }
 
+    var lockedAvatars: [Avatar] {
+        Set(Avatar.avatars).subtracting(Set(unlockedAvatars)).sorted { $0.index < $1.index }
+    }
+
     var isPremium: Bool {
         #warning("Handle premium")
         false

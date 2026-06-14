@@ -13,12 +13,16 @@ struct AvatarListView: View {
 
     let avatars: [Avatar]
     let isPurchaseMode: Bool
+    let purchaseAction: () -> Void
     let backAction: () -> Void
 
     var body: some View {
         VStack {
-            if isPurchaseMode {
+            if !isPurchaseMode {
                 GetAvatarsView()
+                    .onTapGesture {
+                        purchaseAction()
+                    }
             }
 
             ScrollView {
@@ -74,6 +78,7 @@ struct AvatarListView: View {
     NavigationStack {
         AvatarListView(avatars: Avatar.avatars,
                        isPurchaseMode: true,
+                       purchaseAction: {},
                        backAction: {})
     }
     .environmentObject(Settings.preview)

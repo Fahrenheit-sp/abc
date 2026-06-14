@@ -11,6 +11,7 @@ struct ProfileView: View {
 
     @EnvironmentObject private var settings: Settings
 
+    let coordinator: HomeCoordinator
     let backAction: () -> Void
 
     var body: some View {
@@ -28,6 +29,9 @@ struct ProfileView: View {
             achievementsButton
 
             GetAvatarsView()
+                .onTapGesture {
+                    coordinator.push(.avatars(settings.lockedAvatars, true))
+                }
         }
         .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal)
@@ -128,7 +132,7 @@ struct ProfileView: View {
                             .foregroundStyle(.white)
 
                         CommonButton(title: L10n.Profile.seeAll.uppercased()) {
-                            print("Open see all")
+                            coordinator.push(.avatars(settings.unlockedAvatars, false))
                         }
                     }
 
@@ -141,7 +145,7 @@ struct ProfileView: View {
                 .padding()
             }
             .onTapGesture {
-                print("Open see all")
+                coordinator.push(.avatars(settings.unlockedAvatars, false))
             }
     }
 
@@ -181,7 +185,7 @@ struct ProfileView: View {
 
 #Preview {
     NavigationStack {
-        ProfileView {}
+        ProfileView(coordinator: .init()) {}
     }
     .environmentObject(Settings.preview)
 }

@@ -58,7 +58,11 @@ struct HomeView: View {
             }
             .navigationDestination(for: HomeRoute.self) { route in
                 switch route {
-                    case .profile: ProfileView { coordinator.pop() }
+                    case .profile:
+                        ProfileView(coordinator: coordinator) { coordinator.pop() }
+                    case .avatars(let avatars, let isPurchaseMode):
+                        AvatarListView(avatars: avatars, isPurchaseMode: isPurchaseMode, purchaseAction: { coordinator.push(.avatars(settings.lockedAvatars, true))},
+                                       backAction: { coordinator.pop() })
                 }
             }
         }
