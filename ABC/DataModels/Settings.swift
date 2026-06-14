@@ -13,6 +13,7 @@ final class Settings: ObservableObject {
     @AppStorage("name") var name = ""
     @AppStorage("musicEnabled") var musicEnabled = false
     @AppStorage("soundsEnabled") var soundsEnabled = false
+    @AppStorage("coins_amount") var coins = 0
 
     var isPremium: Bool {
         #warning("Handle premium")
@@ -25,6 +26,7 @@ extension Settings {
         let settings = Settings()
         settings.name = "John Doe"
         settings.isOnboardingSeen = true
+        settings.coins = 10_000
         return settings
     }()
 }

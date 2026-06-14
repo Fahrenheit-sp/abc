@@ -70,13 +70,15 @@ struct OnboardingView: View {
 
                 Image(.onboardingTile)
                     .resizable()
+                    .frame(width: UIScreen.width)
                     .scaledToFit()
                     .zIndex(1)
                     .overlay {
                         VStack(spacing: 16) {
                             Text(title)
-                                .font(.header1)
+                                .font(UIScreen.isLarge ? .header1 : .header2)
                                 .foregroundStyle(.black)
+                                .lineLimit(2)
                                 .multilineTextAlignment(.center)
                                 .id(step)
                                 .transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity), removal: .move(edge: .leading).combined(with: .opacity)))
@@ -105,6 +107,7 @@ struct OnboardingView: View {
                     }
             }
         }
+        .frame(maxWidth: .infinity)
     }
 
     private var title: String {

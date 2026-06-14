@@ -36,14 +36,17 @@
 
 "onboarding.first.title" = "Let's go on a\nfun adventure!";
 "onboarding.first.subtitle" = "Ready to play? Let's explore letters, numbers, and unlock your amazing knowledge superpowers!";
-
 "onboarding.second.title" = "Awesome Rewards Await you!";
 "onboarding.second.subtitle" = "Collect colorful stickers, unlock unique and funny avatars, and enjoy exciting daily prizes and surprises!";
-
 "onboarding.third.title" = "What shall we play first?";
 "onboarding.third.subtitle" = "Catch letters in games, memorize bright pictures with ease, build words and enjoy new discoveries every single day!";
-
 "onboarding.name.title" = "What is your name?";
+
+"profile.avatars" = "Avatars";
+"profile.achievements" = "Achievements";
+"profile.seeAll" = "See all";
+"profile.getAvatarsTitle" = "Get new avatars!";
+"profile.getAvatarsSubtitle" = "Change your avatar's style!";
 
 "subscription.title" = "Get subscription!";
 "subscription.subtitle" = "Unlimited access to all games";

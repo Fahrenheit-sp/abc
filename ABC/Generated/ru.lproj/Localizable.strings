@@ -34,6 +34,12 @@
 "settings.music" = "Музыка";
 "settings.sound" = "Звук";
 
+"profile.avatars" = "Аватары";
+"profile.achievements" = "Достижения";
+"profile.seeAll" = "Смотреть";
+"profile.getAvatarsTitle" = "Еще аватары!";
+"profile.getAvatarsSubtitle" = "Открой новые аватары профиля!";
+
 "subscription.title" = "Подписаться!";
 "subscription.subtitle" = "Полный доступ ко всем играм";
 "subscription.restore" = "Восстановить";

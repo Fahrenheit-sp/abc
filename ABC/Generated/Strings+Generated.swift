@@ -94,6 +94,18 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "onboarding.third.title", fallback: "What shall we play first?")
     }
   }
+  internal enum Profile {
+    /// Achievements
+    internal static let achievements = L10n.tr("Localizable", "profile.achievements", fallback: "Achievements")
+    /// Avatars
+    internal static let avatars = L10n.tr("Localizable", "profile.avatars", fallback: "Avatars")
+    /// Change your avatar's style!
+    internal static let getAvatarsSubtitle = L10n.tr("Localizable", "profile.getAvatarsSubtitle", fallback: "Change your avatar's style!")
+    /// Get new avatars!
+    internal static let getAvatarsTitle = L10n.tr("Localizable", "profile.getAvatarsTitle", fallback: "Get new avatars!")
+    /// See all
+    internal static let seeAll = L10n.tr("Localizable", "profile.seeAll", fallback: "See all")
+  }
   internal enum Settings {
     /// Music
     internal static let music = L10n.tr("Localizable", "settings.music", fallback: "Music")

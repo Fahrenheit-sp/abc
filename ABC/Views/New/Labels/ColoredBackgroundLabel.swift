@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColoredBackgroundLabel: View {
-    let text: LocalizedStringKey
+    let text: String
     var uppercased = true
     var font: Font = .header3
     var color: Color = .blueSecondary
@@ -17,7 +17,7 @@ struct ColoredBackgroundLabel: View {
     var strokeWidth: CGFloat = 2
 
     var body: some View {
-        Text(text)
+        Text(LocalizedStringKey(text))
             .if(uppercased) { $0.textCase(.uppercase) }
             .font(font)
             .foregroundStyle(Color.white.shadow(.drop(color: .black.opacity(0.35), radius: 1, x: 0, y: 1)))

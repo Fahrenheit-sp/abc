@@ -37,6 +37,10 @@ struct GetSubscriptionView: View {
             }
             .padding()
             .onWhiteBackground()
+            .onTapGesture {
+                #warning("Handle buy subscription")
+                print("Subscribe!")
+            }
         }
     }
 }

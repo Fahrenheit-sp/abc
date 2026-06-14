@@ -24,4 +24,8 @@ extension UIScreen {
     static var isIphoneEightOrLess: Bool {
         height <= 667
     }
+
+    static var isLarge: Bool {
+        height > 667
+    }
 }
