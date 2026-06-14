@@ -59,8 +59,6 @@ struct SettingsView: View {
 
     private var closeButton: some View {
         CloseButton {
-            offsetY = 100
-            bgOpacity = 0
             isPresented = false
         }
     }
