@@ -18,4 +18,5 @@ extension Font {
     static let placeholder = Font.system(size: 16, weight: .bold, design: .rounded)
     static let body = Font.system(size: 15, weight: .regular, design: .rounded)
     static let bodyBold = Font.system(size: 15, weight: .bold, design: .rounded)
+    static let subtext = Font.system(size: 10, weight: .bold, design: .rounded)
 }

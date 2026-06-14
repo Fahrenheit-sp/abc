@@ -54,7 +54,7 @@ struct SettingsView: View {
     }
 
     private var header: some View {
-        BlueBackgroundLabel(text: "general.settings")
+        ColoredBackgroundLabel(text: "general.settings")
     }
 
     private var closeButton: some View {

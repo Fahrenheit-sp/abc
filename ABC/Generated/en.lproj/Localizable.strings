@@ -15,6 +15,7 @@
 "general.name" = "Name";
 "general.next" = "Next";
 "general.settings" = "Settings";
+"general.profile" = "Profile";
 
 "error.nothingToRestore" = "We were not able to find any purchases to restore";
 "error.productNotFound" = "Unable to make purchase. Please check your connection and try again.";

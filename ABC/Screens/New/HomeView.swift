@@ -12,42 +12,55 @@ struct HomeView: View {
     @State private var selectedGame: MainMenuItem?
     @State private var settingsShown = false
 
+    @StateObject private var coordinator = HomeCoordinator()
+
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack {
-                avatar
+        NavigationStack(path: $coordinator.path) {
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack {
+                    //    avatar
 
-                GetSubscriptionView()
-                    .padding(.top, -16)
+                    GetSubscriptionView()
+                        .padding(.top, -16)
 
-                ForEach(MainMenuItem.gameItems, id: \.hashValue) { item in
-                    view(for: item) {
-                        withAnimation { selectedGame = item }
+                    ForEach(MainMenuItem.gameItems, id: \.hashValue) { item in
+                        view(for: item) {
+                            withAnimation { selectedGame = item }
+                        }
+                    }
+                }
+                .offset(y: 268)
+            }
+            .background(alignment: .top) { avatar }
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    settingsShown = true
+                } label: {
+                    Image(.settingsBtn)
+                }
+                .padding(.top)
+            }
+            .overlay(alignment: .topLeading) {
+                ProfileButton {
+                    coordinator.push(.profile)
+                }
+            }
+            .padding(.horizontal)
+            .overlay {
+                ZStack {
+                    if settingsShown {
+                        SettingsView(isPresented: $settingsShown)
                     }
                 }
             }
-        }
-        .padding(.horizontal)
-        .overlay(alignment: .topTrailing) {
-            Button {
-                settingsShown = true
-            } label: {
-                Image(.settingsBtn)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 42)
+            .background {
+                Image(.homeBg).asBackground
             }
-            .padding()
-        }
-        .overlay {
-            ZStack {
-                if settingsShown {
-                    SettingsView(isPresented: $settingsShown)
+            .navigationDestination(for: HomeRoute.self) { route in
+                switch route {
+                    case .profile: ProfileView { coordinator.pop() }
                 }
             }
-        }
-        .background {
-            Image(.homeBg).asBackground
         }
     }
 
@@ -62,7 +75,7 @@ struct HomeView: View {
                         .offset(y: 6)
                 }
 
-            Image(settings.avatar)
+            Image(.avatarMain)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150)

@@ -34,6 +34,8 @@ internal enum L10n {
     internal static let ok = L10n.tr("Localizable", "general.ok", fallback: "OK")
     /// Play
     internal static let play = L10n.tr("Localizable", "general.play", fallback: "Play")
+    /// Profile
+    internal static let profile = L10n.tr("Localizable", "general.profile", fallback: "Profile")
     /// Settings
     internal static let settings = L10n.tr("Localizable", "general.settings", fallback: "Settings")
     /// Start
