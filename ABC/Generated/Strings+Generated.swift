@@ -34,6 +34,8 @@ internal enum L10n {
     internal static let ok = L10n.tr("Localizable", "general.ok", fallback: "OK")
     /// Play
     internal static let play = L10n.tr("Localizable", "general.play", fallback: "Play")
+    /// Settings
+    internal static let settings = L10n.tr("Localizable", "general.settings", fallback: "Settings")
     /// Start
     internal static let start = L10n.tr("Localizable", "general.start", fallback: "Start")
   }
@@ -89,6 +91,12 @@ internal enum L10n {
       /// What shall we play first?
       internal static let title = L10n.tr("Localizable", "onboarding.third.title", fallback: "What shall we play first?")
     }
+  }
+  internal enum Settings {
+    /// Music
+    internal static let music = L10n.tr("Localizable", "settings.music", fallback: "Music")
+    /// Sound
+    internal static let sound = L10n.tr("Localizable", "settings.sound", fallback: "Sound")
   }
   internal enum Subscription {
     /// Free upcoming updates and features

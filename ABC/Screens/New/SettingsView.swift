@@ -54,11 +54,13 @@ struct SettingsView: View {
     }
 
     private var header: some View {
-        BlueBackgroundLabel(text: "Settings")
+        BlueBackgroundLabel(text: "general.settings")
     }
 
     private var closeButton: some View {
         CloseButton {
+            offsetY = 100
+            bgOpacity = 0
             isPresented = false
         }
     }
@@ -68,7 +70,7 @@ struct SettingsView: View {
             HStack {
                 Image(.musicIcon)
 
-                Text("Music")
+                Text("settings.music")
                     .font(.bodyBold)
 
                 Spacer()
@@ -79,7 +81,7 @@ struct SettingsView: View {
             HStack {
                 Image(.soundIcon)
 
-                Text("Sound")
+                Text("settings.sound")
                     .font(.bodyBold)
 
                 Spacer()
@@ -101,7 +103,7 @@ struct SettingsView: View {
                 openURL(Constants.privacyUrl)
             } label: {
                 HStack {
-                    Text("Privacy Policy")
+                    Text("subscription.privacyPolicy")
 
                     Spacer()
 
@@ -118,7 +120,7 @@ struct SettingsView: View {
                 openURL(Constants.termsUrl)
             } label: {
                 HStack {
-                    Text("Terms of Use")
+                    Text("subscription.termsOfUse")
 
                     Spacer()
 

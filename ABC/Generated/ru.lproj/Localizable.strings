@@ -11,6 +11,10 @@
 "general.error" = "Что-то не так";
 "general.start" = "Начать";
 "general.continue" = "Продолжить";
+"general.play" = "Играть";
+"general.name" = "Имя";
+"general.next" = "Дальше";
+"general.settings" = "Настройки";
 
 "error.nothingToRestore" = "Не удалось найти предыдущих покупок";
 "error.productNotFound" = "Невозможно совершить покупку. Пожалуйста, проверьте соединение и попробуйте снова.";
@@ -25,7 +29,12 @@
 "menu.item.pictures" = "Картинки";
 "menu.item.catchLetter" = "Поймай букву";
 
+"home.welcome" = "Добро пожаловать, %@!";
+"settings.music" = "Музыка";
+"settings.sound" = "Звук";
+
 "subscription.title" = "Подписаться!";
+"subscription.subtitle" = "Полный доступ ко всем играм";
 "subscription.restore" = "Восстановить";
 "subscription.freeUpdates" = "Бесплатные будущие обновления и новые игры";
 "subscription.noAds" = "Никакой рекламы";
