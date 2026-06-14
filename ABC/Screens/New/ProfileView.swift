@@ -12,18 +12,48 @@ struct ProfileView: View {
     let backAction: () -> Void
 
     var body: some View {
-        ZStack {
-            Color.blue.ignoresSafeArea()
+        VStack {
+            Spacer()
+                .frame(maxWidth: .infinity)
+        }
+        .padding()
+        .background {
+            Image(.profileBg).asBackground
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                editButton
+            }
 
-            Button {
-                backAction()
-            } label: {
-                Text("Back")
+            ToolbarItem(placement: .principal) {
+                navigationTitle
+            }
+        }
+    }
+
+    private var navigationTitle: some View {
+        Text("general.profile")
+            .font(.header3)
+            .foregroundStyle(.black)
+    }
+
+    private var editButton: some View {
+        Button {
+            print("Edit")
+        } label: {
+            if #available(iOS 26, *) {
+                Image(systemName: "pencil")
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                Image(.editBtn)
             }
         }
     }
 }
 
 #Preview {
-    ProfileView {}
+    NavigationStack {
+        ProfileView {}
+    }
 }

@@ -89,10 +89,12 @@ internal enum Asset {
     }
     internal enum Backgrounds {
       internal static let homeBg = ImageAsset(name: "home_bg")
+      internal static let profileBg = ImageAsset(name: "profile_bg")
       internal static let settingsBg = ImageAsset(name: "settings_bg")
     }
     internal enum Buttons {
       internal static let closeBtn = ImageAsset(name: "close_btn")
+      internal static let editBtn = ImageAsset(name: "edit_btn")
       internal static let settingsBtn = ImageAsset(name: "settings_btn")
       internal static let subscriptionImg = ImageAsset(name: "subscription_img")
     }
