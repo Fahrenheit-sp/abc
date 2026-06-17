@@ -111,6 +111,7 @@ internal enum Asset {
       internal static let profileBg = ImageAsset(name: "profile_bg")
       internal static let profileButtonBg = ImageAsset(name: "profile_button_bg")
       internal static let settingsBg = ImageAsset(name: "settings_bg")
+      internal static let subscriptionBg = ImageAsset(name: "subscription_bg")
     }
     internal enum Buttons {
       internal static let closeBtn = ImageAsset(name: "close_btn")

@@ -66,6 +66,29 @@
 "subscription.paymentWithTrialDescription" = "Free trial is available for new subscribers only. Renews after %@ at %@";
 "subscription.paymentWithoutTrialDescription" = "Renews at %@";
 
+"subscription.defaultScreen.back" = "Back";
+"subscription.defaultScreen.title" = "Unlock Everything & Learn Ad-Free!";
+"subscription.defaultScreen.subtitle" = "All Games · Zero Ads · New Content";
+"subscription.defaultScreen.freeTrialEnabled" = "Free Trial Enabled";
+"subscription.defaultScreen.freeTrialDisabled" = "Free Trial Disabled";
+"subscription.defaultScreen.freeTrialAccessibilityHint" = "Double tap to toggle free trial";
+"subscription.defaultScreen.yearly" = "Yearly";
+"subscription.defaultScreen.monthly" = "Monthly";
+"subscription.defaultScreen.yearlyAccessibilityLabel" = "Yearly plan";
+"subscription.defaultScreen.monthlyAccessibilityLabel" = "Monthly plan";
+"subscription.defaultScreen.selectYearlyAccessibilityHint" = "Double tap to select yearly billing";
+"subscription.defaultScreen.selectMonthlyAccessibilityHint" = "Double tap to select monthly billing";
+"subscription.defaultScreen.bestValue" = "Best Value";
+"subscription.defaultScreen.yearlyPrice" = "$49,99";
+"subscription.defaultScreen.monthlyPrice" = "$7,99";
+"subscription.defaultScreen.perYear" = "/year";
+"subscription.defaultScreen.perMonth" = "/month";
+"subscription.defaultScreen.noChargesYet" = "No charges yet. Cancel anytime.";
+"subscription.defaultScreen.restorePurchase" = "Restore Purchase";
+"subscription.defaultScreen.subscribeCta" = "Try 3 Days FREE & Subscribe";
+"subscription.defaultScreen.selected" = "Selected";
+"subscription.defaultScreen.notSelected" = "Not selected";
+
 "term.year" = "year";
 "term.month" = "month";
 "term.week" = "week";

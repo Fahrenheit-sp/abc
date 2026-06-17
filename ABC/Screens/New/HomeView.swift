@@ -61,8 +61,11 @@ struct HomeView: View {
                     case .profile:
                         ProfileView(coordinator: coordinator) { coordinator.pop() }
                     case .avatars(let avatars, let isPurchaseMode):
-                        AvatarListView(avatars: avatars, isPurchaseMode: isPurchaseMode, purchaseAction: { coordinator.push(.avatars(settings.lockedAvatars, true))},
-                                       backAction: { coordinator.pop() })
+                        AvatarListView(avatars: avatars,
+                                       isPurchaseMode: isPurchaseMode,
+                                       purchaseAction: { coordinator.push(.avatars(settings.lockedAvatars, true)) },
+                                       backAction: { coordinator.pop() }
+                        )
                 }
             }
         }

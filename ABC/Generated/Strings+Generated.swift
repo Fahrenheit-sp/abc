@@ -159,6 +159,52 @@ internal enum L10n {
     }
     /// Try Free & Subscribe
     internal static let tryFreeAndSubscribe = L10n.tr("Localizable", "subscription.tryFreeAndSubscribe", fallback: "Try Free & Subscribe")
+    internal enum DefaultScreen {
+      /// Back
+      internal static let back = L10n.tr("Localizable", "subscription.defaultScreen.back", fallback: "Back")
+      /// Best Value
+      internal static let bestValue = L10n.tr("Localizable", "subscription.defaultScreen.bestValue", fallback: "Best Value")
+      /// Double tap to toggle free trial
+      internal static let freeTrialAccessibilityHint = L10n.tr("Localizable", "subscription.defaultScreen.freeTrialAccessibilityHint", fallback: "Double tap to toggle free trial")
+      /// Free Trial Disabled
+      internal static let freeTrialDisabled = L10n.tr("Localizable", "subscription.defaultScreen.freeTrialDisabled", fallback: "Free Trial Disabled")
+      /// Free Trial Enabled
+      internal static let freeTrialEnabled = L10n.tr("Localizable", "subscription.defaultScreen.freeTrialEnabled", fallback: "Free Trial Enabled")
+      /// Monthly
+      internal static let monthly = L10n.tr("Localizable", "subscription.defaultScreen.monthly", fallback: "Monthly")
+      /// Monthly plan
+      internal static let monthlyAccessibilityLabel = L10n.tr("Localizable", "subscription.defaultScreen.monthlyAccessibilityLabel", fallback: "Monthly plan")
+      /// $7,99
+      internal static let monthlyPrice = L10n.tr("Localizable", "subscription.defaultScreen.monthlyPrice", fallback: "$7,99")
+      /// No charges yet. Cancel anytime.
+      internal static let noChargesYet = L10n.tr("Localizable", "subscription.defaultScreen.noChargesYet", fallback: "No charges yet. Cancel anytime.")
+      /// Not selected
+      internal static let notSelected = L10n.tr("Localizable", "subscription.defaultScreen.notSelected", fallback: "Not selected")
+      /// /month
+      internal static let perMonth = L10n.tr("Localizable", "subscription.defaultScreen.perMonth", fallback: "/month")
+      /// /year
+      internal static let perYear = L10n.tr("Localizable", "subscription.defaultScreen.perYear", fallback: "/year")
+      /// Restore Purchase
+      internal static let restorePurchase = L10n.tr("Localizable", "subscription.defaultScreen.restorePurchase", fallback: "Restore Purchase")
+      /// Selected
+      internal static let selected = L10n.tr("Localizable", "subscription.defaultScreen.selected", fallback: "Selected")
+      /// Double tap to select monthly billing
+      internal static let selectMonthlyAccessibilityHint = L10n.tr("Localizable", "subscription.defaultScreen.selectMonthlyAccessibilityHint", fallback: "Double tap to select monthly billing")
+      /// Double tap to select yearly billing
+      internal static let selectYearlyAccessibilityHint = L10n.tr("Localizable", "subscription.defaultScreen.selectYearlyAccessibilityHint", fallback: "Double tap to select yearly billing")
+      /// Try 3 Days FREE & Subscribe
+      internal static let subscribeCta = L10n.tr("Localizable", "subscription.defaultScreen.subscribeCta", fallback: "Try 3 Days FREE & Subscribe")
+      /// All Games · Zero Ads · New Content
+      internal static let subtitle = L10n.tr("Localizable", "subscription.defaultScreen.subtitle", fallback: "All Games · Zero Ads · New Content")
+      /// Unlock Everything & Learn Ad-Free!
+      internal static let title = L10n.tr("Localizable", "subscription.defaultScreen.title", fallback: "Unlock Everything & Learn Ad-Free!")
+      /// Yearly
+      internal static let yearly = L10n.tr("Localizable", "subscription.defaultScreen.yearly", fallback: "Yearly")
+      /// Yearly plan
+      internal static let yearlyAccessibilityLabel = L10n.tr("Localizable", "subscription.defaultScreen.yearlyAccessibilityLabel", fallback: "Yearly plan")
+      /// $49,99
+      internal static let yearlyPrice = L10n.tr("Localizable", "subscription.defaultScreen.yearlyPrice", fallback: "$49,99")
+    }
   }
   internal enum Term {
     /// month
