@@ -48,6 +48,11 @@ struct SubscriptionDefaultView: View {
             backButton
 
             Spacer()
+
+            footerLink(L10n.Subscription.DefaultScreen.restorePurchase) {
+                // TODO: Wire up restore purchases.
+                print("Restore tapped")
+            }
         }
         .padding(.top, 20)
         .padding(.horizontal, 20)
@@ -106,7 +111,7 @@ struct SubscriptionDefaultView: View {
     private var plansSection: some View {
         VStack(spacing: 16) {
             Button {
-                freeTrialEnabled.toggle()
+                withAnimation { freeTrialEnabled.toggle() }
             } label: {
                 planCardBackground(borderColor: .white) {
                     HStack(spacing: 16) {
@@ -129,9 +134,9 @@ struct SubscriptionDefaultView: View {
             .accessibilityHint(L10n.Subscription.DefaultScreen.freeTrialAccessibilityHint)
 
             Button {
-                selectedPlan = .yearly
+                withAnimation { selectedPlan = .yearly }
             } label: {
-                planCardBackground(borderColor: .orangePrimary, badge: L10n.Subscription.DefaultScreen.bestValue) {
+                planCardBackground(borderColor: selectedPlan == .yearly ? .orangePrimary : .white, badge: L10n.Subscription.DefaultScreen.bestValue) {
                     HStack(spacing: 8) {
                         planCircle(isSelected: selectedPlan == .yearly)
 
@@ -155,9 +160,9 @@ struct SubscriptionDefaultView: View {
             .accessibilityHint(L10n.Subscription.DefaultScreen.selectYearlyAccessibilityHint)
 
             Button {
-                selectedPlan = .monthly
+                withAnimation { selectedPlan = .monthly }
             } label: {
-                planCardBackground(borderColor: .white) {
+                planCardBackground(borderColor: selectedPlan == .monthly ? .orangePrimary : .white) {
                     HStack(spacing: 8) {
                         planCircle(isSelected: selectedPlan == .monthly)
 
@@ -294,7 +299,11 @@ struct SubscriptionDefaultView: View {
 
     private var footerSection: some View {
         VStack(spacing: 12) {
-            Text(L10n.Subscription.DefaultScreen.noChargesYet)
+            Text(
+                freeTrialEnabled
+                ? L10n.Subscription.DefaultScreen.noChargesYet
+                : L10n.Subscription.DefaultScreen.cancelAnytime
+            )
                 .font(.body)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
@@ -314,11 +323,6 @@ struct SubscriptionDefaultView: View {
 
     private var footerLinks: some View {
         HStack(spacing: 12) {
-            footerLink(L10n.Subscription.DefaultScreen.restorePurchase) {
-                // TODO: Wire up restore purchases.
-                print("Restore tapped")
-            }
-
             footerLink(L10n.Subscription.privacyPolicy) {
                 openURL(Constants.privacyUrl)
             }

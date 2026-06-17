@@ -164,6 +164,8 @@ internal enum L10n {
       internal static let back = L10n.tr("Localizable", "subscription.defaultScreen.back", fallback: "Back")
       /// Best Value
       internal static let bestValue = L10n.tr("Localizable", "subscription.defaultScreen.bestValue", fallback: "Best Value")
+      /// Cancel anytime
+      internal static let cancelAnytime = L10n.tr("Localizable", "subscription.defaultScreen.cancelAnytime", fallback: "Cancel anytime")
       /// Double tap to toggle free trial
       internal static let freeTrialAccessibilityHint = L10n.tr("Localizable", "subscription.defaultScreen.freeTrialAccessibilityHint", fallback: "Double tap to toggle free trial")
       /// Free Trial Disabled

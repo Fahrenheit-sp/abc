@@ -84,6 +84,7 @@
 "subscription.defaultScreen.perYear" = "/year";
 "subscription.defaultScreen.perMonth" = "/month";
 "subscription.defaultScreen.noChargesYet" = "No charges yet. Cancel anytime.";
+"subscription.defaultScreen.cancelAnytime" = "Cancel anytime";
 "subscription.defaultScreen.restorePurchase" = "Restore Purchase";
 "subscription.defaultScreen.subscribeCta" = "Try 3 Days FREE & Subscribe";
 "subscription.defaultScreen.selected" = "Selected";
