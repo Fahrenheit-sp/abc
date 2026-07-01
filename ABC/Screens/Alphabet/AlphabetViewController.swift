@@ -6,6 +6,9 @@
 //
 
 import UIKit
+#if DEBUG
+import SwiftUI
+#endif
 
 final class AlphabetViewController: UIViewController {
 
@@ -41,8 +44,7 @@ final class AlphabetViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.backgroundColor = .background
-
+        view.backgroundColor = .clear
         alphabetView.dataSource = self
     }
 
@@ -111,3 +113,11 @@ extension AlphabetViewController: AlphabetViewDataSource {
         viewModel.state(for: letter)
     }
 }
+
+#if DEBUG && canImport(SwiftUI)
+#Preview {
+    NavigationStack {
+        AlphabetViewSwiftUI(router: DefaultRouterFabric().makeRouter(for: .alphabet))
+    }
+}
+#endif

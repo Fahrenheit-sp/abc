@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var settings: Settings
-    @State private var selectedGame: MainMenuItem?
     @State private var settingsShown = false
 
     @StateObject private var coordinator = HomeCoordinator()
@@ -25,7 +24,10 @@ struct HomeView: View {
 
                     ForEach(MainMenuItem.gameItems, id: \.hashValue) { item in
                         view(for: item) {
-                            withAnimation { selectedGame = item }
+                            switch item {
+                                case .alphabet: coordinator.push(.alphabet)
+                                default: break
+                            }
                         }
                     }
                 }
@@ -66,6 +68,11 @@ struct HomeView: View {
                                        purchaseAction: { coordinator.push(.avatars(settings.lockedAvatars, true)) },
                                        backAction: { coordinator.pop() }
                         )
+                    case .alphabet:
+                        AlphabetViewSwiftUI(router:  DefaultRouterFabric().makeRouter(for: .alphabet))
+                            .background {
+                                Image(.alphabetBg).asBackground
+                            }
                 }
             }
         }
